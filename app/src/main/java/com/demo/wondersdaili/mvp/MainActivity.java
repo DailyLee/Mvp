@@ -1,4 +1,4 @@
-package com.demo.wondersdaili.rrd;
+package com.demo.wondersdaili.mvp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.demo.wondersdaili.rrd.Api.GsonBean;
-import com.demo.wondersdaili.rrd.Dagger2.AppComponent;
-import com.demo.wondersdaili.rrd.Persenter.WeatherInteractor;
+import com.demo.wondersdaili.mvp.Dagger2.AppComponent;
+import com.demo.wondersdaili.mvp.Api.GsonBean;
+import com.demo.wondersdaili.mvp.Persenter.WeatherInteractor;
+import com.demo.wondersdaili.rrd.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,9 +1,9 @@
-package com.demo.wondersdaili.rrd.Dagger2;
+package com.demo.wondersdaili.mvp.Dagger2;
 
-import com.demo.wondersdaili.rrd.Api.Api;
-import com.demo.wondersdaili.rrd.Api.ApiClient;
-import com.demo.wondersdaili.rrd.Persenter.WeatherInteractor;
-import com.demo.wondersdaili.rrd.Persenter.WeatherInteractorImpl;
+import com.demo.wondersdaili.mvp.Api.Api;
+import com.demo.wondersdaili.mvp.Api.ApiClient;
+import com.demo.wondersdaili.mvp.Persenter.WeatherInteractor;
+import com.demo.wondersdaili.mvp.Persenter.WeatherInteractorImpl;
 
 import dagger.Module;
 import dagger.Provides;

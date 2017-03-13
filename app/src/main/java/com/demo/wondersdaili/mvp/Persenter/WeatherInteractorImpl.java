@@ -1,11 +1,11 @@
-package com.demo.wondersdaili.rrd.Persenter;
+package com.demo.wondersdaili.mvp.Persenter;
 
 import android.app.Activity;
 
-import com.demo.wondersdaili.rrd.Api.Api;
-import com.demo.wondersdaili.rrd.Api.GsonBean;
-import com.demo.wondersdaili.rrd.Api.MySubsribe;
-import com.demo.wondersdaili.rrd.MainActivity;
+import com.demo.wondersdaili.mvp.Api.Api;
+import com.demo.wondersdaili.mvp.Api.GsonBean;
+import com.demo.wondersdaili.mvp.Api.MySubsribe;
+import com.demo.wondersdaili.mvp.MainActivity;
 
 import javax.inject.Inject;
 

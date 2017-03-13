@@ -1,6 +1,6 @@
-package com.demo.wondersdaili.rrd.Api;
+package com.demo.wondersdaili.mvp.Api;
 
-import com.demo.wondersdaili.rrd.ConstantApi;
+import com.demo.wondersdaili.mvp.ConstantApi;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

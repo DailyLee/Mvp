@@ -1,10 +1,10 @@
-package com.demo.wondersdaili.rrd;
+package com.demo.wondersdaili.mvp;
 
 import android.app.Application;
 
-import com.demo.wondersdaili.rrd.Dagger2.AppComponent;
-import com.demo.wondersdaili.rrd.Dagger2.DaggerAppComponent;
-import com.demo.wondersdaili.rrd.Dagger2.WeatherModules;
+import com.demo.wondersdaili.mvp.Dagger2.AppComponent;
+import com.demo.wondersdaili.mvp.Dagger2.WeatherModules;
+import com.demo.wondersdaili.mvp.Dagger2.DaggerAppComponent;
 
 /**
  * Created by daili on 2017/3/10.

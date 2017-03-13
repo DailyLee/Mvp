@@ -1,7 +1,7 @@
-package com.demo.wondersdaili.rrd.Dagger2;
+package com.demo.wondersdaili.mvp.Dagger2;
 
-import com.demo.wondersdaili.rrd.App;
-import com.demo.wondersdaili.rrd.Persenter.WeatherInteractor;
+import com.demo.wondersdaili.mvp.App;
+import com.demo.wondersdaili.mvp.Persenter.WeatherInteractor;
 
 import javax.inject.Singleton;
 

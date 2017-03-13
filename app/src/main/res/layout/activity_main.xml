@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.demo.wondersdaili.rrd.MainActivity">
+    tools:context="com.demo.wondersdaili.rrd.com.demo.wondersdaili.mvp.MainActivity">
 
     <EditText
         android:layout_width="0dp"
