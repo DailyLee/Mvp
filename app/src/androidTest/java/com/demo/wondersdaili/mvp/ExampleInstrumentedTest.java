@@ -1,4 +1,4 @@
-package com.demo.wondersdaili.rrd;
+package com.demo.wondersdaili.mvp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,10 +1,14 @@
-package com.demo.wondersdaili.mvp.Api;
+package com.demo.wondersdaili.mvp;
+
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
 
 /**
  * Created by daili on 2017/3/9.
  */
 
-public class GsonBean {
+public class GsonBean extends BaseObservable {
 
 
     /**
@@ -35,12 +39,14 @@ public class GsonBean {
         this.reason = reason;
     }
 
+    @Bindable
     public ResultBean getResult() {
         return result;
     }
 
     public void setResult(ResultBean result) {
         this.result = result;
+        notifyPropertyChanged(BR.result);
     }
 
     public int getError_code() {
@@ -51,7 +57,7 @@ public class GsonBean {
         this.error_code = error_code;
     }
 
-    public static class ResultBean {
+    public static class ResultBean extends BaseObservable {
         /**
          * sk : {"temp":"17","wind_direction":"南风","wind_strength":"3级","humidity":"52%","time":"14:27"}
          * today : {"temperature":"10℃~19℃","weather":"阴转多云","weather_id":{"fa":"02","fb":"01"},"wind":"东南风微风","week":"星期五","city":"苏州","date_y":"2017年03月10日","dressing_index":"较舒适","dressing_advice":"建议着薄外套、开衫牛仔衫裤等服装。年老体弱者应适当添加衣物，宜着夹克衫、薄毛衣等。","uv_index":"最弱","comfort_index":"","wash_index":"较适宜","travel_index":"较适宜","exercise_index":"较适宜","drying_index":""}
@@ -70,12 +76,14 @@ public class GsonBean {
             this.sk = sk;
         }
 
+        @Bindable
         public TodayBean getToday() {
             return today;
         }
 
         public void setToday(TodayBean today) {
             this.today = today;
+            notifyPropertyChanged(BR.today);
         }
 
         public FutureBean getFuture() {
@@ -86,7 +94,7 @@ public class GsonBean {
             this.future = future;
         }
 
-        public static class SkBean {
+        public static class SkBean extends BaseObservable{
             /**
              * temp : 17
              * wind_direction : 南风
@@ -142,7 +150,7 @@ public class GsonBean {
             }
         }
 
-        public static class TodayBean {
+        public static class TodayBean extends BaseObservable {
             /**
              * temperature : 10℃~19℃
              * weather : 阴转多云
@@ -177,20 +185,24 @@ public class GsonBean {
             private String exercise_index;
             private String drying_index;
 
+            @Bindable
             public String getTemperature() {
                 return temperature;
             }
 
             public void setTemperature(String temperature) {
                 this.temperature = temperature;
+                notifyPropertyChanged(BR.temperature);
             }
 
+            @Bindable
             public String getWeather() {
                 return weather;
             }
 
             public void setWeather(String weather) {
                 this.weather = weather;
+                notifyPropertyChanged(BR.weather);
             }
 
             public WeatherIdBean getWeather_id() {
@@ -217,12 +229,14 @@ public class GsonBean {
                 this.week = week;
             }
 
+            @Bindable
             public String getCity() {
                 return city;
             }
 
             public void setCity(String city) {
                 this.city = city;
+                notifyPropertyChanged(BR.city);
             }
 
             public String getDate_y() {
@@ -324,7 +338,7 @@ public class GsonBean {
             }
         }
 
-        public static class FutureBean {
+        public static class FutureBean extends BaseObservable{
             /**
              * day_20170310 : {"temperature":"10℃~19℃","weather":"阴转多云","weather_id":{"fa":"02","fb":"01"},"wind":"东南风微风","week":"星期五","date":"20170310"}
              * day_20170311 : {"temperature":"10℃~14℃","weather":"小雨","weather_id":{"fa":"07","fb":"07"},"wind":"东南风微风","week":"星期六","date":"20170311"}

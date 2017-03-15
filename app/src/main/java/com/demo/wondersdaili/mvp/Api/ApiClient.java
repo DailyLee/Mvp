@@ -1,7 +1,5 @@
 package com.demo.wondersdaili.mvp.Api;
 
-import com.demo.wondersdaili.mvp.ConstantApi;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;

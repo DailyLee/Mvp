@@ -1,4 +1,4 @@
-package com.demo.wondersdaili.rrd;
+package com.demo.wondersdaili.mvp;
 
 import org.junit.Test;
 

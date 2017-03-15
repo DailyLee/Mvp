@@ -3,7 +3,7 @@ package com.demo.wondersdaili.mvp.Persenter;
 import android.app.Activity;
 
 import com.demo.wondersdaili.mvp.Api.Api;
-import com.demo.wondersdaili.mvp.Api.GsonBean;
+import com.demo.wondersdaili.mvp.GsonBean;
 import com.demo.wondersdaili.mvp.Api.MySubsribe;
 import com.demo.wondersdaili.mvp.MainActivity;
 
@@ -52,7 +52,6 @@ public class WeatherInteractorImpl implements WeatherInteractor {
         mActivity = activity;
 
     }
-
 
     @Override
     public void unRegister() {

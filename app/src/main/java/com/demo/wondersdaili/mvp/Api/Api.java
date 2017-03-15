@@ -1,6 +1,8 @@
 package com.demo.wondersdaili.mvp.Api;
 
 
+import com.demo.wondersdaili.mvp.GsonBean;
+
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
