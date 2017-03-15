@@ -1,10 +1,11 @@
 package com.demo.wondersdaili.mvp.Persenter;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 import com.demo.wondersdaili.mvp.Api.Api;
-import com.demo.wondersdaili.mvp.GsonBean;
 import com.demo.wondersdaili.mvp.Api.MySubsribe;
+import com.demo.wondersdaili.mvp.GsonBean;
 import com.demo.wondersdaili.mvp.MainActivity;
 
 import javax.inject.Inject;
@@ -24,27 +25,36 @@ public class WeatherInteractorImpl implements WeatherInteractor {
     private Activity mActivity;
 
     @Inject
-    public WeatherInteractorImpl(Api api){
+    public WeatherInteractorImpl(Api api) {
         mApi = api;
     }
 
 
     @Override
-    public Subscription queryWeather(String key, String cityName) {
-        mMySubsribe = new MySubsribe<GsonBean>(){
+    public Subscription queryWeather(int format, String key, String cityName) {
+        mMySubsribe = new MySubsribe<GsonBean>() {
             @Override
             public void onNext(GsonBean gsonBean) {
+                if (!"200".equals(gsonBean.getResultcode())) {
+                    Toast.makeText(mActivity, "获取天气失败,错误码:" + gsonBean.getError_code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //获取数据成功显示数据
-                ((MainActivity)mActivity).loadWeatherData(gsonBean);
+                ((MainActivity) mActivity).loadWeatherData(gsonBean);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                Toast.makeText(mActivity, "获取天气失败:" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         };
 
-        Observable<GsonBean> observable = mApi.queryWeather(key, cityName);
-        Subscription subscription = observable.subscribeOn(Schedulers.io())
+        Observable<GsonBean> observable = mApi.queryWeather(format, key, cityName);
+        return observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(mMySubsribe);
-        return subscription;
     }
 
     @Override

@@ -14,5 +14,5 @@ import rx.Observable;
 
 public interface Api {
     @GET("weather/index")
-    Observable<GsonBean> queryWeather(@Query("key") String key, @Query("cityname") String city);
+    Observable<GsonBean> queryWeather(@Query("format") int format,@Query("key") String key, @Query("cityname") String city);
 }

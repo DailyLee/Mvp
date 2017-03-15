@@ -3,11 +3,14 @@ package com.demo.wondersdaili.mvp;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.demo.wondersdaili.mvp.Dagger2.AppComponent;
 import com.demo.wondersdaili.mvp.Persenter.WeatherInteractor;
 import com.demo.wondersdaili.mvp.databinding.ActivityMainBinding;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -15,13 +18,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WeatherInteractor mWeatherInteractor;
     private ActivityMainBinding mBinding;
     private GsonBean.ResultBean mResultBean;
+    private CommonAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mBinding.button.setOnClickListener(this);
-        mBinding.button2.setOnClickListener(this);
+        mBinding.rlFuture.setLayoutManager(new LinearLayoutManager(this));
         mResultBean = new GsonBean.ResultBean();
         mBinding.setResult(mResultBean);
         //获取dagger2注入对象
@@ -39,17 +43,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void loadWeatherData(GsonBean gsonBean) {
         GsonBean.ResultBean.TodayBean today = gsonBean.getResult().getToday();
+        List<GsonBean.ResultBean.FutureBean> future = gsonBean.getResult().getFuture();
+        //result数据内容变化,自动刷新Ui
         mResultBean.setToday(today);
+        mResultBean.setFuture(future);
+        if(mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }else {
+            mAdapter = new CommonAdapter(mResultBean, R.layout.rl_item);
+            mBinding.rlFuture.setAdapter(mAdapter);
+        }
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:
-                mWeatherInteractor.queryWeather("30c5ae51f0cfec2a5132dc338195946d",mBinding.editText.getText().toString());
-                break;
-            case R.id.button2:
-                mBinding.editText.setText("");
+                String string = mBinding.editText.getText().toString();
+                mWeatherInteractor.queryWeather(2,"30c5ae51f0cfec2a5132dc338195946d", string);
                 break;
             default:
                 break;

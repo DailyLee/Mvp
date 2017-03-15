@@ -9,7 +9,7 @@ import rx.Subscription;
  */
 
 public interface WeatherInteractor {
-    Subscription queryWeather(String key,String cityName);
+    Subscription queryWeather(int format,String key,String cityName);
 
      void register(Activity activity);
 
