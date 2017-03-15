@@ -10,6 +10,7 @@ import com.demo.wondersdaili.mvp.Dagger2.AppComponent;
 import com.demo.wondersdaili.mvp.Persenter.WeatherInteractor;
 import com.demo.wondersdaili.mvp.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ActivityMainBinding mBinding;
     private GsonBean.ResultBean mResultBean;
     private CommonAdapter mAdapter;
+    private List<GsonBean.ResultBean.FutureBean> mFutures  = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +46,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void loadWeatherData(GsonBean gsonBean) {
         GsonBean.ResultBean.TodayBean today = gsonBean.getResult().getToday();
         List<GsonBean.ResultBean.FutureBean> future = gsonBean.getResult().getFuture();
+        mFutures.clear();
+        for (GsonBean.ResultBean.FutureBean bean: future) {
+            mFutures.add(bean);
+        }
         //result数据内容变化,自动刷新Ui
         mResultBean.setToday(today);
-        mResultBean.setFuture(future);
         if(mAdapter != null) {
             mAdapter.notifyDataSetChanged();
         }else {
-            mAdapter = new CommonAdapter(mResultBean, R.layout.rl_item);
+            mAdapter = new WeatherAdapter(mFutures, R.layout.rl_item);
             mBinding.rlFuture.setAdapter(mAdapter);
         }
-
     }
 
     @Override
