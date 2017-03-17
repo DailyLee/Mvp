@@ -1,5 +1,6 @@
-package com.demo.wondersdaili.mvp;
+package com.demo.wondersdaili.mvp.View;
 
+import com.demo.wondersdaili.mvp.GsonBean;
 import com.demo.wondersdaili.mvp.databinding.RlItemBinding;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  class WeatherAdapter extends CommonAdapter {
      WeatherAdapter(List data, int layoutId) {
         super(data, layoutId);
+
     }
 
     @Override

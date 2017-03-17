@@ -1,4 +1,4 @@
-package com.demo.wondersdaili.mvp;
+package com.demo.wondersdaili.mvp.View;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;

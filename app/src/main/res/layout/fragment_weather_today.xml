@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.demo.wondersdaili.mvp.GsonBean"/>
+
+        <variable
+            name="result"
+            type="GsonBean"/>
+    </data>
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.demo.wondersdaili.mvp.View.MainActivity"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="20sp"
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/text_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text='@{result.result.today.city}'
+                    />
+
+                <TextView
+                android:id="@+id/text_sk1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/color_text_primary_dark"
+                android:text="@{result.result.sk.realSk}"
+                android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/text_today"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/color_text_primary_dark"
+                    android:text="@{result.result.today.realToday}"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</layout>

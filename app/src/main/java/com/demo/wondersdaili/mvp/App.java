@@ -13,13 +13,19 @@ import com.demo.wondersdaili.mvp.Dagger2.WeatherModules;
 public class App extends Application {
 
     private AppComponent mComponent;
+    private static App app;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        app = this;
         mComponent = DaggerAppComponent.builder().weatherModules(new WeatherModules())
                 .build();
         mComponent.inject(this);
+    }
+
+    public static App getApplication() {
+        return app;
     }
 
     public AppComponent getComponent() {

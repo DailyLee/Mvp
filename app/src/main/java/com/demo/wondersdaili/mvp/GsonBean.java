@@ -3,6 +3,7 @@ package com.demo.wondersdaili.mvp;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by daili on 2017/3/9.
  */
 
-public class GsonBean extends BaseObservable {
+public class GsonBean extends BaseObservable  {
 
 
     /**
@@ -59,7 +60,7 @@ public class GsonBean extends BaseObservable {
         this.error_code = error_code;
     }
 
-    public static class ResultBean extends BaseObservable{
+    public static class ResultBean extends BaseObservable {
         /**
          * sk : {"temp":"11","wind_direction":"东北风","wind_strength":"2级","humidity":"28%","time":"11:49"}
          * today : {"temperature":"6℃~14℃","weather":"多云转阴","weather_id":{"fa":"01","fb":"02"},"wind":"东风3-4 级","week":"星期三","city":"苏州","date_y":"2017年03月15日","dressing_index":"较冷","dressing_advice":"建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。","uv_index":"最弱","comfort_index":"","wash_index":"较适宜","travel_index":"较不宜","exercise_index":"较不宜","drying_index":""}
@@ -70,12 +71,14 @@ public class GsonBean extends BaseObservable {
         private TodayBean today;
         private List<FutureBean> future;
 
+        @Bindable
         public SkBean getSk() {
             return sk;
         }
 
         public void setSk(SkBean sk) {
             this.sk = sk;
+            notifyPropertyChanged(BR.sk);
         }
 
         @Bindable
@@ -98,7 +101,7 @@ public class GsonBean extends BaseObservable {
             notifyPropertyChanged(BR.future);
         }
 
-        public static class SkBean {
+        public static class SkBean extends BaseObservable {
             /**
              * temp : 11
              * wind_direction : 东北风
@@ -113,48 +116,66 @@ public class GsonBean extends BaseObservable {
             private String humidity;
             private String time;
 
+            @Bindable
+            public String getRealSk() {
+                return "最新时间:"+time +"\n"+
+                        "当前温度:"+temp+"℃\n"+
+                        wind_direction+wind_strength+"\n"+
+                        "湿度:"+humidity;
+            }
+
+            @Bindable
             public String getTemp() {
                 return temp;
             }
 
             public void setTemp(String temp) {
                 this.temp = temp;
-            }
+                notifyPropertyChanged(BR.temp);
+        }
 
+            @Bindable
             public String getWind_direction() {
                 return wind_direction;
             }
 
             public void setWind_direction(String wind_direction) {
                 this.wind_direction = wind_direction;
+                notifyPropertyChanged(BR.wind_direction);
             }
 
+            @Bindable
             public String getWind_strength() {
                 return wind_strength;
             }
 
             public void setWind_strength(String wind_strength) {
                 this.wind_strength = wind_strength;
+                notifyPropertyChanged(BR.wind_strength);
             }
 
+            @Bindable
             public String getHumidity() {
                 return humidity;
             }
 
             public void setHumidity(String humidity) {
                 this.humidity = humidity;
+                notifyPropertyChanged(BR.humidity);
             }
 
+            @Bindable
             public String getTime() {
                 return time;
             }
 
             public void setTime(String time) {
                 this.time = time;
+                notifyPropertyChanged(BR.time);
             }
         }
 
-        public static class TodayBean extends BaseObservable{
+        public static class TodayBean extends BaseObservable {
             /**
              * temperature : 6℃~14℃
              * weather : 多云转阴
@@ -188,6 +209,18 @@ public class GsonBean extends BaseObservable {
             private String travel_index;
             private String exercise_index;
             private String drying_index;
+
+            @Bindable
+            public String getRealToday() {
+
+                return "temperature :" +temperature+"\n"+
+                       "weather : " +weather+"\n"+
+                        "wind : " +wind+"\n"+
+                        "week : " +week+"\n"+
+                        "date_y : " +date_y+"\n"+
+                        "dressing_index : " +dressing_index+"\n"+
+                        "dressing_advice : " +dressing_advice;
+            }
 
             public String getTemperature() {
                 return temperature;
@@ -229,12 +262,14 @@ public class GsonBean extends BaseObservable {
                 this.week = week;
             }
 
+            @Bindable
             public String getCity() {
                 return city;
             }
 
             public void setCity(String city) {
                 this.city = city;
+                notifyPropertyChanged(BR.city);
             }
 
             public String getDate_y() {
@@ -336,7 +371,7 @@ public class GsonBean extends BaseObservable {
             }
         }
 
-        public static class FutureBean {
+        public static class FutureBean extends BaseObservable{
             /**
              * temperature : 6℃~14℃
              * weather : 多云转阴
@@ -401,7 +436,7 @@ public class GsonBean extends BaseObservable {
                 this.date = date;
             }
 
-            public static class WeatherIdBeanX {
+            public static class WeatherIdBeanX implements Serializable{
                 /**
                  * fa : 01
                  * fb : 02
