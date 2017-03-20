@@ -11,8 +11,8 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.Toast;
 
+import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.BaseActivity;
 import com.demo.wondersdaili.mvp.GsonBean;
 import com.demo.wondersdaili.mvp.R;
@@ -21,6 +21,7 @@ public class MainActivity extends BaseActivity<GsonBean> implements SearchView.O
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private Fragment[] mWeatherFragments;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,9 @@ public class MainActivity extends BaseActivity<GsonBean> implements SearchView.O
         setContentView(R.layout.app_bar_main);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(App.getCity());
+        setSupportActionBar(mToolbar);
         mWeatherFragments = new WeatherFragment[2];
         mWeatherFragments[0] = WeatherFragment.newInstance("1");
         mWeatherFragments[1] = WeatherFragment.newInstance("2");
@@ -59,9 +61,14 @@ public class MainActivity extends BaseActivity<GsonBean> implements SearchView.O
     public boolean onQueryTextSubmit(String query) {
         WeatherFragment weatherFragment1 = (WeatherFragment) mWeatherFragments[0];
         WeatherFragment weatherFragment2 = (WeatherFragment) mWeatherFragments[1];
-        weatherFragment1.queryWeather(false,query);
+        weatherFragment1.queryWeatherForResult(false,query,new WeatherFragment.queryResultListener(){
+            @Override
+            public void succeed() {
+                mToolbar.setTitle(App.getCity());
+            }
+        });
         weatherFragment2.queryWeather(false,query);
-        Toast.makeText(this,query,Toast.LENGTH_SHORT).show();
+        mToolbar.setTitle(App.getCity());
         return true;
     }
 

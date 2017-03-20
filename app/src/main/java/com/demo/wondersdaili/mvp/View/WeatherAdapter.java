@@ -6,7 +6,7 @@ import com.demo.wondersdaili.mvp.databinding.RlItemBinding;
 import java.util.List;
 
 /**
- * Created by daili on 2017/3/15.
+ * Created by daili on 2017/3/code15.
  */
 
  class WeatherAdapter extends CommonAdapter {

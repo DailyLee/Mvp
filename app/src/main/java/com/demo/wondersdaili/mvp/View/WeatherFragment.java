@@ -24,19 +24,26 @@ import static android.databinding.DataBindingUtil.inflate;
 import static com.demo.wondersdaili.mvp.R.id.swipe;
 
 /**
- * Created by daili on 2017/3/16.
+ * Created by daili on 2017/3/code16.
  */
 
-public class WeatherFragment extends android.support.v4.app.Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class WeatherFragment extends android.support.v4.app.Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private AppComponent mComponent;
     private WeatherInteractor mWeatherInteractor;
     private CommonAdapter mAdapter;
     private FragmentWeatherTodayBinding mInflate1;
-    private  GsonBean mResultBean = new GsonBean();
+    private GsonBean mResultBean = new GsonBean();
     private List<GsonBean.ResultBean.FutureBean> mFutures = new ArrayList<>();
     private RecyclerView mRvFuture;
     private String mType;
+    private String mCity;
     private SwipeRefreshLayout mSwipe;
+
+    public interface queryResultListener {
+        void succeed();
+    }
+
+    private queryResultListener mListener;
 
     public static WeatherFragment newInstance(String type) {
         WeatherFragment fragment = new WeatherFragment();
@@ -50,7 +57,7 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //获取对象
-        mComponent =  App.getApplication().getComponent();
+        mComponent = App.getApplication().getComponent();
         mWeatherInteractor = mComponent.getWeatherInteractor();
         //注册
         mWeatherInteractor.register(this);
@@ -60,13 +67,14 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mType = getArguments().getString("type");
-        if ("1".equals(mType)){
+        mCity = App.getCity();
+        if ("1".equals(mType)) {
             mInflate1 = inflate(inflater, R.layout.fragment_weather_today, container, false);
             mSwipe = mInflate1.swipe;
             mSwipe.setOnRefreshListener(this);
             mInflate1.setResult(mResultBean);
             return mInflate1.getRoot();
-        }else {
+        } else {
             View view = inflater.inflate(R.layout.fragment_weather_future, container, false);
             mSwipe = (SwipeRefreshLayout) view.findViewById(swipe);
             mRvFuture = (RecyclerView) view.findViewById(R.id.rv_future);
@@ -80,9 +88,9 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
         List<GsonBean.ResultBean.FutureBean> future = resultBean.getResult().getFuture();
         mFutures.clear();
         mFutures.addAll(future);
-        if(mAdapter != null) {
+        if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();
-        }else {
+        } else {
             mAdapter = new WeatherAdapter(mFutures, R.layout.rl_item);
             mRvFuture.setAdapter(mAdapter);
         }
@@ -91,11 +99,17 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        queryWeather(false,"上海");
+        queryWeather(false, mCity);
     }
 
-    public void queryWeather(boolean isRefreshing,String string) {
-        mWeatherInteractor.queryWeather(2, "30c5ae51f0cfec2a5132dc338195946d", string, isRefreshing);
+    public void queryWeatherForResult(boolean isRefreshing, String string, queryResultListener listener) {
+        mListener = listener;
+        queryWeather(isRefreshing, string);
+    }
+
+    public void queryWeather(boolean isRefreshing, String string) {
+        mCity = string;
+        mWeatherInteractor.queryWeather(2, "30c5ae51f0cfec2a5132dc338195946d", mCity, isRefreshing);
     }
 
     /***
@@ -103,16 +117,30 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
      * @param gsonBean
      */
     public void loadWeatherData(GsonBean.ResultBean gsonBean) {
+        App.setCity(gsonBean.getToday().getCity());
         mResultBean.setResult(gsonBean);
         mSwipe.setRefreshing(false);
         if ("2".equals(mType)) {
             loadFutureData(mResultBean);
+        } else {
+            if (mListener != null) {
+                mListener.succeed();
+            }
         }
+    }
+
+
+    /***
+     * 获取数据失败之后调用此方法
+     * @param e
+     */
+    public void loadErrorData(Throwable e) {
+        mSwipe.setRefreshing(false);
     }
 
     @Override
     public void onRefresh() {
-        Toast.makeText(getContext(),"正在刷新", Toast.LENGTH_SHORT).show();
-        queryWeather(true,"上海");
+        Toast.makeText(getContext(), "正在刷新", Toast.LENGTH_SHORT).show();
+        queryWeather(true, mCity);
     }
 }

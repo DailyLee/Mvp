@@ -7,17 +7,19 @@ import com.demo.wondersdaili.mvp.Dagger2.DaggerAppComponent;
 import com.demo.wondersdaili.mvp.Dagger2.WeatherModules;
 
 /**
- * Created by daili on 2017/3/10.
+ * Created by daili on 2017/3/code10.
  */
 
 public class App extends Application {
 
     private AppComponent mComponent;
     private static App app;
+    private static String mCity;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mCity = "上海";
         app = this;
         mComponent = DaggerAppComponent.builder().weatherModules(new WeatherModules())
                 .build();
@@ -26,6 +28,14 @@ public class App extends Application {
 
     public static App getApplication() {
         return app;
+    }
+
+    public static void setCity(String city) {
+        mCity = city;
+    }
+
+    public static String getCity() {
+        return mCity;
     }
 
     public AppComponent getComponent() {

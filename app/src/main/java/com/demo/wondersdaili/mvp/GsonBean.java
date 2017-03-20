@@ -2,8 +2,8 @@ package com.demo.wondersdaili.mvp;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.drawable.Drawable;
 
-import java.io.Serializable;
 import java.util.List;
 
 
@@ -17,7 +17,7 @@ public class GsonBean extends BaseObservable  {
     /**
      * resultcode : 200
      * reason : successed!
-     * result : {"sk":{"temp":"11","wind_direction":"东北风","wind_strength":"2级","humidity":"28%","time":"11:49"},"today":{"temperature":"6℃~14℃","weather":"多云转阴","weather_id":{"fa":"01","fb":"02"},"wind":"东风3-4 级","week":"星期三","city":"苏州","date_y":"2017年03月15日","dressing_index":"较冷","dressing_advice":"建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。","uv_index":"最弱","comfort_index":"","wash_index":"较适宜","travel_index":"较不宜","exercise_index":"较不宜","drying_index":""},"future":[{"temperature":"6℃~14℃","weather":"多云转阴","weather_id":{"fa":"01","fb":"02"},"wind":"东风3-4 级","week":"星期三","date":"20170315"},{"temperature":"4℃~11℃","weather":"阴转晴","weather_id":{"fa":"02","fb":"00"},"wind":"东风3-4 级","week":"星期四","date":"20170316"},{"temperature":"8℃~14℃","weather":"多云转小雨","weather_id":{"fa":"01","fb":"07"},"wind":"东风3-4 级","week":"星期五","date":"20170317"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"东北风3-4 级","week":"星期六","date":"20170318"},{"temperature":"8℃~16℃","weather":"阴转小雨","weather_id":{"fa":"02","fb":"07"},"wind":"东北风3-4 级","week":"星期日","date":"20170319"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"东北风3-4 级","week":"星期一","date":"20170320"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"东北风3-4 级","week":"星期二","date":"20170321"}]}
+     * result : {"sk":{"temp":"code11","wind_direction":"东北风","wind_strength":"2级","humidity":"28%","time":"code11:49"},"today":{"temperature":"6℃~code14℃","weather":"多云转阴","weather_id":{"fa":"code01","fb":"code02"},"wind":"东风3-4 级","week":"星期三","city":"苏州","date_y":"2017年03月15日","dressing_index":"较冷","dressing_advice":"建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。","uv_index":"最弱","comfort_index":"","wash_index":"较适宜","travel_index":"较不宜","exercise_index":"较不宜","drying_index":""},"future":[{"temperature":"6℃~code14℃","weather":"多云转阴","weather_id":{"fa":"code01","fb":"code02"},"wind":"东风3-4 级","week":"星期三","date":"20170315"},{"temperature":"4℃~code11℃","weather":"阴转晴","weather_id":{"fa":"code02","fb":"code00"},"wind":"东风3-4 级","week":"星期四","date":"20170316"},{"temperature":"8℃~code14℃","weather":"多云转小雨","weather_id":{"fa":"code01","fb":"code07"},"wind":"东风3-4 级","week":"星期五","date":"20170317"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"code02","fb":"code02"},"wind":"东北风3-4 级","week":"星期六","date":"20170318"},{"temperature":"8℃~code16℃","weather":"阴转小雨","weather_id":{"fa":"code02","fb":"code07"},"wind":"东北风3-4 级","week":"星期日","date":"20170319"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"code02","fb":"code02"},"wind":"东北风3-4 级","week":"星期一","date":"20170320"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"code02","fb":"code02"},"wind":"东北风3-4 级","week":"星期二","date":"20170321"}]}
      * error_code : 0
      */
 
@@ -62,9 +62,9 @@ public class GsonBean extends BaseObservable  {
 
     public static class ResultBean extends BaseObservable {
         /**
-         * sk : {"temp":"11","wind_direction":"东北风","wind_strength":"2级","humidity":"28%","time":"11:49"}
-         * today : {"temperature":"6℃~14℃","weather":"多云转阴","weather_id":{"fa":"01","fb":"02"},"wind":"东风3-4 级","week":"星期三","city":"苏州","date_y":"2017年03月15日","dressing_index":"较冷","dressing_advice":"建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。","uv_index":"最弱","comfort_index":"","wash_index":"较适宜","travel_index":"较不宜","exercise_index":"较不宜","drying_index":""}
-         * future : [{"temperature":"6℃~14℃","weather":"多云转阴","weather_id":{"fa":"01","fb":"02"},"wind":"东风3-4 级","week":"星期三","date":"20170315"},{"temperature":"4℃~11℃","weather":"阴转晴","weather_id":{"fa":"02","fb":"00"},"wind":"东风3-4 级","week":"星期四","date":"20170316"},{"temperature":"8℃~14℃","weather":"多云转小雨","weather_id":{"fa":"01","fb":"07"},"wind":"东风3-4 级","week":"星期五","date":"20170317"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"东北风3-4 级","week":"星期六","date":"20170318"},{"temperature":"8℃~16℃","weather":"阴转小雨","weather_id":{"fa":"02","fb":"07"},"wind":"东北风3-4 级","week":"星期日","date":"20170319"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"东北风3-4 级","week":"星期一","date":"20170320"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"02","fb":"02"},"wind":"东北风3-4 级","week":"星期二","date":"20170321"}]
+         * sk : {"temp":"code11","wind_direction":"东北风","wind_strength":"2级","humidity":"28%","time":"code11:49"}
+         * today : {"temperature":"6℃~code14℃","weather":"多云转阴","weather_id":{"fa":"code01","fb":"code02"},"wind":"东风3-4 级","week":"星期三","city":"苏州","date_y":"2017年03月15日","dressing_index":"较冷","dressing_advice":"建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。","uv_index":"最弱","comfort_index":"","wash_index":"较适宜","travel_index":"较不宜","exercise_index":"较不宜","drying_index":""}
+         * future : [{"temperature":"6℃~code14℃","weather":"多云转阴","weather_id":{"fa":"code01","fb":"code02"},"wind":"东风3-4 级","week":"星期三","date":"20170315"},{"temperature":"4℃~code11℃","weather":"阴转晴","weather_id":{"fa":"code02","fb":"code00"},"wind":"东风3-4 级","week":"星期四","date":"20170316"},{"temperature":"8℃~code14℃","weather":"多云转小雨","weather_id":{"fa":"code01","fb":"code07"},"wind":"东风3-4 级","week":"星期五","date":"20170317"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"code02","fb":"code02"},"wind":"东北风3-4 级","week":"星期六","date":"20170318"},{"temperature":"8℃~code16℃","weather":"阴转小雨","weather_id":{"fa":"code02","fb":"code07"},"wind":"东北风3-4 级","week":"星期日","date":"20170319"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"code02","fb":"code02"},"wind":"东北风3-4 级","week":"星期一","date":"20170320"},{"temperature":"8℃~13℃","weather":"阴","weather_id":{"fa":"code02","fb":"code02"},"wind":"东北风3-4 级","week":"星期二","date":"20170321"}]
          */
 
         private SkBean sk;
@@ -103,11 +103,11 @@ public class GsonBean extends BaseObservable  {
 
         public static class SkBean extends BaseObservable {
             /**
-             * temp : 11
+             * temp : code11
              * wind_direction : 东北风
              * wind_strength : 2级
              * humidity : 28%
-             * time : 11:49
+             * time : code11:49
              */
 
             private String temp;
@@ -118,10 +118,13 @@ public class GsonBean extends BaseObservable  {
 
             @Bindable
             public String getRealSk() {
-                return "最新时间:"+time +"\n"+
-                        "当前温度:"+temp+"℃\n"+
-                        wind_direction+wind_strength+"\n"+
-                        "湿度:"+humidity;
+                return wind_direction+wind_strength+"  "+ "湿度:"+humidity+"\n"+
+                        "更新时间:"+time ;
+            }
+
+            @Bindable
+            public String getRealTemp() {
+                return temp+"℃";
             }
 
             @Bindable
@@ -177,9 +180,9 @@ public class GsonBean extends BaseObservable  {
 
         public static class TodayBean extends BaseObservable {
             /**
-             * temperature : 6℃~14℃
+             * temperature : 6℃~code14℃
              * weather : 多云转阴
-             * weather_id : {"fa":"01","fb":"02"}
+             * weather_id : {"fa":"code01","fb":"code02"}
              * wind : 东风3-4 级
              * week : 星期三
              * city : 苏州
@@ -211,15 +214,55 @@ public class GsonBean extends BaseObservable  {
             private String drying_index;
 
             @Bindable
-            public String getRealToday() {
+            public Drawable getImageTodayFa() {
+                int[] drawableIds = {R.drawable.code00, R.drawable.code01, R.drawable.code02,
+                        R.drawable.code03, R.drawable.code04, R.drawable.code05,
+                        R.drawable.code06, R.drawable.code07, R.drawable.code08,
+                        R.drawable.code09, R.drawable.code10, R.drawable.code11,
+                        R.drawable.code12, R.drawable.code13, R.drawable.code14,
+                        R.drawable.code15, R.drawable.code16, R.drawable.code17,
+                        R.drawable.code18, R.drawable.code19, R.drawable.code20,
+                };
+                int drawableId;
+                try {
+                    int i = Integer.parseInt(getWeather_id().fa);
+                    if (i == 53) {
+                        return App.getApplication().getResources().getDrawable(R.drawable.code53);
+                    }
+                    drawableId = drawableIds[i];
+                }catch (Exception e){
+                    return App.getApplication().getResources().getDrawable(R.drawable.unkonw);
+                }
+                return  App.getApplication().getResources().getDrawable(drawableId);
+            }
 
-                return "temperature :" +temperature+"\n"+
-                       "weather : " +weather+"\n"+
-                        "wind : " +wind+"\n"+
-                        "week : " +week+"\n"+
-                        "date_y : " +date_y+"\n"+
-                        "dressing_index : " +dressing_index+"\n"+
-                        "dressing_advice : " +dressing_advice;
+            @Bindable
+            public Drawable getImageTodayFb() {
+                int[] drawableIds = {R.drawable.code00, R.drawable.code01, R.drawable.code02,
+                        R.drawable.code03, R.drawable.code04, R.drawable.code05,
+                        R.drawable.code06, R.drawable.code07, R.drawable.code08,
+                        R.drawable.code09, R.drawable.code10, R.drawable.code11,
+                        R.drawable.code12, R.drawable.code13, R.drawable.code14,
+                        R.drawable.code15, R.drawable.code16, R.drawable.code17,
+                        R.drawable.code18, R.drawable.code19, R.drawable.code20,
+                };
+                int drawableId;
+                try {
+                    int i = Integer.parseInt(getWeather_id().fb);
+                    if (i == 53) {
+                        return App.getApplication().getResources().getDrawable(R.drawable.code53);
+                    }
+                    drawableId = drawableIds[i];
+                }catch (Exception e){
+                    return App.getApplication().getResources().getDrawable(R.drawable.unkonw);
+                }
+                return  App.getApplication().getResources().getDrawable(drawableId);
+            }
+
+            @Bindable
+            public String getRealToday() {
+                return "身体温感: " +dressing_index+"\n"+
+                        "穿衣建议 : " +dressing_advice;
             }
 
             public String getTemperature() {
@@ -344,10 +387,10 @@ public class GsonBean extends BaseObservable  {
                 this.drying_index = drying_index;
             }
 
-            public static class WeatherIdBean {
+            public static class WeatherIdBean extends BaseObservable{
                 /**
-                 * fa : 01
-                 * fb : 02
+                 * fa : code01
+                 * fb : code02
                  */
 
                 private String fa;
@@ -373,9 +416,9 @@ public class GsonBean extends BaseObservable  {
 
         public static class FutureBean extends BaseObservable{
             /**
-             * temperature : 6℃~14℃
+             * temperature : 6℃~code14℃
              * weather : 多云转阴
-             * weather_id : {"fa":"01","fb":"02"}
+             * weather_id : {"fa":"code01","fb":"code02"}
              * wind : 东风3-4 级
              * week : 星期三
              * date : 20170315
@@ -387,6 +430,50 @@ public class GsonBean extends BaseObservable  {
             private String wind;
             private String week;
             private String date;
+
+            public Drawable getImageFutureFa() {
+                int[] drawableIds = {R.drawable.code00, R.drawable.code01, R.drawable.code02,
+                        R.drawable.code03, R.drawable.code04, R.drawable.code05,
+                        R.drawable.code06, R.drawable.code07, R.drawable.code08,
+                        R.drawable.code09, R.drawable.code10, R.drawable.code11,
+                        R.drawable.code12, R.drawable.code13, R.drawable.code14,
+                        R.drawable.code15, R.drawable.code16, R.drawable.code17,
+                        R.drawable.code18, R.drawable.code19, R.drawable.code20,
+                       };
+                int drawableId;
+                try {
+                    int i = Integer.parseInt(getWeather_id().fa);
+                    if (i == 53) {
+                        return App.getApplication().getResources().getDrawable(R.drawable.code53);
+                    }
+                    drawableId = drawableIds[i];
+                }catch (Exception e){
+                    return App.getApplication().getResources().getDrawable(R.drawable.unkonw);
+                }
+                return  App.getApplication().getResources().getDrawable(drawableId);
+            }
+
+            public Drawable getImageFutureFb() {
+                int[] drawableIds = {R.drawable.code00, R.drawable.code01, R.drawable.code02,
+                        R.drawable.code03, R.drawable.code04, R.drawable.code05,
+                        R.drawable.code06, R.drawable.code07, R.drawable.code08,
+                        R.drawable.code09, R.drawable.code10, R.drawable.code11,
+                        R.drawable.code12, R.drawable.code13, R.drawable.code14,
+                        R.drawable.code15, R.drawable.code16, R.drawable.code17,
+                        R.drawable.code18, R.drawable.code19, R.drawable.code20,
+                };
+                int drawableId;
+                try {
+                    int i = Integer.parseInt(getWeather_id().fb);
+                    if (i == 53) {
+                        return App.getApplication().getResources().getDrawable(R.drawable.code53);
+                    }
+                    drawableId = drawableIds[i];
+                }catch (Exception e){
+                    return App.getApplication().getResources().getDrawable(R.drawable.unkonw);
+                }
+                return  App.getApplication().getResources().getDrawable(drawableId);
+            }
 
             public String getTemperature() {
                 return temperature;
@@ -436,10 +523,10 @@ public class GsonBean extends BaseObservable  {
                 this.date = date;
             }
 
-            public static class WeatherIdBeanX implements Serializable{
+            public static class WeatherIdBeanX extends BaseObservable{
                 /**
-                 * fa : 01
-                 * fb : 02
+                 * fa : code01
+                 * fb : code02
                  */
 
                 private String fa;

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * Created by daili on 2017/3/15.
+ * Created by daili on 2017/3/code15.
  */
 
  class CommonAdapter<T> extends RecyclerView.Adapter<CommonAdapter.ViewHolder> {

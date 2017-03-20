@@ -51,6 +51,7 @@ public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
+                mFragment.loadErrorData(e);
                 Toast.makeText(App.getApplication(), "获取天气失败:" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         };
