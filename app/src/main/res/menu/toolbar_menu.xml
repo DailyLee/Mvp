@@ -7,12 +7,12 @@
         android:orderInCategory="100"
         android:title="@string/app_name"
         app:actionViewClass="android.support.v7.widget.SearchView"
-        android:icon="@drawable/search"
+        android:icon="@mipmap/search"
         app:showAsAction="ifRoom|withText"/>
     <item
         android:id="@+id/action_location"
         android:orderInCategory="100"
         android:title="@string/app_name"
-        android:icon="@drawable/location_white"
+        android:icon="@mipmap/location_white"
         app:showAsAction="ifRoom|withText"/>
 </menu>

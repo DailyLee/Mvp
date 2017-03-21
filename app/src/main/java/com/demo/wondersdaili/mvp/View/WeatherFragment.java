@@ -8,13 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.Dagger2.AppComponent;
 import com.demo.wondersdaili.mvp.GsonBean;
 import com.demo.wondersdaili.mvp.Persenter.WeatherInteractor;
 import com.demo.wondersdaili.mvp.R;
+import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 import com.demo.wondersdaili.mvp.databinding.FragmentWeatherTodayBinding;
 
 import java.util.ArrayList;
@@ -132,15 +132,22 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
 
     /***
      * 获取数据失败之后调用此方法
-     * @param e
+     * @param gsonBean
      */
-    public void loadErrorData(Throwable e) {
+    public void loadErrorData(GsonBean gsonBean) {
         mSwipe.setRefreshing(false);
+        ToastUtils.showToast(getContext(),"刷新失败");
     }
 
     @Override
     public void onRefresh() {
-        Toast.makeText(getContext(), "正在刷新", Toast.LENGTH_SHORT).show();
+        ToastUtils.showToast(getContext(),"正在刷新");
         queryWeather(true, mCity);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mWeatherInteractor.unRegister();
     }
 }

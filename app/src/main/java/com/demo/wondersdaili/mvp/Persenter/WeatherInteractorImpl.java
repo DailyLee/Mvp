@@ -1,12 +1,12 @@
 package com.demo.wondersdaili.mvp.Persenter;
 
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import com.demo.wondersdaili.mvp.Api.Api;
-import com.demo.wondersdaili.mvp.Api.MySubsribe;
+import com.demo.wondersdaili.mvp.Api.WeatherSubsribe;
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.GsonBean;
+import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 import com.demo.wondersdaili.mvp.View.WeatherFragment;
 
 import javax.inject.Inject;
@@ -23,7 +23,7 @@ import rx.schedulers.Schedulers;
 
 public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
     private Api mApi;
-    private MySubsribe<GsonBean> mMySubsribe;
+    private WeatherSubsribe mWeatherSubsribe;
     private WeatherFragment mFragment;
 
     @Inject
@@ -34,25 +34,19 @@ public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
 
     @Override
     public Subscription queryWeather(int format, String key, String cityName, final boolean isRefreshing) {
-        mMySubsribe = new MySubsribe<GsonBean>() {
+        mWeatherSubsribe = new WeatherSubsribe(mFragment.getActivity()) {
             @Override
-            public void onNext(GsonBean gsonBean) {
-                if (!"200".equals(gsonBean.getResultcode())) {
-                    Toast.makeText(App.getApplication(), "获取天气失败,错误码:" + gsonBean.getError_code(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            public void onQuerySuccess(GsonBean gsonBean) {
                 if (isRefreshing) {
-                    Toast.makeText(App.getApplication(), "刷新成功", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showToast(App.getApplication(),"刷新成功");
                 }
                 //获取数据成功显示数据
                 mFragment.loadWeatherData(gsonBean.getResult());
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                mFragment.loadErrorData(e);
-                Toast.makeText(App.getApplication(), "获取天气失败:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onQueryFail(GsonBean gsonBean) {
+                mFragment.loadErrorData(gsonBean);
             }
         };
 
@@ -60,7 +54,7 @@ public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
         return observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
-                .subscribe(mMySubsribe);
+                .subscribe(mWeatherSubsribe);
     }
 
 
@@ -72,8 +66,8 @@ public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
 
     @Override
     public void unRegister() {
-        if (mMySubsribe != null && mMySubsribe.isUnsubscribed())
-            mMySubsribe.unsubscribe();
+        if (mWeatherSubsribe != null && mWeatherSubsribe.isUnsubscribed())
+            mWeatherSubsribe.unsubscribe();
         mFragment = null;
     }
 }

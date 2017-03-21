@@ -215,46 +215,46 @@ public class GsonBean extends BaseObservable  {
 
             @Bindable
             public Drawable getImageTodayFa() {
-                int[] drawableIds = {R.drawable.code00, R.drawable.code01, R.drawable.code02,
-                        R.drawable.code03, R.drawable.code04, R.drawable.code05,
-                        R.drawable.code06, R.drawable.code07, R.drawable.code08,
-                        R.drawable.code09, R.drawable.code10, R.drawable.code11,
-                        R.drawable.code12, R.drawable.code13, R.drawable.code14,
-                        R.drawable.code15, R.drawable.code16, R.drawable.code17,
-                        R.drawable.code18, R.drawable.code19, R.drawable.code20,
+                int[] drawableIds = {R.mipmap.code00, R.mipmap.code01, R.mipmap.code02,
+                        R.mipmap.code03, R.mipmap.code04, R.mipmap.code05,
+                        R.mipmap.code06, R.mipmap.code07, R.mipmap.code08,
+                        R.mipmap.code09, R.mipmap.code10, R.mipmap.code11,
+                        R.mipmap.code12, R.mipmap.code13, R.mipmap.code14,
+                        R.mipmap.code15, R.mipmap.code16, R.mipmap.code17,
+                        R.mipmap.code18, R.mipmap.code19, R.mipmap.code20,
                 };
                 int drawableId;
                 try {
                     int i = Integer.parseInt(getWeather_id().fa);
                     if (i == 53) {
-                        return App.getApplication().getResources().getDrawable(R.drawable.code53);
+                        return App.getApplication().getResources().getDrawable(R.mipmap.code53);
                     }
                     drawableId = drawableIds[i];
                 }catch (Exception e){
-                    return App.getApplication().getResources().getDrawable(R.drawable.unkonw);
+                    return App.getApplication().getResources().getDrawable(R.mipmap.unkonw);
                 }
                 return  App.getApplication().getResources().getDrawable(drawableId);
             }
 
             @Bindable
             public Drawable getImageTodayFb() {
-                int[] drawableIds = {R.drawable.code00, R.drawable.code01, R.drawable.code02,
-                        R.drawable.code03, R.drawable.code04, R.drawable.code05,
-                        R.drawable.code06, R.drawable.code07, R.drawable.code08,
-                        R.drawable.code09, R.drawable.code10, R.drawable.code11,
-                        R.drawable.code12, R.drawable.code13, R.drawable.code14,
-                        R.drawable.code15, R.drawable.code16, R.drawable.code17,
-                        R.drawable.code18, R.drawable.code19, R.drawable.code20,
+                int[] drawableIds = {R.mipmap.code00, R.mipmap.code01, R.mipmap.code02,
+                        R.mipmap.code03, R.mipmap.code04, R.mipmap.code05,
+                        R.mipmap.code06, R.mipmap.code07, R.mipmap.code08,
+                        R.mipmap.code09, R.mipmap.code10, R.mipmap.code11,
+                        R.mipmap.code12, R.mipmap.code13, R.mipmap.code14,
+                        R.mipmap.code15, R.mipmap.code16, R.mipmap.code17,
+                        R.mipmap.code18, R.mipmap.code19, R.mipmap.code20,
                 };
                 int drawableId;
                 try {
                     int i = Integer.parseInt(getWeather_id().fb);
                     if (i == 53) {
-                        return App.getApplication().getResources().getDrawable(R.drawable.code53);
+                        return App.getApplication().getResources().getDrawable(R.mipmap.code53);
                     }
                     drawableId = drawableIds[i];
                 }catch (Exception e){
-                    return App.getApplication().getResources().getDrawable(R.drawable.unkonw);
+                    return App.getApplication().getResources().getDrawable(R.mipmap.unkonw);
                 }
                 return  App.getApplication().getResources().getDrawable(drawableId);
             }
@@ -432,45 +432,45 @@ public class GsonBean extends BaseObservable  {
             private String date;
 
             public Drawable getImageFutureFa() {
-                int[] drawableIds = {R.drawable.code00, R.drawable.code01, R.drawable.code02,
-                        R.drawable.code03, R.drawable.code04, R.drawable.code05,
-                        R.drawable.code06, R.drawable.code07, R.drawable.code08,
-                        R.drawable.code09, R.drawable.code10, R.drawable.code11,
-                        R.drawable.code12, R.drawable.code13, R.drawable.code14,
-                        R.drawable.code15, R.drawable.code16, R.drawable.code17,
-                        R.drawable.code18, R.drawable.code19, R.drawable.code20,
+                int[] drawableIds = {R.mipmap.code00, R.mipmap.code01, R.mipmap.code02,
+                        R.mipmap.code03, R.mipmap.code04, R.mipmap.code05,
+                        R.mipmap.code06, R.mipmap.code07, R.mipmap.code08,
+                        R.mipmap.code09, R.mipmap.code10, R.mipmap.code11,
+                        R.mipmap.code12, R.mipmap.code13, R.mipmap.code14,
+                        R.mipmap.code15, R.mipmap.code16, R.mipmap.code17,
+                        R.mipmap.code18, R.mipmap.code19, R.mipmap.code20,
                        };
                 int drawableId;
                 try {
                     int i = Integer.parseInt(getWeather_id().fa);
                     if (i == 53) {
-                        return App.getApplication().getResources().getDrawable(R.drawable.code53);
+                        return App.getApplication().getResources().getDrawable(R.mipmap.code53);
                     }
                     drawableId = drawableIds[i];
                 }catch (Exception e){
-                    return App.getApplication().getResources().getDrawable(R.drawable.unkonw);
+                    return App.getApplication().getResources().getDrawable(R.mipmap.unkonw);
                 }
                 return  App.getApplication().getResources().getDrawable(drawableId);
             }
 
             public Drawable getImageFutureFb() {
-                int[] drawableIds = {R.drawable.code00, R.drawable.code01, R.drawable.code02,
-                        R.drawable.code03, R.drawable.code04, R.drawable.code05,
-                        R.drawable.code06, R.drawable.code07, R.drawable.code08,
-                        R.drawable.code09, R.drawable.code10, R.drawable.code11,
-                        R.drawable.code12, R.drawable.code13, R.drawable.code14,
-                        R.drawable.code15, R.drawable.code16, R.drawable.code17,
-                        R.drawable.code18, R.drawable.code19, R.drawable.code20,
+                int[] drawableIds = {R.mipmap.code00, R.mipmap.code01, R.mipmap.code02,
+                        R.mipmap.code03, R.mipmap.code04, R.mipmap.code05,
+                        R.mipmap.code06, R.mipmap.code07, R.mipmap.code08,
+                        R.mipmap.code09, R.mipmap.code10, R.mipmap.code11,
+                        R.mipmap.code12, R.mipmap.code13, R.mipmap.code14,
+                        R.mipmap.code15, R.mipmap.code16, R.mipmap.code17,
+                        R.mipmap.code18, R.mipmap.code19, R.mipmap.code20,
                 };
                 int drawableId;
                 try {
                     int i = Integer.parseInt(getWeather_id().fb);
                     if (i == 53) {
-                        return App.getApplication().getResources().getDrawable(R.drawable.code53);
+                        return App.getApplication().getResources().getDrawable(R.mipmap.code53);
                     }
                     drawableId = drawableIds[i];
                 }catch (Exception e){
-                    return App.getApplication().getResources().getDrawable(R.drawable.unkonw);
+                    return App.getApplication().getResources().getDrawable(R.mipmap.unkonw);
                 }
                 return  App.getApplication().getResources().getDrawable(drawableId);
             }

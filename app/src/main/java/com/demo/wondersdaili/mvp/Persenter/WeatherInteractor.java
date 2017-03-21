@@ -8,11 +8,11 @@ import rx.Subscription;
  */
 
 public interface WeatherInteractor<T> {
-    Subscription queryWeather(int format,String key,String cityName,boolean isRefreshing);
+    Subscription queryWeather(int format, String key, String cityName, boolean isRefreshing);
 
-     void register(T t);
+    void register(T t);
 
 
-     void unRegister();
+    void unRegister();
 
 }
