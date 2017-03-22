@@ -2,7 +2,11 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="android.view.View"/>
+
         <import type="com.demo.wondersdaili.mvp.GsonBean"/>
+
         <variable
             name="result"
             type="GsonBean"/>
@@ -30,23 +34,25 @@
                     android:id="@+id/text_temp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:textStyle="bold"
                     android:gravity="center_horizontal"
+                    android:paddingTop="10dp"
                     android:text='@{result.result.sk.realTemp}'
                     android:textColor="@color/color_text_primary_dark"
-                    android:textSize="60sp"/>
+                    android:textSize="60sp"
+                    android:textStyle="bold"
+                    android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"/>
 
                 <TextView
                     android:id="@+id/text_wind"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:textStyle="bold"
                     android:gravity="center_horizontal"
+                    android:paddingTop="5dp"
                     android:text='@{result.result.sk.realSk}'
+                    android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
                     android:textColor="@color/color_text_primary_dark"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -60,6 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="16dp"
+                        android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
                         android:text='@{result.result.today.week}'
                         android:textColor="@color/color_text_primary_dark"
                         android:textSize="18sp"
@@ -68,6 +75,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -80,17 +88,19 @@
                             android:id="@+id/imageView2"
                             android:layout_width="wrap_content"
                             android:layout_height="60dp"
+                            android:paddingLeft="40dp"
                             android:src="@{result.result.today.imageTodayFb}"/>
                     </LinearLayout>
 
 
                     <TextView
-                        android:paddingTop="16dp"
                         android:id="@+id/textView3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:gravity="center"
+                        android:paddingTop="16dp"
+                        android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
                         android:text='@{result.result.today.temperature+"  "+result.result.today.wind}'
                         android:textColor="@color/color_text_primary_dark"
                         android:textSize="16sp"
@@ -98,11 +108,12 @@
                         />
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
                         android:text='@{result.result.today.realToday}'
                         android:textColor="@color/color_text_primary_dark"
                         android:textSize="16sp"

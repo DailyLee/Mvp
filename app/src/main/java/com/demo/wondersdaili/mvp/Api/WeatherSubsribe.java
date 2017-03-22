@@ -1,7 +1,6 @@
 package com.demo.wondersdaili.mvp.Api;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
 
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.GsonBean;
@@ -52,7 +51,7 @@ public abstract class WeatherSubsribe extends MySubsribe<GsonBean> {
         }
     }
 
-    public abstract void onQuerySuccess(@NonNull GsonBean gsonBean);
+    public abstract void onQuerySuccess( GsonBean gsonBean);
 
     public abstract void onQueryFail(GsonBean gsonBean);
 }
