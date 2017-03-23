@@ -1,8 +1,5 @@
 package com.demo.wondersdaili.mvp.View;
 
-import android.app.SearchManager;
-import android.app.SearchableInfo;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -95,13 +92,9 @@ public class MainActivity extends BaseActivity<BDLocation> implements SearchView
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.toolbar_menu, menu);
-
         //搜索框和定位按钮
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         mSearchView.setOnQueryTextListener(this);
-        SearchableInfo searchableInfo = searchManager.getSearchableInfo(getComponentName());
-        mSearchView.setSearchableInfo(searchableInfo);
         MenuItem location = menu.findItem(R.id.action_location);
         location.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -125,6 +118,7 @@ public class MainActivity extends BaseActivity<BDLocation> implements SearchView
         });
         weatherFragment2.queryWeather(false, query);
         mSearchView.clearFocus();
+        mSearchView.onActionViewCollapsed();
         return true;
     }
 

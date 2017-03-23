@@ -25,22 +25,18 @@ public class BaseActivity<T> extends AppCompatActivity {
         initPermission();
         mLocationInteractor = App.getApplication().getComponent().getLocationInteractor();
         mLocationInteractor.register(this);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         mLocationInteractor.queryLateKnownLocation();
     }
+
 
     /***
      * loadLateKnownLocation
      * @param t
      */
     public void loadLateKnownLocation(T t) {
-        String city = ((BDLocation) t).getCity();
-        city = city.substring(0,city.length()-1);
-        if (city != null){
+        if(t != null){
+            String city = ((BDLocation) t).getCity();
+            city = city.substring(0,city.length()-1);
             App.setCity(city);
         }
     }
