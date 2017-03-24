@@ -9,10 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.demo.wondersdaili.mvp.Api.ConstantApi;
 import com.demo.wondersdaili.mvp.App;
+import com.demo.wondersdaili.mvp.Constants;
 import com.demo.wondersdaili.mvp.Dagger2.AppComponent;
-import com.demo.wondersdaili.mvp.GsonBean;
+import com.demo.wondersdaili.mvp.Api.WeatherBean;
 import com.demo.wondersdaili.mvp.Persenter.WeatherInteractor;
 import com.demo.wondersdaili.mvp.R;
 import com.demo.wondersdaili.mvp.Utils.ToastUtils;
@@ -32,8 +32,8 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
     private AppComponent mComponent;
     private WeatherInteractor mWeatherInteractor;
     private CommonAdapter mAdapter;
-    private GsonBean mResultBean = new GsonBean();
-    private List<GsonBean.ResultBean.FutureBean> mFutures = new ArrayList<>();
+    private WeatherBean mResultBean = new WeatherBean();
+    private List<WeatherBean.ResultBean.FutureBean> mFutures = new ArrayList<>();
     private RecyclerView mRvFuture;
     private String mType;
     private String mCity;
@@ -95,7 +95,7 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
      * 获取数据之后调用此方法
      * @param resultBean
      */
-    public void loadWeatherData(GsonBean.ResultBean resultBean) {
+    public void loadWeatherData(WeatherBean.ResultBean resultBean) {
         App.setCity(resultBean.getToday().getCity());
         mResultBean.setResult(resultBean);
         mSwipe.setRefreshing(false);
@@ -111,19 +111,19 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
 
     /***
      * 获取数据失败之后调用此方法
-     * @param gsonBean
+     * @param weatherBean
      */
-    public void loadErrorData(GsonBean gsonBean) {
+    public void loadErrorData(WeatherBean weatherBean) {
         mSwipe.setRefreshing(false);
-        if (gsonBean != null){
-            ToastUtils.showToast(getContext(),gsonBean.getReason());
+        if (weatherBean != null){
+            ToastUtils.showToast(getContext(), weatherBean.getReason());
         }else {
             ToastUtils.showToast(getContext(),"无法连接网络");
         }
     }
 
-    private void loadFutureData(GsonBean resultBean) {
-        List<GsonBean.ResultBean.FutureBean> future = resultBean.getResult().getFuture();
+    private void loadFutureData(WeatherBean resultBean) {
+        List<WeatherBean.ResultBean.FutureBean> future = resultBean.getResult().getFuture();
         mFutures.clear();
         mFutures.addAll(future);
         if (mAdapter != null) {
@@ -142,7 +142,7 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
     public void queryWeather(boolean isRefreshing, String string) {
         mCity = string;
         if (mWeatherInteractor != null)
-        mWeatherInteractor.queryWeather(2, ConstantApi.UrlKey, mCity, isRefreshing);
+        mWeatherInteractor.queryWeather(2, Constants.UrlKey, mCity, isRefreshing);
     }
 
     @Override

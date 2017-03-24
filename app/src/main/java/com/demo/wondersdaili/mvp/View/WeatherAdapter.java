@@ -1,6 +1,6 @@
 package com.demo.wondersdaili.mvp.View;
 
-import com.demo.wondersdaili.mvp.GsonBean;
+import com.demo.wondersdaili.mvp.Api.WeatherBean;
 import com.demo.wondersdaili.mvp.databinding.RlItemBinding;
 
 import java.util.List;
@@ -18,6 +18,6 @@ import java.util.List;
     @Override
     public void onBindViewHolder(CommonAdapter.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        ((RlItemBinding)holder.getViewDataBinding()).setResultFuture((GsonBean.ResultBean.FutureBean) mData.get(position));
+        ((RlItemBinding)holder.getViewDataBinding()).setResultFuture((WeatherBean.ResultBean.FutureBean) mData.get(position));
     }
 }

@@ -1,8 +1,6 @@
 package com.demo.wondersdaili.mvp.Api;
 
 
-import com.demo.wondersdaili.mvp.GsonBean;
-
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -14,5 +12,5 @@ import rx.Observable;
 
 public interface Api {
     @GET("weather/index")
-    Observable<GsonBean> queryWeather(@Query("format") int format,@Query("key") String key, @Query("cityname") String city);
+    Observable<WeatherBean> queryWeather(@Query("format") int format, @Query("key") String key, @Query("cityname") String city);
 }

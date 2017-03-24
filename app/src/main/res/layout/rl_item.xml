@@ -4,11 +4,11 @@
 
     <data>
 
-        <import type="com.demo.wondersdaili.mvp.GsonBean"/>
+        <import type="com.demo.wondersdaili.mvp.Api.WeatherBean"/>
 
         <variable
             name="resultFuture"
-            type="GsonBean.ResultBean.FutureBean"/>
+            type="WeatherBean.ResultBean.FutureBean"/>
     </data>
 
     <LinearLayout

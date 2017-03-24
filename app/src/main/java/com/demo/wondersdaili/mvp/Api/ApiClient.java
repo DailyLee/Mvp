@@ -1,5 +1,7 @@
 package com.demo.wondersdaili.mvp.Api;
 
+import com.demo.wondersdaili.mvp.Constants;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -19,7 +21,7 @@ public class ApiClient {
             builder.retryOnConnectionFailure(true);
             GsonConverterFactory factory = GsonConverterFactory.create();
             retrofit = new Retrofit.Builder().client(okHttpClient)
-                    .baseUrl(ConstantApi.BaseUrl)
+                    .baseUrl(Constants.BaseUrl)
                     .addConverterFactory(factory)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();

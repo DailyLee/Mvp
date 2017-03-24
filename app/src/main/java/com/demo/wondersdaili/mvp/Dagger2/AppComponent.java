@@ -16,7 +16,7 @@ import dagger.Component;
 @Singleton
 @Component(
         modules = {
-                WeatherModules.class,
+                AppModules.class,
         }
 )
 

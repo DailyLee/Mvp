@@ -11,10 +11,10 @@ import rx.Subscriber;
  * Created by daili on 2017/3/9.
  */
 
-public abstract class MySubsribe<T> extends Subscriber<T> {
+public abstract class BaseSubsribe<T> extends Subscriber<T> {
     private Activity mActivity;
 
-    public MySubsribe(Activity activity) {
+    public BaseSubsribe(Activity activity) {
         mActivity = activity;
     }
 
@@ -22,19 +22,19 @@ public abstract class MySubsribe<T> extends Subscriber<T> {
     public void onStart() {
         super.onStart();
         UIUtils.showProgressBar(mActivity,"正在加载");
-        Log.i("MySubsribe", "onStart");
+        Log.i("BaseSubsribe", "onStart");
     }
 
 
     @Override
     public void onCompleted() {
         UIUtils.hideProgressBar(mActivity);
-        Log.i("MySubsribe", "onCompleted");
+        Log.i("BaseSubsribe", "onCompleted");
     }
 
     @Override
     public void onNext(T t) {
-        Log.i("MySubsribe", "onNext");
+        Log.i("BaseSubsribe", "onNext");
     }
 
 
@@ -43,6 +43,6 @@ public abstract class MySubsribe<T> extends Subscriber<T> {
         UIUtils.hideProgressBar(mActivity);
         UIUtils.showErrorView(mActivity,"加载错误");
         e.printStackTrace();
-        Log.i("MySubsribe", "onError" + e.getMessage());
+        Log.i("BaseSubsribe", "onError" + e.getMessage());
     }
 }

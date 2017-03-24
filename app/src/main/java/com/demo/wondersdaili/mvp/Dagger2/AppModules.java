@@ -18,7 +18,7 @@ import retrofit2.Retrofit;
  * Created by daili on 2017/3/10.
  */
 @Module
-public class WeatherModules {
+public class AppModules {
 
     @Provides
     public Retrofit providesApiClient(){

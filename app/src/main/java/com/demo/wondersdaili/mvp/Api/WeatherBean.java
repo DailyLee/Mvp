@@ -1,8 +1,12 @@
-package com.demo.wondersdaili.mvp;
+package com.demo.wondersdaili.mvp.Api;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.drawable.Drawable;
+
+import com.demo.wondersdaili.mvp.App;
+import com.demo.wondersdaili.mvp.BR;
+import com.demo.wondersdaili.mvp.R;
 
 import java.util.List;
 
@@ -11,7 +15,7 @@ import java.util.List;
  * Created by daili on 2017/3/9.
  */
 
-public class GsonBean extends BaseObservable  {
+public class WeatherBean extends BaseObservable  {
 
 
     /**

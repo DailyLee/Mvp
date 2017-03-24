@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import com.demo.wondersdaili.mvp.Api.Api;
 import com.demo.wondersdaili.mvp.Api.WeatherSubsribe;
 import com.demo.wondersdaili.mvp.App;
-import com.demo.wondersdaili.mvp.GsonBean;
+import com.demo.wondersdaili.mvp.Api.WeatherBean;
 import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 import com.demo.wondersdaili.mvp.View.WeatherFragment;
 
@@ -36,21 +36,21 @@ public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
     public Subscription queryWeather(int format, String key, String cityName, final boolean isRefreshing) {
         mWeatherSubsribe = new WeatherSubsribe(mFragment.getActivity()) {
             @Override
-            public void onQuerySuccess(GsonBean gsonBean) {
+            public void onQuerySuccess(WeatherBean weatherBean) {
                 if (isRefreshing) {
                     ToastUtils.showToast(App.getApplication(),"刷新成功");
                 }
                 //获取数据成功显示数据
-                mFragment.loadWeatherData(gsonBean.getResult());
+                mFragment.loadWeatherData(weatherBean.getResult());
             }
 
             @Override
-            public void onQueryFail(GsonBean gsonBean) {
-                mFragment.loadErrorData(gsonBean);
+            public void onQueryFail(WeatherBean weatherBean) {
+                mFragment.loadErrorData(weatherBean);
             }
         };
 
-        Observable<GsonBean> observable = mApi.queryWeather(format, key, cityName);
+        Observable<WeatherBean> observable = mApi.queryWeather(format, key, cityName);
         return observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

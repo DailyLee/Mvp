@@ -6,6 +6,7 @@ import com.baidu.location.BDLocation;
 import com.demo.wondersdaili.mvp.BaseActivity;
 import com.demo.wondersdaili.mvp.Location.LocationSubsribe;
 import com.demo.wondersdaili.mvp.Location.RxLocation;
+import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 
 import javax.inject.Inject;
 
@@ -36,7 +37,7 @@ public class LocationInteractorImpl implements LocationInteractor<BaseActivity> 
 
             @Override
             public void onLocationFail(BDLocation location) {
-
+                ToastUtils.showToast(mBaseActivity,"获取定位失败");
             }
         };
         mRxLocation.locate(mBaseActivity).observeOn(AndroidSchedulers.mainThread())
@@ -53,7 +54,7 @@ public class LocationInteractorImpl implements LocationInteractor<BaseActivity> 
 
             @Override
             public void onLocationFail(BDLocation location) {
-
+                ToastUtils.showToast(mBaseActivity,"获取定位失败");
             }
         };
         mRxLocation.locateLastKnown(mBaseActivity).observeOn(AndroidSchedulers.mainThread())

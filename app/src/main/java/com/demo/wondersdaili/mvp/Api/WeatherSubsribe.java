@@ -3,15 +3,14 @@ package com.demo.wondersdaili.mvp.Api;
 import android.app.Activity;
 
 import com.demo.wondersdaili.mvp.App;
-import com.demo.wondersdaili.mvp.GsonBean;
-import com.demo.wondersdaili.mvp.MySubsribe;
+import com.demo.wondersdaili.mvp.BaseSubsribe;
 import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 
 /**
  * Created by daili on 2017/3/21.
  */
 
-public abstract class WeatherSubsribe extends MySubsribe<GsonBean> {
+public abstract class WeatherSubsribe extends BaseSubsribe<WeatherBean> {
 
     public WeatherSubsribe(Activity activity) {
         super(activity);
@@ -37,21 +36,21 @@ public abstract class WeatherSubsribe extends MySubsribe<GsonBean> {
     }
 
     @Override
-    public void onNext(GsonBean gsonBean) {
-        super.onNext(gsonBean);
-        if (!"200".equals(gsonBean.getResultcode())) {
-            ToastUtils.showToast(App.getApplication(), "获取天气失败,错误码:" + gsonBean.getError_code());
-            onQueryFail(gsonBean);
+    public void onNext(WeatherBean weatherBean) {
+        super.onNext(weatherBean);
+        if (!"200".equals(weatherBean.getResultcode())) {
+            ToastUtils.showToast(App.getApplication(), "获取天气失败,错误码:" + weatherBean.getError_code());
+            onQueryFail(weatherBean);
         } else {
-            if (gsonBean.getResult() != null) {
-                onQuerySuccess(gsonBean);
+            if (weatherBean.getResult() != null) {
+                onQuerySuccess(weatherBean);
             } else {
-                onQueryFail(gsonBean);
+                onQueryFail(weatherBean);
             }
         }
     }
 
-    public abstract void onQuerySuccess( GsonBean gsonBean);
+    public abstract void onQuerySuccess( WeatherBean weatherBean);
 
-    public abstract void onQueryFail(GsonBean gsonBean);
+    public abstract void onQueryFail(WeatherBean weatherBean);
 }

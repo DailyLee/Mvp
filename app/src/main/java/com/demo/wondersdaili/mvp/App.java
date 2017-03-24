@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.demo.wondersdaili.mvp.Dagger2.AppComponent;
 import com.demo.wondersdaili.mvp.Dagger2.DaggerAppComponent;
-import com.demo.wondersdaili.mvp.Dagger2.WeatherModules;
+import com.demo.wondersdaili.mvp.Dagger2.AppModules;
 import com.demo.wondersdaili.mvp.Location.LocationService;
 
 /**
@@ -24,7 +24,8 @@ public class App extends Application {
         super.onCreate();
         mCity = "北京市";
         app = this;
-        mComponent = DaggerAppComponent.builder().weatherModules(new WeatherModules())
+        //DaggerAppComponent需要rebuild
+        mComponent = DaggerAppComponent.builder().appModules(new AppModules())
                 .build();
         mComponent.inject(this);
         mLocationService = mComponent.getLocationService();

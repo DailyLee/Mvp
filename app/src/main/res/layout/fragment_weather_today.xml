@@ -5,11 +5,11 @@
 
         <import type="android.view.View"/>
 
-        <import type="com.demo.wondersdaili.mvp.GsonBean"/>
+        <import type="com.demo.wondersdaili.mvp.Api.WeatherBean"/>
 
         <variable
             name="result"
-            type="GsonBean"/>
+            type="WeatherBean"/>
     </data>
 
     <android.support.v4.widget.SwipeRefreshLayout
