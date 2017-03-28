@@ -3,18 +3,17 @@ package com.demo.wondersdaili.mvp.Persenter;
 import android.support.v4.app.Fragment;
 
 import com.demo.wondersdaili.mvp.Api.Api;
+import com.demo.wondersdaili.mvp.Api.WeatherBean;
 import com.demo.wondersdaili.mvp.Api.WeatherSubsribe;
 import com.demo.wondersdaili.mvp.App;
-import com.demo.wondersdaili.mvp.Api.WeatherBean;
 import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 import com.demo.wondersdaili.mvp.View.WeatherFragment;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -23,7 +22,6 @@ import rx.schedulers.Schedulers;
 
 public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
     private Api mApi;
-    private WeatherSubsribe mWeatherSubsribe;
     private WeatherFragment mFragment;
 
     @Inject
@@ -33,12 +31,12 @@ public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
 
 
     @Override
-    public Subscription queryWeather(int format, String key, String cityName, final boolean isRefreshing) {
-        mWeatherSubsribe = new WeatherSubsribe(mFragment.getActivity()) {
+    public void queryWeather(int format, String key, String cityName, final boolean isRefreshing) {
+        WeatherSubsribe weatherSubsribe = new WeatherSubsribe(mFragment.getActivity()) {
             @Override
             public void onQuerySuccess(WeatherBean weatherBean) {
                 if (isRefreshing) {
-                    ToastUtils.showToast(App.getApplication(),"刷新成功");
+                    ToastUtils.showToast(App.getApplication(), "刷新成功");
                 }
                 //获取数据成功显示数据
                 mFragment.loadWeatherData(weatherBean.getResult());
@@ -51,10 +49,10 @@ public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
         };
 
         Observable<WeatherBean> observable = mApi.queryWeather(format, key, cityName);
-        return observable.subscribeOn(Schedulers.io())
+        observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
-                .subscribe(mWeatherSubsribe);
+                .subscribe(weatherSubsribe);
     }
 
 
@@ -66,8 +64,6 @@ public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
 
     @Override
     public void unRegister() {
-        if (mWeatherSubsribe != null && mWeatherSubsribe.isUnsubscribed())
-            mWeatherSubsribe.unsubscribe();
         mFragment = null;
     }
 }

@@ -6,7 +6,8 @@ import com.baidu.location.BDLocation;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by daili on 2017/3/21.

@@ -3,7 +3,7 @@ package com.demo.wondersdaili.mvp.Api;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by daili on 2017/3/9.

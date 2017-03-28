@@ -1,10 +1,10 @@
 package com.demo.wondersdaili.mvp.Api;
 
 import com.demo.wondersdaili.mvp.Constants;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -23,7 +23,7 @@ public class ApiClient {
             retrofit = new Retrofit.Builder().client(okHttpClient)
                     .baseUrl(Constants.BaseUrl)
                     .addConverterFactory(factory)
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
         return retrofit;

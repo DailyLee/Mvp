@@ -10,7 +10,8 @@ import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 
 import javax.inject.Inject;
 
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
 
 /**
  * Created by daili on 2017/3/21.
@@ -24,7 +25,6 @@ public class LocationInteractorImpl implements LocationInteractor<BaseActivity> 
     @Inject
     public LocationInteractorImpl(RxLocation rxLocation) {
         mRxLocation = rxLocation;
-
     }
 
     @Override
@@ -69,8 +69,6 @@ public class LocationInteractorImpl implements LocationInteractor<BaseActivity> 
 
     @Override
     public void unRegister() {
-        if (mSubscriber != null && mSubscriber.isUnsubscribed())
-            mSubscriber.unsubscribe();
         mBaseActivity = null;
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout >
 
     <data>
 
@@ -17,13 +17,13 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/swipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context="com.demo.wondersdaili.mvp.View.MainActivity"
         >
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,11 +100,11 @@
                         android:layout_marginStart="10dp"
                         android:gravity="center"
                         android:paddingTop="16dp"
-                        android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
                         android:text='@{result.result.today.temperature+"  "+result.result.today.wind}'
                         android:textColor="@color/color_text_primary_dark"
                         android:textSize="16sp"
                         android:textStyle="bold"
+                        android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
                         />
 
                     <TextView
@@ -112,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="30dp"
                         android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
                         android:text='@{result.result.today.realToday}'
                         android:textColor="@color/color_text_primary_dark"
@@ -122,6 +122,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

@@ -17,8 +17,8 @@ public abstract class LocationSubsribe extends BaseSubsribe<BDLocation> {
     }
 
     @Override
-    public void onCompleted() {
-        super.onCompleted();
+    public void onComplete() {
+        super.onComplete();
     }
 
     @Override

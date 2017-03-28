@@ -6,14 +6,15 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.demo.wondersdaili.mvp.App;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+
 
 /**
  * Created by daili on 2017/3/21.
  */
 
-public class LocationOnSubscribe implements Observable.OnSubscribe<BDLocation> {
+public class LocationOnSubscribe implements ObservableOnSubscribe<BDLocation> {
     private final Context context;
 
     public LocationOnSubscribe(Context context) {
@@ -21,12 +22,12 @@ public class LocationOnSubscribe implements Observable.OnSubscribe<BDLocation> {
     }
 
     @Override
-    public void call(final Subscriber<? super BDLocation> subscriber) {
+    public void subscribe(final ObservableEmitter<BDLocation> subscriber) throws Exception {
         BDLocationListener bdLocationListener = new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
                 subscriber.onNext(bdLocation);
-                subscriber.onCompleted();
+                subscriber.onComplete();
             }
 
             @Override

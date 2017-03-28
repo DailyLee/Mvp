@@ -16,15 +16,10 @@ public abstract class WeatherSubsribe extends BaseSubsribe<WeatherBean> {
         super(activity);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
 
     @Override
-    public void onCompleted() {
-        super.onCompleted();
+    public void onComplete() {
+        super.onComplete();
 
     }
 
