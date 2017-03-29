@@ -55,6 +55,7 @@ public class LocationInteractorImpl implements LocationInteractor<BaseActivity> 
             @Override
             public void onLocationFail(BDLocation location) {
                 ToastUtils.showToast(mBaseActivity,"获取定位失败");
+                mBaseActivity.loadLateKnownLocationError();
             }
         };
         mRxLocation.locateLastKnown(mBaseActivity).observeOn(AndroidSchedulers.mainThread())

@@ -12,12 +12,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.baidu.location.BDLocation;
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.BaseActivity;
 import com.demo.wondersdaili.mvp.R;
 import com.demo.wondersdaili.mvp.Utils.ToastUtils;
+import com.demo.wondersdaili.mvp.Utils.UIUtils;
 
 public class MainActivity extends BaseActivity<BDLocation> implements SearchView.OnQueryTextListener {
     private ViewPager mViewPager;
@@ -53,6 +55,18 @@ public class MainActivity extends BaseActivity<BDLocation> implements SearchView
         mViewPager.setAdapter(adapter);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public void loadLateKnownLocationError() {
+        super.loadLateKnownLocationError();
+        UIUtils.showReTryView(this, "点击重试", false, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLocationInteractor.queryLateKnownLocation();
+                UIUtils.hideReTryView(MainActivity.this);
+            }
+        });
     }
 
     @Override

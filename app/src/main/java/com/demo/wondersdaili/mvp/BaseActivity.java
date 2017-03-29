@@ -34,21 +34,27 @@ public class BaseActivity<T> extends AppCompatActivity {
      * @param t
      */
     public void loadLateKnownLocation(T t) {
-        if(t != null){
+        if (t != null) {
             String city = ((BDLocation) t).getCity();
-            city = city.substring(0,city.length()-1);
+            city = city.substring(0, city.length() - 1);
             App.setCity(city);
         }
+    }
+
+    /***
+     * 获取定位失败,重试
+     */
+    public void loadLateKnownLocationError() {
+
     }
 
     /***
      * loadLocation
      * @param t
      */
-    public void loadLocation(T t){
+    public void loadLocation(T t) {
 
     }
-
 
 
     private void initPermission() {
@@ -73,4 +79,6 @@ public class BaseActivity<T> extends AppCompatActivity {
         super.onDestroy();
         mLocationInteractor.unRegister();
     }
+
+
 }

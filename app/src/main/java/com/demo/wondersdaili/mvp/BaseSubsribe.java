@@ -22,7 +22,7 @@ public  class BaseSubsribe<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-        UIUtils.showProgressBar(mActivity,"正在加载");
+        UIUtils.showProgressBar(mActivity,"正在加载",true);
         mDisposable = d;
         Log.i("BaseSubsribe", "onStart");
     }
@@ -35,8 +35,7 @@ public  class BaseSubsribe<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        UIUtils.hideProgressBar(mActivity);
-        UIUtils.showErrorView(mActivity,"加载错误");
+        UIUtils.showErrorView(mActivity,"加载错误",true);
         if (!mDisposable.isDisposed()){
             mDisposable.dispose();
         }
