@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by daili on 2017/3/9.
  */
 
-public class WeatherInteractorImpl implements WeatherInteractor<Fragment> {
+public class WeatherInteractorImpl implements WeatherInteractor {
     private Api mApi;
     private WeatherFragment mFragment;
 

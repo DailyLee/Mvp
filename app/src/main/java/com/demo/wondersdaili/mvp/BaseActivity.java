@@ -15,8 +15,7 @@ import java.util.List;
  * Created by daili on 2017/3/20.
  */
 
-public class BaseActivity<T> extends AppCompatActivity {
-    private List<Integer> mList;
+public class BaseActivity extends AppCompatActivity {
     protected LocationInteractor mLocationInteractor;
 
     @Override
@@ -31,11 +30,11 @@ public class BaseActivity<T> extends AppCompatActivity {
 
     /***
      * loadLateKnownLocation
-     * @param t
+     * @param location
      */
-    public void loadLateKnownLocation(T t) {
-        if (t != null) {
-            String city = ((BDLocation) t).getCity();
+    public void loadLateKnownLocation(BDLocation location) {
+        if (location != null) {
+            String city = location.getCity();
             city = city.substring(0, city.length() - 1);
             App.setCity(city);
         }
@@ -50,22 +49,22 @@ public class BaseActivity<T> extends AppCompatActivity {
 
     /***
      * loadLocation
-     * @param t
+     * @param location
      */
-    public void loadLocation(T t) {
+    public void loadLocation(BDLocation location) {
 
     }
 
 
     private void initPermission() {
-        mList = new ArrayList<>();
-        mList.add(PermissionUtils.CODE_ACCESS_COARSE_LOCATION);
-        mList.add(PermissionUtils.CODE_ACCESS_FINE_LOCATION);
-        mList.add(PermissionUtils.CODE_READ_PHONE_STATE);
-        mList.add(PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE);
-        mList.add(PermissionUtils.CODE_READ_EXTERNAL_STORAGE);
-        for (int i = 0; i < mList.size(); i++) {
-            PermissionUtils.requestPermission(this, mList.get(i), new PermissionUtils.PermissionGrant() {
+        List<Integer> list = new ArrayList<>();
+        list.add(PermissionUtils.CODE_ACCESS_COARSE_LOCATION);
+        list.add(PermissionUtils.CODE_ACCESS_FINE_LOCATION);
+        list.add(PermissionUtils.CODE_READ_PHONE_STATE);
+        list.add(PermissionUtils.CODE_WRITE_EXTERNAL_STORAGE);
+        list.add(PermissionUtils.CODE_READ_EXTERNAL_STORAGE);
+        for (int i = 0; i < list.size(); i++) {
+            PermissionUtils.requestPermission(this, list.get(i), new PermissionUtils.PermissionGrant() {
                 @Override
                 public void onPermissionGranted(int requestCode) {
 
@@ -79,6 +78,4 @@ public class BaseActivity<T> extends AppCompatActivity {
         super.onDestroy();
         mLocationInteractor.unRegister();
     }
-
-
 }

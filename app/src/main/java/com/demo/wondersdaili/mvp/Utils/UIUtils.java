@@ -31,6 +31,7 @@ public class UIUtils {
      *
      * @param activity
      * @param msg
+     * @param canceledOnTouchOutside
      */
     public static Dialog showProgressBar(Activity activity, String msg,boolean canceledOnTouchOutside) {
         if (activity == null || activity.isFinishing()) return null;
@@ -61,9 +62,10 @@ public class UIUtils {
 
     /**
      * 显示重试弹窗
-     *
      * @param activity
      * @param msg
+     * @param canceledOnTouchOutside
+     * @param listener
      */
     public static Dialog showReTryView(Activity activity, String msg, boolean canceledOnTouchOutside, View.OnClickListener listener) {
         if (activity == null || activity.isFinishing()) return null;
@@ -119,9 +121,7 @@ public class UIUtils {
     /**
      * 隐藏进度条
      * hideProgressBar
-     *
      * @param activity
-     * @since 1.0
      */
     public static void hideProgressBar(Activity activity) {
         if (activity == null || activity.isFinishing()) return;
@@ -137,10 +137,8 @@ public class UIUtils {
 
     /**
      * 隐藏重试弹窗
-     * hideProgressBar
-     *
+     * hideReTryViewBar
      * @param activity
-     * @since 1.0
      */
     public static void hideReTryView(Activity activity) {
         if (activity == null || activity.isFinishing()) return;

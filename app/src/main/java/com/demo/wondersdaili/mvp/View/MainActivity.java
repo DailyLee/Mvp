@@ -21,7 +21,7 @@ import com.demo.wondersdaili.mvp.R;
 import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 import com.demo.wondersdaili.mvp.Utils.UIUtils;
 
-public class MainActivity extends BaseActivity<BDLocation> implements SearchView.OnQueryTextListener {
+public class MainActivity extends BaseActivity implements SearchView.OnQueryTextListener {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private Fragment[] mWeatherFragments;

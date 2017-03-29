@@ -17,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  * Created by daili on 2017/3/21.
  */
 
-public class LocationInteractorImpl implements LocationInteractor<BaseActivity> {
+public class LocationInteractorImpl implements LocationInteractor {
     private RxLocation mRxLocation;
     private BaseActivity mBaseActivity;
     private LocationSubsribe mSubscriber;
