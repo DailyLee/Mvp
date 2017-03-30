@@ -8,7 +8,7 @@ import com.demo.wondersdaili.mvp.Dagger2.AppModules;
 import com.demo.wondersdaili.mvp.Location.LocationService;
 
 /**
- * Created by daili on 2017/3/code10.
+ * Created by daili on 2017/3/10.
  */
 
 public class App extends Application {

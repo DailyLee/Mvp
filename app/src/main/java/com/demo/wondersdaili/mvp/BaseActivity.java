@@ -5,7 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.location.BDLocation;
-import com.demo.wondersdaili.mvp.Persenter.LocationInteractor;
+import com.demo.wondersdaili.mvp.Persenter.LocationContract;
+import com.demo.wondersdaili.mvp.Persenter.LocationPersenter;
 import com.demo.wondersdaili.mvp.Utils.PermissionUtils;
 
 import java.util.ArrayList;
@@ -15,16 +16,16 @@ import java.util.List;
  * Created by daili on 2017/3/20.
  */
 
-public class BaseActivity extends AppCompatActivity {
-    protected LocationInteractor mLocationInteractor;
+public class BaseActivity extends AppCompatActivity implements LocationContract.View{
+    protected LocationPersenter mLocationPersenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initPermission();
-        mLocationInteractor = App.getApplication().getComponent().getLocationInteractor();
-        mLocationInteractor.register(this);
-        mLocationInteractor.queryLateKnownLocation();
+        mLocationPersenter = App.getApplication().getComponent().getLocationPersenter();
+        mLocationPersenter.register(this);
+        mLocationPersenter.queryLateKnownLocation();
     }
 
 
@@ -32,6 +33,7 @@ public class BaseActivity extends AppCompatActivity {
      * loadLateKnownLocation
      * @param location
      */
+    @Override
     public void loadLateKnownLocation(BDLocation location) {
         if (location != null) {
             String city = location.getCity();
@@ -43,7 +45,8 @@ public class BaseActivity extends AppCompatActivity {
     /***
      * 获取定位失败,重试
      */
-    public void loadLateKnownLocationError() {
+    @Override
+    public void loadLateKnownLocationError(BDLocation location) {
 
     }
 
@@ -51,6 +54,7 @@ public class BaseActivity extends AppCompatActivity {
      * loadLocation
      * @param location
      */
+    @Override
     public void loadLocation(BDLocation location) {
 
     }
@@ -76,6 +80,6 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLocationInteractor.unRegister();
+        mLocationPersenter.unRegister();
     }
 }

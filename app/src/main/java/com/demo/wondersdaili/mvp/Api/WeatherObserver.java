@@ -3,16 +3,16 @@ package com.demo.wondersdaili.mvp.Api;
 import android.app.Activity;
 
 import com.demo.wondersdaili.mvp.App;
-import com.demo.wondersdaili.mvp.BaseSubsribe;
+import com.demo.wondersdaili.mvp.BaseObserver;
 import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 
 /**
  * Created by daili on 2017/3/21.
  */
 
-public abstract class WeatherSubsribe extends BaseSubsribe<WeatherBean> {
+public abstract class WeatherObserver extends BaseObserver<WeatherBean> {
 
-    public WeatherSubsribe(Activity activity) {
+    protected WeatherObserver(Activity activity) {
         super(activity);
     }
 

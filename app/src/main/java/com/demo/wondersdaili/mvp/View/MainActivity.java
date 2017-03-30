@@ -58,12 +58,12 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
     }
 
     @Override
-    public void loadLateKnownLocationError() {
-        super.loadLateKnownLocationError();
+    public void loadLateKnownLocationError(BDLocation location) {
+        super.loadLateKnownLocationError(location);
         UIUtils.showReTryView(this, "点击重试", false, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLocationInteractor.queryLateKnownLocation();
+                mLocationPersenter.queryLateKnownLocation();
                 UIUtils.hideReTryView(MainActivity.this);
             }
         });
@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity implements SearchView.OnQueryText
         location.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                mLocationInteractor.queryLocation();
+                mLocationPersenter.queryLocation();
                 return true;
             }
         });

@@ -1,7 +1,5 @@
 package com.demo.wondersdaili.mvp.Location;
 
-import android.content.Context;
-
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.demo.wondersdaili.mvp.App;
@@ -14,11 +12,9 @@ import io.reactivex.ObservableOnSubscribe;
  * Created by daili on 2017/3/21.
  */
 
-public class LocationLateKnownOnSubscribe implements ObservableOnSubscribe<BDLocation> {
-    private final Context context;
+class LocationLateKnownOnSubscribe implements ObservableOnSubscribe<BDLocation> {
 
-    public LocationLateKnownOnSubscribe(Context context) {
-        this.context = context;
+    LocationLateKnownOnSubscribe() {
     }
 
     @Override

@@ -12,43 +12,44 @@ import io.reactivex.disposables.Disposable;
  * Created by daili on 2017/3/9.
  */
 
-public  class BaseSubsribe<T> implements Observer<T> {
-    private Activity mActivity;
+public class BaseObserver<T> implements Observer<T> {
+    Activity mActivity;
+
     private Disposable mDisposable;
 
-    public BaseSubsribe(Activity activity) {
+    public BaseObserver(Activity activity) {
         mActivity = activity;
     }
 
     @Override
     public void onSubscribe(Disposable d) {
-        UIUtils.showProgressBar(mActivity,"正在加载",true);
+        UIUtils.showProgressBar(mActivity, "正在加载", true);
         mDisposable = d;
-        Log.i("BaseSubsribe", "onStart");
+        Log.i("BaseObserver", "onStart");
     }
 
     @Override
     public void onNext(T t) {
-        Log.i("BaseSubsribe", "onNext");
+        Log.i("BaseObserver", "onNext");
     }
 
 
     @Override
     public void onError(Throwable e) {
-        UIUtils.showErrorView(mActivity,"加载错误",true);
-        if (!mDisposable.isDisposed()){
+        UIUtils.showErrorView(mActivity, "加载错误", true);
+        if (!mDisposable.isDisposed()) {
             mDisposable.dispose();
         }
         e.printStackTrace();
-        Log.i("BaseSubsribe", "onError" + e.getMessage());
+        Log.i("BaseObserver", "onError" + e.getMessage());
     }
 
     @Override
     public void onComplete() {
         UIUtils.hideProgressBar(mActivity);
-        if (!mDisposable.isDisposed()){
+        if (!mDisposable.isDisposed()) {
             mDisposable.dispose();
         }
-        Log.i("BaseSubsribe", "onCompleted");
+        Log.i("BaseObserver", "onCompleted");
     }
 }

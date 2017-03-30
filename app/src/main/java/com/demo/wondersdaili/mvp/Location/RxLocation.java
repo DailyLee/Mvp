@@ -28,11 +28,11 @@ public class RxLocation {
         return instance;
     }
 
-    public Observable<BDLocation> locate(Context context) {
-        return Observable.create(new LocationOnSubscribe(context));
+    public Observable<BDLocation> locate() {
+        return Observable.create(new LocationOnSubscribe());
     }
 
-    public Observable<BDLocation> locateLastKnown(Context context) {
-        return Observable.create(new LocationLateKnownOnSubscribe(context));
+    public Observable<BDLocation> locateLastKnown() {
+        return Observable.create(new LocationLateKnownOnSubscribe());
     }
 }

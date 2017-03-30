@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.baidu.location.BDLocation;
-import com.demo.wondersdaili.mvp.BaseSubsribe;
+import com.demo.wondersdaili.mvp.BaseObserver;
 import com.demo.wondersdaili.mvp.Utils.LocationUtil;
 
 /**
  * Created by daili on 2017/3/21.
  */
 
-public abstract class LocationSubsribe extends BaseSubsribe<BDLocation> {
-    public LocationSubsribe(Activity activity) {
+public abstract class LocationObserver extends BaseObserver<BDLocation> {
+    protected LocationObserver(Activity activity) {
         super(activity);
     }
 

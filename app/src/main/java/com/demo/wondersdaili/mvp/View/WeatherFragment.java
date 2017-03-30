@@ -2,18 +2,21 @@ package com.demo.wondersdaili.mvp.View;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
+import com.demo.wondersdaili.mvp.Api.WeatherBean;
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.Constants;
-import com.demo.wondersdaili.mvp.Dagger2.AppComponent;
-import com.demo.wondersdaili.mvp.Api.WeatherBean;
-import com.demo.wondersdaili.mvp.Persenter.WeatherInteractor;
+import com.demo.wondersdaili.mvp.Dagger2.FragmentComponent;
+import com.demo.wondersdaili.mvp.Dagger2.FragmentModules;
+import com.demo.wondersdaili.mvp.Dagger2.DaggerFragmentComponent;
+import com.demo.wondersdaili.mvp.Persenter.WeatherContract;
+import com.demo.wondersdaili.mvp.Persenter.WeatherPersenter;
 import com.demo.wondersdaili.mvp.R;
 import com.demo.wondersdaili.mvp.Utils.ToastUtils;
 import com.demo.wondersdaili.mvp.databinding.FragmentWeatherTodayBinding;
@@ -28,9 +31,8 @@ import static com.demo.wondersdaili.mvp.R.id.swipe;
  * Created by daili on 2017/3/22.
  */
 
-public class WeatherFragment extends android.support.v4.app.Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private AppComponent mComponent;
-    private WeatherInteractor mWeatherInteractor;
+public class WeatherFragment extends android.support.v4.app.Fragment implements SwipeRefreshLayout.OnRefreshListener ,WeatherContract.View {
+    private WeatherPersenter mWeatherPersenter;
     private CommonAdapter mAdapter;
     private WeatherBean mResultBean = new WeatherBean();
     private List<WeatherBean.ResultBean.FutureBean> mFutures = new ArrayList<>();
@@ -57,37 +59,40 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //获取对象
-        mComponent = App.getApplication().getComponent();
-        mWeatherInteractor = mComponent.getWeatherInteractor();
+        FragmentActivity activity = this.getActivity();
+        FragmentComponent component = DaggerFragmentComponent.builder().fragmentModules(new FragmentModules(activity))
+                .build();
+        component.inject(this);
+        mWeatherPersenter = component.getWeatherPersenter();
         //注册
-        mWeatherInteractor.register(this);
+        mWeatherPersenter.register(this);
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public android.view.View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mType = getArguments().getString("type");
         mCity = App.getCity();
-        View view;
+        android.view.View View;
         if ("1".equals(mType)) {
             FragmentWeatherTodayBinding inflate = inflate(inflater, R.layout.fragment_weather_today, container, false);
             mSwipe = inflate.swipe;
             mSwipe.setOnRefreshListener(this);
             inflate.setResult(mResultBean);
-            view = inflate.getRoot();
+            View = inflate.getRoot();
         } else {
-            view = inflater.inflate(R.layout.fragment_weather_future, container, false);
-            mSwipe = (SwipeRefreshLayout) view.findViewById(swipe);
-            mRvFuture = (RecyclerView) view.findViewById(R.id.rv_future);
+            View = inflater.inflate(R.layout.fragment_weather_future, container, false);
+            mSwipe = (SwipeRefreshLayout) View.findViewById(swipe);
+            mRvFuture = (RecyclerView) View.findViewById(R.id.rv_future);
             mRvFuture.setLayoutManager(new LinearLayoutManager(getContext()));
             mSwipe.setOnRefreshListener(this);
         }
-        return view;
+        return View;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(android.view.View View, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(View, savedInstanceState);
         queryWeather(false, mCity);
     }
 
@@ -95,6 +100,7 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
      * 获取数据之后调用此方法
      * @param resultBean
      */
+    @Override
     public void loadWeatherData(WeatherBean.ResultBean resultBean) {
         App.setCity(resultBean.getToday().getCity());
         mResultBean.setResult(resultBean);
@@ -113,6 +119,7 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
      * 获取数据失败之后调用此方法
      * @param weatherBean
      */
+    @Override
     public void loadErrorData(WeatherBean weatherBean) {
         mSwipe.setRefreshing(false);
         if (weatherBean != null){
@@ -141,8 +148,8 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
 
     public void queryWeather(boolean isRefreshing, String string) {
         mCity = string;
-        if (mWeatherInteractor != null)
-        mWeatherInteractor.queryWeather(2, Constants.UrlKey, mCity, isRefreshing);
+        if (mWeatherPersenter != null)
+        mWeatherPersenter.queryWeather(2, Constants.UrlKey, mCity, isRefreshing);
     }
 
     @Override
@@ -154,6 +161,6 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mWeatherInteractor.unRegister();
+        mWeatherPersenter.unRegister();
     }
 }
