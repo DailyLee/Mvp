@@ -2,10 +2,12 @@ package com.demo.wondersdaili.mvp;
 
 import android.app.Application;
 
-import com.demo.wondersdaili.mvp.Dagger2.AppComponent;
-import com.demo.wondersdaili.mvp.Dagger2.DaggerAppComponent;
-import com.demo.wondersdaili.mvp.Dagger2.AppModules;
-import com.demo.wondersdaili.mvp.Location.LocationService;
+import com.demo.wondersdaili.mvp.dagger2.AppComponent;
+import com.demo.wondersdaili.mvp.dagger2.DaggerAppComponent;
+import com.demo.wondersdaili.mvp.dagger2.AppModules;
+import com.demo.wondersdaili.mvp.location.LocationService;
+
+import javax.inject.Inject;
 
 /**
  * Created by daili on 2017/3/10.
@@ -16,7 +18,8 @@ public class App extends Application {
     private AppComponent mComponent;
     private static App app;
     private static String mCity;
-    private static LocationService mLocationService;
+    @Inject
+    static LocationService mLocationService;
 
 
     @Override
@@ -28,7 +31,6 @@ public class App extends Application {
         mComponent = DaggerAppComponent.builder().appModules(new AppModules())
                 .build();
         mComponent.inject(this);
-        mLocationService = mComponent.getLocationService();
     }
 
 
