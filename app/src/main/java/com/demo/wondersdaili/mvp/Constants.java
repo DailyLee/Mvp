@@ -7,5 +7,5 @@ package com.demo.wondersdaili.mvp;
 public class Constants {
     public static final String BaseUrl = "http://v.juhe.cn/";
     //如果请求次数不足请更换key(https://www.juhe.cn/docs/api/id/39)
-    public static final String UrlKey = "60e314f7a5c571004b63e1868ec23366";
+    public static final String UrlKey = "30c5ae51f0cfec2a5132dc338195946d";
 }
