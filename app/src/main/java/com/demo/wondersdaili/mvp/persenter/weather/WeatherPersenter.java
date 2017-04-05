@@ -54,7 +54,7 @@ public class WeatherPersenter implements WeatherContract.Persenter {
                         }
                     });
                 }else {
-                    mView.showNoData();
+                    mView.showNoData(weatherBean.getReason());
                 }
                 mView.loadErrorData(weatherBean);
             }

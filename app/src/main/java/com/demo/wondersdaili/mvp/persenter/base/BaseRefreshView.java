@@ -25,7 +25,7 @@ public interface BaseRefreshView extends BaseView {
     /**
      * 显示无数据
      */
-    void showNoData();
+    void showNoData(String reason);
 
 
     /**

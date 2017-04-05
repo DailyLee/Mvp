@@ -26,6 +26,7 @@ public class EmptyLayout extends FrameLayout {
     private Context mContext;
     private OnRetryListener mOnRetryListener;
     private int mEmptyStatus = STATUS_LOADING;
+    private String NoDataReason;
 
     TextView mTvEmptyNoData;
 
@@ -82,8 +83,11 @@ public class EmptyLayout extends FrameLayout {
      *
      * @param emptyStatus
      */
-    public void setEmptyStatus(@EmptyStatus int emptyStatus) {
+    public void setEmptyStatus(@EmptyStatus int emptyStatus, String reason) {
         mEmptyStatus = emptyStatus;
+        if (reason != null){
+            NoDataReason = reason;
+        }
         _switchEmptyView();
     }
 
@@ -126,6 +130,7 @@ public class EmptyLayout extends FrameLayout {
                 mEmptyLoading.setVisibility(GONE);
                 mTvEmptyNoNet.setVisibility(GONE);
                 mTvEmptyNoData.setVisibility(VISIBLE);
+                mTvEmptyNoData.setText(NoDataReason);
                 break;
             case STATUS_NO_NET:
                 setVisibility(VISIBLE);
@@ -159,7 +164,7 @@ public class EmptyLayout extends FrameLayout {
 
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({STATUS_LOADING, STATUS_NO_NET, STATUS_NO_DATA,STATUS_HIDE})
-    public @interface EmptyStatus {
+    @IntDef({STATUS_LOADING, STATUS_NO_NET, STATUS_NO_DATA, STATUS_HIDE})
+    @interface EmptyStatus {
     }
 }

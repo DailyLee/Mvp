@@ -93,17 +93,17 @@ public abstract class BaseWeatherFragment extends Fragment implements WeatherCon
         } else {
             if (mEmptyLayout != null) {
                 mSwipeView.setEnabled(false);
-                mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING);
+                mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING,null);
             }
         }
 
     }
 
     @Override
-    public void showNoData() {
+    public void showNoData(String reason) {
         if (mEmptyLayout != null) {
             mSwipeView.setEnabled(false);
-            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_DATA);
+            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_DATA,reason);
         }
     }
 
@@ -118,14 +118,14 @@ public abstract class BaseWeatherFragment extends Fragment implements WeatherCon
     public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
         if (mEmptyLayout != null) {
             mSwipeView.setEnabled(false);
-            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET);
+            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET,null);
             mEmptyLayout.setRetryListener(onRetryListener);
         }
     }
 
     @Override
     public void finishRefresh() {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_HIDE);
+        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_HIDE,null);
         mSwipeView.setEnabled(true);
     }
 
