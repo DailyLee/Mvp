@@ -5,7 +5,7 @@ import android.app.Application;
 import com.demo.wondersdaili.mvp.dagger2.AppComponent;
 import com.demo.wondersdaili.mvp.dagger2.DaggerAppComponent;
 import com.demo.wondersdaili.mvp.dagger2.AppModules;
-import com.demo.wondersdaili.mvp.location.LocationService;
+import com.demo.wondersdaili.mvp.model.location.LocationService;
 
 import javax.inject.Inject;
 
@@ -25,7 +25,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mCity = "北京市";
+        mCity = "北京";
         app = this;
         //DaggerAppComponent需要rebuild
         mComponent = DaggerAppComponent.builder().appModules(new AppModules())

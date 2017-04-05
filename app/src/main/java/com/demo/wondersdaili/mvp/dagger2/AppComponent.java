@@ -1,7 +1,7 @@
 package com.demo.wondersdaili.mvp.dagger2;
 
 import com.demo.wondersdaili.mvp.App;
-import com.demo.wondersdaili.mvp.persenter.LocationPersenter;
+import com.demo.wondersdaili.mvp.persenter.location.LocationPersenter;
 
 import javax.inject.Singleton;
 

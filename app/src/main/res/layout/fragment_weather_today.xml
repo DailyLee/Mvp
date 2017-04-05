@@ -5,7 +5,7 @@
 
         <import type="android.view.View"/>
 
-        <import type="com.demo.wondersdaili.mvp.api.WeatherBean"/>
+        <import type="com.demo.wondersdaili.mvp.model.weather.WeatherBean"/>
 
         <variable
             name="result"
@@ -18,7 +18,7 @@
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="com.demo.wondersdaili.mvp.view.MainLocationActivity"
+        tools:context="com.demo.wondersdaili.mvp.view.location.MainLocationActivity"
         >
 
         <FrameLayout

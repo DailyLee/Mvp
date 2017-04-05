@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:paddingBottom="80dp"
+        android:paddingBottom="120dp"
         android:visibility="visible">
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/color_text_primary_dark"
             android:text="暂时该地区数据"
             android:textSize="16sp"/>
 
@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/color_text_primary_dark"
             android:text="网络异常，点击重试"
             android:textSize="16sp"/>
     </FrameLayout>
@@ -43,6 +43,7 @@
         android:id="@+id/empty_loading"
         android:visibility="gone"
         android:padding="20dp"
+        android:paddingBottom="160dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

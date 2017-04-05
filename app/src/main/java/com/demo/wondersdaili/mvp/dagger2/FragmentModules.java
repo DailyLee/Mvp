@@ -2,9 +2,9 @@ package com.demo.wondersdaili.mvp.dagger2;
 
 import android.app.Activity;
 
-import com.demo.wondersdaili.mvp.api.Api;
-import com.demo.wondersdaili.mvp.api.ApiClient;
-import com.demo.wondersdaili.mvp.persenter.WeatherPersenter;
+import com.demo.wondersdaili.mvp.model.weather.Api;
+import com.demo.wondersdaili.mvp.model.weather.ApiClient;
+import com.demo.wondersdaili.mvp.persenter.weather.WeatherPersenter;
 
 import dagger.Module;
 import dagger.Provides;

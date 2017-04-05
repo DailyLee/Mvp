@@ -2,7 +2,7 @@
 
 <layout>
     <data>
-        <import type="com.demo.wondersdaili.mvp.api.WeatherBean"/>
+        <import type="com.demo.wondersdaili.mvp.model.weather.WeatherBean"/>
         <variable
             name="resultFuture"
             type="WeatherBean.ResultBean.FutureBean"/>

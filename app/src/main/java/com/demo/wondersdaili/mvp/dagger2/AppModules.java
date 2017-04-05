@@ -1,9 +1,9 @@
 package com.demo.wondersdaili.mvp.dagger2;
 
 import com.demo.wondersdaili.mvp.App;
-import com.demo.wondersdaili.mvp.location.LocationService;
-import com.demo.wondersdaili.mvp.location.RxLocation;
-import com.demo.wondersdaili.mvp.persenter.LocationPersenter;
+import com.demo.wondersdaili.mvp.model.location.LocationService;
+import com.demo.wondersdaili.mvp.model.location.RxLocation;
+import com.demo.wondersdaili.mvp.persenter.location.LocationPersenter;
 
 import dagger.Module;
 import dagger.Provides;

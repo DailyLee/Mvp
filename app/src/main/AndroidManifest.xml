@@ -34,7 +34,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="uSjWM8tm6Lk4p4Z7fYIFbj7QxUKCH6fg"/>
         <activity
-            android:name=".view.MainLocationActivity"
+            android:name=".view.location.MainLocationActivity"
             android:screenOrientation="portrait">
 
             <intent-filter>
