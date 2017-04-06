@@ -12,6 +12,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
 
 import com.baidu.location.BDLocation;
 import com.demo.wondersdaili.mvp.App;
@@ -21,6 +23,7 @@ import com.demo.wondersdaili.mvp.view.base.BaseLocationActivity;
 import com.demo.wondersdaili.mvp.view.base.BaseWeatherFragment;
 import com.demo.wondersdaili.mvp.view.weather.FutureWeatherWeatherFragment;
 import com.demo.wondersdaili.mvp.view.weather.TodayWeatherWeatherFragment;
+import com.demo.wondersdaili.mvp.widget.YRotationAnimation;
 
 public class MainLocationActivity extends BaseLocationActivity implements SearchView.OnQueryTextListener {
     private ViewPager mViewPager;
@@ -30,6 +33,7 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
     private long exitTime = 0;
     private TabPagerAdapter mAdapter;
     private BaseWeatherFragment[] mWeatherFragments = new BaseWeatherFragment[2];
+    private View mActionView;
 
 
     @Override
@@ -66,23 +70,65 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
      * @param location
      */
     @Override
-    public void loadLateKnownLocation(BDLocation location) {
-        super.loadLateKnownLocation(location);
+    public void loadLocation(BDLocation location) {
+        super.loadLocation(location);
+        ClearLocationState(mActionView);
         SwitchCity(location);
     }
 
-    /***
-     * 定位结束之后调用
-     * @param location
-     */
+
     @Override
-    public void loadLocation(BDLocation location) {
-        super.loadLocation(location);
-        SwitchCity(location);
+    public void loadLocationError(BDLocation location) {
+        super.loadLocationError(location);
+        ClearLocationState(mActionView);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.toolbar_menu, menu);
+        //搜索框和定位按钮
+        mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        mSearchView.setOnQueryTextListener(this);
+        final MenuItem location = menu.findItem(R.id.action_location);
+        mActionView = location.getActionView();
+        ShowAnimation(mActionView);
+        mActionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(location);
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_location) {
+            Log.e("@@@@@@@@","checked");
+            mLocationPersenter.queryLocation();
+            View actionView = item.getActionView();
+            ShowAnimation(actionView);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 开始定位动画
+     * @param actionView
+     */
+    private void ShowAnimation(View actionView) {
+        YRotationAnimation animation = new YRotationAnimation();
+        animation.setRepeatCount(Animation.INFINITE);
+        actionView.startAnimation(animation);
+        actionView.setClickable(false);
+        actionView.setSelected(true);
     }
 
     /**
      * 定位之后询问是否切换城市
+     *
      * @param location
      */
     private void SwitchCity(BDLocation location) {
@@ -116,22 +162,13 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
-        //搜索框和定位按钮
-        mSearchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        mSearchView.setOnQueryTextListener(this);
-        MenuItem location = menu.findItem(R.id.action_location);
-        location.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                mLocationPersenter.queryLocation();
-                return true;
-            }
-        });
-        return true;
+    /**
+     * 清空定位图片状态
+     */
+    private void ClearLocationState(View actionView) {
+        actionView.setClickable(true);
+        actionView.setSelected(false);
+        actionView.clearAnimation();
     }
 
     @Override
@@ -182,7 +219,6 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         super.onDestroy();
         //保存最近一次定位城市
         String city = App.getCity();
-        Log.e("@@@@@@@@@@", "destroy" + city);
         SharedPreferences sp = this.getSharedPreferences("CITY", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("CityName", city);

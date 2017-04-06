@@ -6,14 +6,17 @@
     <dimen name="one_px">1px</dimen>
     <dimen name="two_dp">2dp</dimen>
     <dimen name="four_dp">4dp</dimen>
+    <dimen name="ten_dp">10dp</dimen>
     <dimen name="space">8dp</dimen>
     <dimen name="space2x">16dp</dimen>
     <dimen name="space3x">24dp</dimen>
     <dimen name="space4x">32dp</dimen>
+    <dimen name="space8x">64dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="app_bar_height_large">260dp</dimen>
 
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_16sp">16sp</dimen>
     <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="text_size_60sp">60sp</dimen>
 </resources>

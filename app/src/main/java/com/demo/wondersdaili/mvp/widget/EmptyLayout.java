@@ -67,7 +67,7 @@ public class EmptyLayout extends FrameLayout {
                 }
             }
         });
-        _switchEmptyView();
+        switchEmptyView();
     }
 
     /**
@@ -75,7 +75,7 @@ public class EmptyLayout extends FrameLayout {
      */
     public void hide() {
         mEmptyStatus = STATUS_HIDE;
-        _switchEmptyView();
+        switchEmptyView();
     }
 
     /**
@@ -88,7 +88,7 @@ public class EmptyLayout extends FrameLayout {
         if (reason != null){
             NoDataReason = reason;
         }
-        _switchEmptyView();
+        switchEmptyView();
     }
 
     /**
@@ -117,7 +117,7 @@ public class EmptyLayout extends FrameLayout {
     /**
      * 切换视图
      */
-    private void _switchEmptyView() {
+    private void switchEmptyView() {
         switch (mEmptyStatus) {
             case STATUS_LOADING:
                 setVisibility(VISIBLE);
@@ -141,6 +141,8 @@ public class EmptyLayout extends FrameLayout {
                 break;
             case STATUS_HIDE:
                 setVisibility(GONE);
+                break;
+            default:
                 break;
         }
     }

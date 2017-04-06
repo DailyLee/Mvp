@@ -265,7 +265,9 @@ public class WeatherBean extends BaseObservable  {
 
             @Bindable
             public String getRealToday() {
-                return "身体温感: " +dressing_index+"\n"+
+                return "身体温感: " +dressing_index+"\n"+"\n"+
+                        "洗衣建议: " +wash_index+"\n"+"\n"+
+                        "锻炼建议: " +exercise_index+"\n"+"\n"+
                         "穿衣建议 : " +dressing_advice;
             }
 

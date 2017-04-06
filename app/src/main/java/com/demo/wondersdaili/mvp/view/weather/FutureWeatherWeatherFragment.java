@@ -1,7 +1,6 @@
 package com.demo.wondersdaili.mvp.view.weather;
 
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -52,7 +51,6 @@ public class FutureWeatherWeatherFragment extends BaseWeatherFragment {
     protected void initViews() {
         mRvFuture = ((FragmentWeatherFutureBinding)mInflate).rvFuture;
         mRvFuture.setLayoutManager(new LinearLayoutManager(mActivity));
-        mRvFuture.addItemDecoration(new DividerItemDecoration(mActivity,DividerItemDecoration.VERTICAL));
     }
 
     @Override

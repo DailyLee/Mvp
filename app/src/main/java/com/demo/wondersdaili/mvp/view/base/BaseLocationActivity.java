@@ -8,6 +8,7 @@ import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.persenter.location.LocationContract;
 import com.demo.wondersdaili.mvp.persenter.location.LocationPersenter;
 import com.demo.wondersdaili.mvp.utils.PermissionUtils;
+import com.demo.wondersdaili.mvp.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,22 +32,6 @@ public abstract class BaseLocationActivity extends BaseActivity implements Locat
     }
 
 
-    /***
-     * loadLateKnownLocation
-     * @param location
-     */
-    @Override
-    public void loadLateKnownLocation(BDLocation location) {
-
-    }
-
-    /***
-     * 获取定位失败,重试
-     */
-    @Override
-    public void loadLateKnownLocationError(BDLocation location) {
-
-    }
 
     /***
      * loadLocation
@@ -54,7 +39,14 @@ public abstract class BaseLocationActivity extends BaseActivity implements Locat
      */
     @Override
     public void loadLocation(BDLocation location) {
+    }
 
+    /***
+     * 获取定位失败
+     */
+    @Override
+    public void loadLocationError(BDLocation location) {
+        ToastUtils.showToast(this,"定位失败,请稍后重试");
     }
 
     @Override
@@ -81,4 +73,6 @@ public abstract class BaseLocationActivity extends BaseActivity implements Locat
         super.onDestroy();
         mLocationPersenter.unRegister();
     }
+
+
 }

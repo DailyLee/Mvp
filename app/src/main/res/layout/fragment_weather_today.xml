@@ -17,7 +17,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/swipe"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context="com.demo.wondersdaili.mvp.view.location.MainLocationActivity"
         >
 
@@ -27,22 +27,22 @@
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/text_temp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:paddingTop="10dp"
+                        android:paddingTop="@dimen/two_dp"
                         android:text='@{result.result.sk.realTemp}'
                         android:textColor="@color/color_text_primary_dark"
-                        android:textSize="60sp"
+                        android:textSize="@dimen/text_size_60sp"
                         android:textStyle="bold"
                         android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"/>
 
@@ -50,82 +50,102 @@
                         android:id="@+id/text_wind"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_temp"
                         android:gravity="center_horizontal"
-                        android:paddingTop="5dp"
+                        android:paddingTop="@dimen/four_dp"
                         android:text='@{result.result.sk.realSk}'
                         android:textColor="@color/color_text_primary_dark"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_size_18sp"
                         android:textStyle="bold"
                         android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"/>
 
-                    <LinearLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/text_wind"
+                        >
 
-                        <TextView
-                            android:id="@+id/textView2"
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cardview1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="16dp"
-                            android:text='@{result.result.today.week}'
-                            android:textColor="@color/color_text_primary_dark"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"/>
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/four_dp"
+                            android:layout_marginTop="@dimen/space3x"
+                            >
 
-                        <LinearLayout
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="?attr/selectableItemBackground"
+                                android:clickable="true"
+                                >
+
+                                <RelativeLayout
+                                    android:id="@+id/ll_weather"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/ten_dp"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/space8x"
+                                        android:src="@{result.result.today.imageTodayFa}"/>
+
+                                    <ImageView
+                                        android:id="@+id/imageView2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/space8x"
+                                        android:layout_toEndOf="@+id/imageView1"
+                                        android:paddingStart="@dimen/space8x"
+                                        android:src="@{result.result.today.imageTodayFb}"/>
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:id="@+id/textView3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/ll_weather"
+                                    android:layout_marginBottom="@dimen/ten_dp"
+                                    android:gravity="center"
+                                    android:paddingTop="@dimen/space2x"
+                                    android:text='@{result.result.today.temperature+"  "+result.result.today.wind}'
+                                    android:textColor="@color/color_text_primary_dark"
+                                    android:textSize="@dimen/text_size_16sp"
+                                    android:textStyle="bold"
+                                    android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
+                                    />
+                            </RelativeLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:orientation="horizontal">
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/cardview1"
+                            android:layout_marginBottom="@dimen/four_dp"
+                            >
 
-                            <ImageView
-                                android:id="@+id/imageView1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="60dp"
-                                android:src="@{result.result.today.imageTodayFa}"/>
-
-                            <ImageView
-                                android:id="@+id/imageView2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="60dp"
-                                android:paddingLeft="40dp"
-                                android:src="@{result.result.today.imageTodayFb}"/>
-                        </LinearLayout>
-
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:gravity="center"
-                            android:paddingTop="16dp"
-                            android:text='@{result.result.today.temperature+"  "+result.result.today.wind}'
-                            android:textColor="@color/color_text_primary_dark"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
-                            />
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="30dp"
-                            android:text='@{result.result.today.realToday}'
-                            android:textColor="@color/color_text_primary_dark"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
-                            />
-                    </LinearLayout>
-
-                </LinearLayout>
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/ten_dp"
+                                android:layout_marginStart="@dimen/ten_dp"
+                                android:layout_marginTop="@dimen/ten_dp"
+                                android:background="?attr/selectableItemBackground"
+                                android:clickable="true"
+                                android:text='@{result.result.today.realToday}'
+                                android:textColor="@color/color_text_primary_dark"
+                                android:textSize="@dimen/text_size_16sp"
+                                android:textStyle="bold"
+                                android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"
+                                />
+                        </android.support.v7.widget.CardView>
+                    </RelativeLayout>
+                </RelativeLayout>
             </android.support.v4.widget.NestedScrollView>
 
             <com.demo.wondersdaili.mvp.widget.EmptyLayout
@@ -134,7 +154,6 @@
                 android:layout_height="match_parent"/>
 
         </FrameLayout>
-
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

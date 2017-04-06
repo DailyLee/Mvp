@@ -13,6 +13,6 @@
         android:id="@+id/action_location"
         android:orderInCategory="100"
         android:title="@string/app_name"
-        android:icon="@mipmap/location_white"
+        app:actionLayout="@layout/action_view"
         app:showAsAction="ifRoom|withText"/>
 </menu>

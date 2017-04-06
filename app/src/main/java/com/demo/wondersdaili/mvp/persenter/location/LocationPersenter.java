@@ -3,11 +3,9 @@ package com.demo.wondersdaili.mvp.persenter.location;
 import android.support.annotation.NonNull;
 
 import com.baidu.location.BDLocation;
-import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.model.location.LocationObserver;
 import com.demo.wondersdaili.mvp.model.location.RxLocation;
 import com.demo.wondersdaili.mvp.persenter.base.BaseView;
-import com.demo.wondersdaili.mvp.utils.ToastUtils;
 import com.demo.wondersdaili.mvp.view.base.BaseLocationActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -36,7 +34,7 @@ public class LocationPersenter implements LocationContract.Persenter {
 
             @Override
             public void onLocationFail(BDLocation location) {
-                ToastUtils.showToast(App.getApplication(),"获取定位失败");
+                mLocationView.loadLocationError(location);
             }
         };
         mRxLocation.locate().observeOn(AndroidSchedulers.mainThread())
@@ -48,13 +46,12 @@ public class LocationPersenter implements LocationContract.Persenter {
         mSubscriber = new LocationObserver() {
             @Override
             public void onLocationSuccess(@NonNull BDLocation location) {
-                mLocationView.loadLateKnownLocation(location);
+                mLocationView.loadLocation(location);
             }
 
             @Override
             public void onLocationFail(BDLocation location) {
-                ToastUtils.showToast(App.getApplication(),"获取定位失败");
-                //mLocationView.loadLateKnownLocationError(location);
+                mLocationView.loadLocationError(location);
             }
         };
         mRxLocation.locateLastKnown().observeOn(AndroidSchedulers.mainThread())
