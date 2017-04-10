@@ -56,13 +56,14 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
 
     @Override
     protected void initData() {
+        mLocationPersenter.queryLateKnownLocation();
         mWeatherFragments[0] = TodayWeatherWeatherFragment.newInstance("1");
         mWeatherFragments[1] = FutureWeatherWeatherFragment.newInstance("2");
         mAdapter.setItems(mWeatherFragments);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        mLocationPersenter.queryLateKnownLocation();
+
     }
 
     /***

@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303135</color>
     <color name="colorAccent">#FF5722</color>
     <color name="color_window_background">#ffffff</color>
+    <color name="color_window_background_transparency">#00000000</color>
     <color name="color_window_background_night">#303030</color>
     <color name="color_disable">#4cffffff</color>
     <color name="color_text_primary_dark">#303030</color>
