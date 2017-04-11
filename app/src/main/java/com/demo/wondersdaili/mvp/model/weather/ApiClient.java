@@ -3,6 +3,7 @@ package com.demo.wondersdaili.mvp.model.weather;
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.Constants;
 import com.demo.wondersdaili.mvp.utils.NetWorkUtils;
+import com.demo.wondersdaili.mvp.utils.ToastUtils;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.File;
@@ -26,7 +27,7 @@ public class ApiClient {
     public static Retrofit getInstance() {
         if (retrofit == null) {
             //缓存容量
-            long SIZE_OF_CACHE = 1024 * 1024; // 1 MiB
+            long SIZE_OF_CACHE = 2 * 1024 * 1024; // 2 MiB
             //缓存路径
             String cacheFile = App.getApplication().getCacheDir() + "/http";
             Cache cache = new Cache(new File(cacheFile), SIZE_OF_CACHE);
@@ -50,7 +51,7 @@ public class ApiClient {
     }
 
     private static final int TIMEOUT_CONNECT = 30 * 60; //半小时
-    private static final int TIMEOUT_DISCONNECT = 60 * 60 * 24 * 7; //7天
+    private static final int TIMEOUT_DISCONNECT = 60 * 60 * 24 ; //1天
 
     private static final Interceptor REWRITE_RESPONSE_INTERCEPTOR = new Interceptor() {
         @Override
@@ -79,8 +80,9 @@ public class ApiClient {
         @Override
         public okhttp3.Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-           //离线的时候为7天的缓存。
+            //离线的时候为7天的缓存。
             if (!NetWorkUtils.isNetworkAvailable(App.getApplication())) {
+                ToastUtils.showToast(App.getApplication(),"网络异常,无法获取最新数据");
                 request = request.newBuilder()
                         .header("Cache-Control", "public, only-if-cached, max-stale=" + TIMEOUT_DISCONNECT)
                         .build();

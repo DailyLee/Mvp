@@ -9,6 +9,7 @@ import com.demo.wondersdaili.mvp.persenter.base.BaseView;
 import com.demo.wondersdaili.mvp.view.base.BaseLocationActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 
 
 /**
@@ -19,6 +20,7 @@ public class LocationPersenter implements LocationContract.Persenter {
     private RxLocation mRxLocation;
     private BaseLocationActivity mLocationView;
     private LocationObserver mSubscriber;
+    private CompositeDisposable mDisposables;
 
     public LocationPersenter(RxLocation rxLocation) {
         mRxLocation = rxLocation;
@@ -37,8 +39,12 @@ public class LocationPersenter implements LocationContract.Persenter {
                 mLocationView.loadLocationError(location);
             }
         };
-        mRxLocation.locate().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mSubscriber);
+        if (mDisposables == null) {
+            mDisposables = new CompositeDisposable();
+        }
+        mDisposables.add(mRxLocation.locate().observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(mSubscriber));
+
     }
 
     @Override
@@ -54,10 +60,12 @@ public class LocationPersenter implements LocationContract.Persenter {
                 mLocationView.loadLocationError(location);
             }
         };
-        mRxLocation.locateLastKnown().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mSubscriber);
+        if (mDisposables == null) {
+            mDisposables = new CompositeDisposable();
+        }
+        mDisposables.add(mRxLocation.locateLastKnown().observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(mSubscriber));
     }
-
 
 
     @Override
@@ -68,5 +76,8 @@ public class LocationPersenter implements LocationContract.Persenter {
     @Override
     public void unRegister() {
         mLocationView = null;
+        if (mDisposables != null) {
+            mDisposables.dispose();
+        }
     }
 }

@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space3x"
-            android:layout_marginTop="@dimen/space2x"
+            android:layout_marginTop="@dimen/space"
             android:text='@{resultFuture.week}'
             android:textColor="@color/color_text_primary_dark"
             android:textSize="@dimen/text_size_18sp"

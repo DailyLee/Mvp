@@ -15,7 +15,7 @@ import java.util.List;
  * Created by daili on 2017/3/9.
  */
 
-public class WeatherBean extends BaseObservable  {
+public class WeatherBean extends BaseObservable {
 
 
     /**
@@ -122,13 +122,13 @@ public class WeatherBean extends BaseObservable  {
 
             @Bindable
             public String getRealSk() {
-                return wind_direction+wind_strength+"  "+ "湿度:"+humidity+"\n"+
-                        "更新时间:"+time ;
+                return wind_direction + wind_strength + "  " + "湿度:" + humidity + "\n" +
+                        "更新时间:" + time;
             }
 
             @Bindable
             public String getRealTemp() {
-                return temp+"℃";
+                return temp + "℃";
             }
 
             @Bindable
@@ -139,7 +139,7 @@ public class WeatherBean extends BaseObservable  {
             public void setTemp(String temp) {
                 this.temp = temp;
                 notifyPropertyChanged(BR.temp);
-        }
+            }
 
             @Bindable
             public String getWind_direction() {
@@ -234,10 +234,10 @@ public class WeatherBean extends BaseObservable  {
                         return App.getApplication().getResources().getDrawable(R.mipmap.code53);
                     }
                     drawableId = drawableIds[i];
-                }catch (Exception e){
+                } catch (Exception e) {
                     return App.getApplication().getResources().getDrawable(R.mipmap.unkonw);
                 }
-                return  App.getApplication().getResources().getDrawable(drawableId);
+                return App.getApplication().getResources().getDrawable(drawableId);
             }
 
             @Bindable
@@ -257,18 +257,20 @@ public class WeatherBean extends BaseObservable  {
                         return App.getApplication().getResources().getDrawable(R.mipmap.code53);
                     }
                     drawableId = drawableIds[i];
-                }catch (Exception e){
+                } catch (Exception e) {
                     return App.getApplication().getResources().getDrawable(R.mipmap.unkonw);
                 }
-                return  App.getApplication().getResources().getDrawable(drawableId);
+                return App.getApplication().getResources().getDrawable(drawableId);
             }
 
             @Bindable
             public String getRealToday() {
-                return "身体温感: " +dressing_index+"\n"+"\n"+
-                        "洗衣建议: " +wash_index+"\n"+"\n"+
-                        "锻炼建议: " +exercise_index+"\n"+"\n"+
-                        "穿衣建议 : " +dressing_advice;
+                return date_y + "\n" + "\n" +
+                        "温度指数: " + dressing_index + "\t"+ "\t"+"(oﾟωﾟo)"+"\n" + "\n" +
+                        "洗衣指数: " + wash_index + "\t"+ "\t"+"(=￣ω￣=)"+ "\n" + "\n" +
+                        "锻炼指数: " + exercise_index + "\t"+ "\t"+"╮(￣▽￣)╭"+ "\n" + "\n" +
+                        "出游指数: " + travel_index + "\t"+ "\t"+"(｡・`ω´･)"+ "\n" + "\n" +
+                        "穿衣指数: " + dressing_advice+ "\t"+ "\t"+"(＞﹏＜)";
             }
 
             public String getTemperature() {
@@ -393,7 +395,7 @@ public class WeatherBean extends BaseObservable  {
                 this.drying_index = drying_index;
             }
 
-            public static class WeatherIdBean extends BaseObservable{
+            public static class WeatherIdBean extends BaseObservable {
                 /**
                  * fa : code01
                  * fb : code02
@@ -420,7 +422,7 @@ public class WeatherBean extends BaseObservable  {
             }
         }
 
-        public static class FutureBean extends BaseObservable{
+        public static class FutureBean extends BaseObservable {
             /**
              * temperature : 6℃~code14℃
              * weather : 多云转阴
@@ -445,7 +447,7 @@ public class WeatherBean extends BaseObservable  {
                         R.mipmap.code12, R.mipmap.code13, R.mipmap.code14,
                         R.mipmap.code15, R.mipmap.code16, R.mipmap.code17,
                         R.mipmap.code18, R.mipmap.code19, R.mipmap.code20,
-                       };
+                };
                 int drawableId;
                 try {
                     int i = Integer.parseInt(getWeather_id().fa);
@@ -453,10 +455,10 @@ public class WeatherBean extends BaseObservable  {
                         return App.getApplication().getResources().getDrawable(R.mipmap.code53);
                     }
                     drawableId = drawableIds[i];
-                }catch (Exception e){
+                } catch (Exception e) {
                     return App.getApplication().getResources().getDrawable(R.mipmap.unkonw);
                 }
-                return  App.getApplication().getResources().getDrawable(drawableId);
+                return App.getApplication().getResources().getDrawable(drawableId);
             }
 
             public Drawable getImageFutureFb() {
@@ -475,10 +477,10 @@ public class WeatherBean extends BaseObservable  {
                         return App.getApplication().getResources().getDrawable(R.mipmap.code53);
                     }
                     drawableId = drawableIds[i];
-                }catch (Exception e){
+                } catch (Exception e) {
                     return App.getApplication().getResources().getDrawable(R.mipmap.unkonw);
                 }
-                return  App.getApplication().getResources().getDrawable(drawableId);
+                return App.getApplication().getResources().getDrawable(drawableId);
             }
 
             public String getTemperature() {
@@ -529,7 +531,7 @@ public class WeatherBean extends BaseObservable  {
                 this.date = date;
             }
 
-            public static class WeatherIdBeanX extends BaseObservable{
+            public static class WeatherIdBeanX extends BaseObservable {
                 /**
                  * fa : code01
                  * fb : code02

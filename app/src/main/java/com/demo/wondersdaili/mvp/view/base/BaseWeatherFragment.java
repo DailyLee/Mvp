@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.demo.wondersdaili.mvp.R;
 import com.demo.wondersdaili.mvp.persenter.weather.WeatherContract;
+import com.demo.wondersdaili.mvp.utils.NetWorkUtils;
+import com.demo.wondersdaili.mvp.utils.ToastUtils;
 import com.demo.wondersdaili.mvp.widget.EmptyLayout;
 
 import static android.databinding.DataBindingUtil.inflate;
@@ -127,6 +129,9 @@ public abstract class BaseWeatherFragment extends Fragment implements WeatherCon
     public void finishRefresh() {
         mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_HIDE,null);
         mSwipeView.setEnabled(true);
+        if(NetWorkUtils.isNetworkAvailable(mActivity)){
+            ToastUtils.showToast(mActivity,"刷新成功");
+        }
     }
 
     /**

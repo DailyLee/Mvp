@@ -9,7 +9,7 @@ import com.demo.wondersdaili.mvp.widget.EmptyLayout;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -20,6 +20,7 @@ import io.reactivex.schedulers.Schedulers;
 public class WeatherPersenter implements WeatherContract.Persenter {
     private Api mApi;
     private BaseWeatherFragment mView;
+    private CompositeDisposable mDisposables;
 
     public WeatherPersenter(Api api) {
         mApi = api;
@@ -30,8 +31,8 @@ public class WeatherPersenter implements WeatherContract.Persenter {
         WeatherObserver weatherSubsribe = new WeatherObserver() {
 
             @Override
-            public void onSubscribe(Disposable d) {
-                super.onSubscribe(d);
+            protected void onStart() {
+                super.onStart();
                 mView.showLoading(isRefreshing);
             }
 
@@ -61,10 +62,14 @@ public class WeatherPersenter implements WeatherContract.Persenter {
         };
 
         Observable<WeatherBean> observable = mApi.queryWeather(format, key, cityName);
-        observable.subscribeOn(Schedulers.io())
+        if (mDisposables == null) {
+            mDisposables = new CompositeDisposable();
+        }
+        mDisposables.add(observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
-                .subscribe(weatherSubsribe);
+                .subscribeWith(weatherSubsribe));
+
     }
 
 
@@ -76,5 +81,8 @@ public class WeatherPersenter implements WeatherContract.Persenter {
     @Override
     public void unRegister() {
         mView = null;
+       if (mDisposables != null) {
+           mDisposables.dispose();
+       }
     }
 }
