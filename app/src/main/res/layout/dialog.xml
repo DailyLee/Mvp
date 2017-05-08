@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_city"
+        style="@style/AppTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:backgroundTint="@color/colorAccent"
+        android:hint="请输入城市名称"/>
+
+    <LinearLayout
+        style="?android:buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_city"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/but_confirm"
+            style="?android:buttonBarPositiveButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="确定"
+            android:textColor="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/but_cancel"
+            style="?android:buttonBarNegativeButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消"
+            android:textColor="@color/colorAccent"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,39 +1,60 @@
 package com.demo.wondersdaili.mvp.view.location;
 
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.R;
+import com.demo.wondersdaili.mvp.utils.CommonUtil;
+import com.demo.wondersdaili.mvp.utils.PrefUtil;
 import com.demo.wondersdaili.mvp.utils.ToastUtils;
 import com.demo.wondersdaili.mvp.view.base.BaseLocationActivity;
 import com.demo.wondersdaili.mvp.view.base.BaseWeatherFragment;
 import com.demo.wondersdaili.mvp.view.weather.FutureWeatherWeatherFragment;
 import com.demo.wondersdaili.mvp.view.weather.TodayWeatherWeatherFragment;
+import com.demo.wondersdaili.mvp.widget.InputDialog;
 import com.demo.wondersdaili.mvp.widget.YRotationAnimation;
 
-public class MainLocationActivity extends BaseLocationActivity implements SearchView.OnQueryTextListener {
+import java.util.List;
+
+public class MainLocationActivity extends BaseLocationActivity implements SearchView.OnQueryTextListener, View.OnClickListener, View.OnLongClickListener {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private Toolbar mToolbar;
     private SearchView mSearchView;
-    private long exitTime = 0;
     private TabPagerAdapter mAdapter;
-    private BaseWeatherFragment[] mWeatherFragments = new BaseWeatherFragment[2];
     private View mActionView;
+    private FloatingActionButton mFloatingActionButton;
+    private FrameLayout mViewCloud;
+    private LinearLayout mRlCity;
+    private BaseWeatherFragment[] mWeatherFragments = new BaseWeatherFragment[2];
+    private boolean fabOpened = false;
+    private InputDialog mInputDialog;
+    private long exitTime = 0;
+    private static int CITY_NUM = 3;
+    private List<String> mCityList;
+    private AlertDialog.Builder mBuilder;
 
 
     @Override
@@ -42,6 +63,11 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.floating);
+        mViewCloud = (FrameLayout) findViewById(R.id.cloud);
+        mRlCity = (LinearLayout) findViewById(R.id.rl_city);
+        mViewCloud.setOnClickListener(this);
+        mFloatingActionButton.setOnClickListener(this);
         mToolbar.setTitle(App.getCity());
         setSupportActionBar(mToolbar);
         //设置上次使用城市
@@ -63,8 +89,206 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-
+        initFab();
     }
+
+    private void initFab() {
+        mCityList = PrefUtil.getListString(this, "city");
+        mRlCity.removeAllViews();
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        for (int i = 0; i < mCityList.size(); i++) {
+            TextView city = (TextView) LayoutInflater.from(this).inflate(R.layout.fab_city, null);
+            city.setText(mCityList.get(i));
+            city.setLayoutParams(layoutParams);
+            city.setId(i);
+            city.setOnClickListener(this);
+            city.setOnLongClickListener(this);
+            mRlCity.addView(city);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.floating:
+                if (!fabOpened) {
+                    openMenu(v);
+                } else {
+                    mInputDialog = new InputDialog(MainLocationActivity.this, this);
+                    mInputDialog.setTitle("添加城市");
+                    mInputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialog) {
+                            mInputDialog.ShowSoftInput();
+                        }
+                    });
+                    mInputDialog.show();
+                }
+
+                break;
+            case R.id.cloud:
+                if (fabOpened)
+                    closeMenu(mFloatingActionButton);
+                break;
+            case R.id.but_cancel:
+                mInputDialog.dismiss();
+                closeMenu(mFloatingActionButton);
+                break;
+            case R.id.but_confirm:
+                if (!isAddCitySuccess()) return;
+                mInputDialog.dismiss();
+                initFab();
+                closeMenu(mFloatingActionButton);
+                break;
+            case 0:
+                ToastUtils.showToast(MainLocationActivity.this, mCityList.get(0));
+                onQueryTextSubmit(mCityList.get(0));
+                closeMenu(mFloatingActionButton);
+                break;
+            case 1:
+                ToastUtils.showToast(MainLocationActivity.this, mCityList.get(1));
+                onQueryTextSubmit(mCityList.get(1));
+                closeMenu(mFloatingActionButton);
+                break;
+            case 2:
+                ToastUtils.showToast(MainLocationActivity.this, mCityList.get(2));
+                onQueryTextSubmit(mCityList.get(2));
+                closeMenu(mFloatingActionButton);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()) {
+            case 0:
+                RemoveCityDialog(0);
+                closeMenu(mFloatingActionButton);
+                break;
+            case 1:
+                RemoveCityDialog(1);
+                closeMenu(mFloatingActionButton);
+                break;
+            case 2:
+                RemoveCityDialog(2);
+                closeMenu(mFloatingActionButton);
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    private void RemoveCityDialog(final int index) {
+        if (mBuilder == null)
+            mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setTitle("取消收藏");
+        mBuilder.setMessage("是否删除" + mCityList.get(index) + "?");
+        mBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        mBuilder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface diaog, int which) {
+                mCityList.remove(index);
+                PrefUtil.putListString(MainLocationActivity.this, "city", mCityList);
+                initFab();
+                diaog.dismiss();
+            }
+        });
+        mBuilder.create().show();
+    }
+
+    private boolean isAddCitySuccess() {
+        String city = mInputDialog.getEditText();
+        if (TextUtils.isEmpty(city)) {
+            ToastUtils.showToast(MainLocationActivity.this, "城市名称为空");
+            return false;
+        }
+        List<String> string = PrefUtil.getListString(this, "city");
+        if (CommonUtil.isChinese(city)) {
+            if (string.contains(city)) {
+                ToastUtils.showToast(MainLocationActivity.this, "您已经添加过" + city);
+                return false;
+            }
+            if (string.size() > CITY_NUM) {
+                ToastUtils.showToast(MainLocationActivity.this, "城市收藏夹已满");
+                return false;
+            }
+            mCityList.add(city);
+            PrefUtil.putListString(MainLocationActivity.this, "city", mCityList);
+        } else {
+            ToastUtils.showToast(MainLocationActivity.this, "添加失败");
+            return false;
+        }
+        ToastUtils.showToast(MainLocationActivity.this, "添加成功");
+        return true;
+    }
+
+
+    private void closeMenu(View view) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "rotation", 0, 0, 0);
+        objectAnimator.setDuration(300);
+        objectAnimator.start();
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.7f, 0);
+        alphaAnimation.setDuration(300);
+        alphaAnimation.setFillAfter(true);
+        mViewCloud.startAnimation(alphaAnimation);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 0, 1.0f, 0,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 1);
+        scaleAnimation.setDuration(300);
+        scaleAnimation.setFillAfter(true);
+        mRlCity.startAnimation(scaleAnimation);
+        //清除动画,不然无法设置visbility
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mViewCloud.clearAnimation();
+                mRlCity.clearAnimation();
+                mViewCloud.setVisibility(View.GONE);
+                mRlCity.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        mFloatingActionButton.setImageResource(R.mipmap.citywhite);
+        fabOpened = false;
+    }
+
+    private void openMenu(View view) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "rotation", -135, 20, -0);
+        objectAnimator.setDuration(300);
+        objectAnimator.start();
+        mViewCloud.setVisibility(View.VISIBLE);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 0.7f);
+        alphaAnimation.setDuration(300);
+        alphaAnimation.setFillAfter(true);
+        mViewCloud.startAnimation(alphaAnimation);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1.0f, 0, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 1);
+        scaleAnimation.setDuration(300);
+        scaleAnimation.setFillAfter(true);
+        mRlCity.startAnimation(scaleAnimation);
+        mRlCity.setVisibility(View.VISIBLE);
+        mFloatingActionButton.setImageResource(R.mipmap.add);
+        fabOpened = true;
+    }
+
 
     /***
      * 定位结束之后调用
@@ -106,7 +330,6 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_location) {
-            Log.e("@@@@@@@@","checked");
             mLocationPersenter.queryLocation();
             View actionView = item.getActionView();
             ShowAnimation(actionView);
@@ -117,6 +340,7 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
 
     /**
      * 开始定位动画
+     *
      * @param actionView
      */
     private void ShowAnimation(View actionView) {
@@ -136,11 +360,13 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         String city = location.getCity();
         city = city.substring(0, city.length() - 1);
         if (!city.equals(App.getCity())) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("是否切换到当前城市:" + city);
-            builder.setTitle("位置提示");
+            if (mBuilder == null)
+                mBuilder = new AlertDialog.Builder(this);
+
+            mBuilder.setMessage("是否切换到当前城市:" + city);
+            mBuilder.setTitle("位置提示");
             final String finalCity = city;
-            builder.setPositiveButton("切换", new DialogInterface.OnClickListener() {
+            mBuilder.setPositiveButton("切换", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     App.setCity(finalCity);
@@ -149,19 +375,20 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
                     dialog.dismiss();
                 }
             });
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            mBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
-            builder.create().show();
+            mBuilder.create().show();
 
         } else {
             ToastUtils.showToast(this, "当前城市:" + city);
         }
     }
+
 
     /**
      * 清空定位图片状态
@@ -178,7 +405,6 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
             mWeatherFragments[0] = TodayWeatherWeatherFragment.newInstance("1");
             mWeatherFragments[1] = FutureWeatherWeatherFragment.newInstance("2");
         }
-
         TodayWeatherWeatherFragment todayWeatherFragment = (TodayWeatherWeatherFragment) mWeatherFragments[0];
         FutureWeatherWeatherFragment futureWeatherFragment = (FutureWeatherWeatherFragment) mWeatherFragments[1];
 

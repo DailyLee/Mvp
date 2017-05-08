@@ -2,7 +2,13 @@ package com.demo.wondersdaili.mvp.model.weather;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.BR;
@@ -121,9 +127,17 @@ public class WeatherBean extends BaseObservable {
             private String time;
 
             @Bindable
-            public String getRealSk() {
-                return wind_direction + wind_strength + "  " + "湿度:" + humidity + "\n" +
+            public SpannableString getRealSk() {
+                String s = wind_direction + wind_strength + "  " + "湿度:" + humidity + "\n" +
                         "更新时间:" + time;
+                SpannableString string = new SpannableString(s);
+                StyleSpan styleSpan = new StyleSpan(Typeface.NORMAL);
+                AbsoluteSizeSpan sizeSpan = new AbsoluteSizeSpan(50);
+                ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(App.getApplication().getResources().getColor(R.color.colorAccent));
+                string.setSpan(foregroundColorSpan, string.length() - 10, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                string.setSpan(styleSpan, string.length() - 10, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                string.setSpan(sizeSpan, string.length() - 10, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                return string;
             }
 
             @Bindable
@@ -264,13 +278,22 @@ public class WeatherBean extends BaseObservable {
             }
 
             @Bindable
-            public String getRealToday() {
-                return date_y + "\n" + "\n" +
+            public SpannableString getRealToday() {
+                String s = date_y + "\n" + "\n" +
+                        "紫外线强度: " + uv_index + "\t"+ "\t"+" ಠ_ಠ"+"\n" + "\n" +
                         "温度指数: " + dressing_index + "\t"+ "\t"+"(oﾟωﾟo)"+"\n" + "\n" +
                         "洗衣指数: " + wash_index + "\t"+ "\t"+"(=￣ω￣=)"+ "\n" + "\n" +
                         "锻炼指数: " + exercise_index + "\t"+ "\t"+"╮(￣▽￣)╭"+ "\n" + "\n" +
                         "出游指数: " + travel_index + "\t"+ "\t"+"(｡・`ω´･)"+ "\n" + "\n" +
                         "穿衣指数: " + dressing_advice+ "\t"+ "\t"+"(＞﹏＜)";
+                SpannableString string = new SpannableString(s);
+                StyleSpan styleSpan = new StyleSpan(Typeface.NORMAL);
+                AbsoluteSizeSpan sizeSpan = new AbsoluteSizeSpan(60);
+                ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(App.getApplication().getResources().getColor(R.color.colorAccent));
+                string.setSpan(foregroundColorSpan, 0, 11, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                string.setSpan(styleSpan, 0, 11, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                string.setSpan(sizeSpan,0, 11, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                return string;
             }
 
             public String getTemperature() {

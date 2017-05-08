@@ -67,7 +67,7 @@
             android:layout_marginStart="@dimen/ten_dp"
             android:gravity="center"
             android:text='@{resultFuture.temperature+"   "+resultFuture.wind}'
-            android:textColor="@color/color_text_primary_dark"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/text_size_16sp"
             android:textStyle="bold"
             />

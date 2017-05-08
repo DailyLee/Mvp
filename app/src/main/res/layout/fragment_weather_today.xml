@@ -112,7 +112,7 @@
                                     android:gravity="center"
                                     android:paddingTop="@dimen/space2x"
                                     android:text='@{result.result.today.temperature+"  "+result.result.today.wind}'
-                                    android:textColor="@color/color_text_primary_dark"
+                                    android:textColor="@color/colorAccent"
                                     android:textSize="@dimen/text_size_16sp"
                                     android:textStyle="bold"
                                     android:visibility="@{result.result == null ? View.INVISIBLE:View.VISIBLE}"

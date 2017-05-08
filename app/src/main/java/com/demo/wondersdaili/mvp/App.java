@@ -31,6 +31,7 @@ public class App extends Application {
         mComponent = DaggerAppComponent.builder().appModules(new AppModules())
                 .build();
         mComponent.inject(this);
+        CrashHandler.getInstance().init();
     }
 
 
