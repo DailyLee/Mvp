@@ -81,7 +81,7 @@ public class FutureWeatherWeatherFragment extends BaseWeatherFragment {
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();
         } else {
-            mAdapter = new WeatherAdapter(mFutures, R.layout.rl_item);
+            mAdapter = new FutureWeatherAdapter(mFutures, R.layout.rl_future_item);
             mRvFuture.setAdapter(mAdapter);
         }
     }

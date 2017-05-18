@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <import type="com.demo.wondersdaili.mvp.model.weather.WeatherBean"/>
+
+        <variable
+            name="resultFuture"
+            type="WeatherBean.ResultBean.FutureBean"/>
+    </data>
+
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{resultFuture.week}"
+            android:gravity="center"/>
+
+        <com.demo.wondersdaili.mvp.widget.ShakeMaps
+            android:id="@+id/shake"
+            android:paddingTop="@dimen/ten_dp"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{resultFuture.weather}"
+            android:gravity="center"/>
+
+    </LinearLayout>
+</layout>

@@ -7,6 +7,6 @@
         <!-- 图片 -->
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/splash" />
+            android:src="@mipmap/splash2" />
     </item>
 </layer-list>

@@ -17,7 +17,7 @@ public class CommonAdapter<T> extends RecyclerView.Adapter<CommonAdapter.ViewHol
     List<T> mData;
     private int mLayoutId;
 
-    CommonAdapter(List<T> data, int layoutId) {
+     CommonAdapter(List<T> data, int layoutId) {
         this.mData = data;
         this.mLayoutId = layoutId;
     }

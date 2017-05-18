@@ -49,12 +49,12 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
     private FrameLayout mViewCloud;
     private LinearLayout mRlCity;
     private BaseWeatherFragment[] mWeatherFragments = new BaseWeatherFragment[2];
-    private boolean fabOpened = false;
-    private InputDialog mInputDialog;
-    private long exitTime = 0;
-    private static int CITY_NUM = 3;
-    private List<String> mCityList;
     private AlertDialog.Builder mBuilder;
+    private InputDialog mInputDialog;
+    private boolean fabOpened = false;
+    private long exitTime = 0;
+    private static final int CITY_NUM = 3;
+    private List<String> mCityList;
 
 
     @Override
@@ -125,7 +125,6 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
                     });
                     mInputDialog.show();
                 }
-
                 break;
             case R.id.cloud:
                 if (fabOpened)

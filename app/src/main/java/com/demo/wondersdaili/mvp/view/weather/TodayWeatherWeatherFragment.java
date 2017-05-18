@@ -1,18 +1,23 @@
 package com.demo.wondersdaili.mvp.view.weather;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.Constants;
 import com.demo.wondersdaili.mvp.R;
-import com.demo.wondersdaili.mvp.model.weather.WeatherBean;
-import com.demo.wondersdaili.mvp.view.base.BaseWeatherFragment;
 import com.demo.wondersdaili.mvp.dagger2.DaggerFragmentComponent;
 import com.demo.wondersdaili.mvp.dagger2.FragmentComponent;
 import com.demo.wondersdaili.mvp.dagger2.FragmentModules;
 import com.demo.wondersdaili.mvp.databinding.FragmentWeatherTodayBinding;
+import com.demo.wondersdaili.mvp.model.weather.WeatherBean;
 import com.demo.wondersdaili.mvp.persenter.weather.WeatherPersenter;
 import com.demo.wondersdaili.mvp.utils.ToastUtils;
+import com.demo.wondersdaili.mvp.view.base.BaseWeatherFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,6 +32,9 @@ public class TodayWeatherWeatherFragment extends BaseWeatherFragment {
     private WeatherBean mResultBean = new WeatherBean();
     private queryResultListener mListener;
     private String mCity;
+    private RecyclerView mRecy;
+    private List<WeatherBean.ResultBean.FutureBean> mFutures = new ArrayList<>();
+    private TodayWeatherAdapter mAdapter;
 
 
     public interface queryResultListener {
@@ -49,6 +57,9 @@ public class TodayWeatherWeatherFragment extends BaseWeatherFragment {
     @Override
     protected void initViews() {
         ((FragmentWeatherTodayBinding) mInflate).setResult(mResultBean);
+        mRecy = ((FragmentWeatherTodayBinding) mInflate).recy;
+        LinearLayoutManager layout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mRecy.setLayoutManager(layout);
     }
 
     @Override
@@ -83,6 +94,15 @@ public class TodayWeatherWeatherFragment extends BaseWeatherFragment {
         mResultBean.setResult(resultBean);
         if (mListener != null) {
             mListener.succeed();
+        }
+        List<WeatherBean.ResultBean.FutureBean> future = resultBean.getFuture();
+        mFutures.clear();
+        mFutures.addAll(future);
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mAdapter = new TodayWeatherAdapter(mFutures, R.layout.rl_today_item);
+            mRecy.setAdapter(mAdapter);
         }
     }
 
