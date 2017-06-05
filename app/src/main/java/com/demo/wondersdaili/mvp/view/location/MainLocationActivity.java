@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,7 +34,6 @@ import com.demo.wondersdaili.mvp.view.base.BaseLocationActivity;
 import com.demo.wondersdaili.mvp.view.base.BaseWeatherFragment;
 import com.demo.wondersdaili.mvp.view.weather.FutureWeatherWeatherFragment;
 import com.demo.wondersdaili.mvp.view.weather.TodayWeatherWeatherFragment;
-import com.demo.wondersdaili.mvp.widget.InputDialog;
 import com.demo.wondersdaili.mvp.widget.YRotationAnimation;
 
 import java.util.List;
@@ -50,11 +50,11 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
     private LinearLayout mRlCity;
     private BaseWeatherFragment[] mWeatherFragments = new BaseWeatherFragment[2];
     private AlertDialog.Builder mBuilder;
-    private InputDialog mInputDialog;
     private boolean fabOpened = false;
     private long exitTime = 0;
     private static final int CITY_NUM = 3;
     private List<String> mCityList;
+    private EditText mEditText;
 
 
     @Override
@@ -115,30 +115,12 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
                 if (!fabOpened) {
                     openMenu(v);
                 } else {
-                    mInputDialog = new InputDialog(MainLocationActivity.this, this);
-                    mInputDialog.setTitle("添加城市");
-                    mInputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface dialog) {
-                            mInputDialog.ShowSoftInput();
-                        }
-                    });
-                    mInputDialog.show();
+                    showCollectCityDialog();
                 }
                 break;
             case R.id.cloud:
                 if (fabOpened)
                     closeMenu(mFloatingActionButton);
-                break;
-            case R.id.but_cancel:
-                mInputDialog.dismiss();
-                closeMenu(mFloatingActionButton);
-                break;
-            case R.id.but_confirm:
-                if (!isAddCitySuccess()) return;
-                mInputDialog.dismiss();
-                initFab();
-                closeMenu(mFloatingActionButton);
                 break;
             case 0:
                 ToastUtils.showToast(MainLocationActivity.this, mCityList.get(0));
@@ -158,6 +140,32 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
             default:
                 break;
         }
+    }
+
+    /**
+     * 显示增加收藏对话框
+     */
+    private void showCollectCityDialog() {
+        mEditText = new EditText(this);
+        new AlertDialog.Builder(this).setTitle("添加收藏")
+                .setMessage(null)
+                .setView(mEditText)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (!isAddCitySuccess()) return;
+                        dialog.dismiss();
+                        initFab();
+                        closeMenu(mFloatingActionButton);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        closeMenu(mFloatingActionButton);
+                    }
+                }).setCancelable(false).show();
     }
 
     @Override
@@ -184,29 +192,28 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
     private void RemoveCityDialog(final int index) {
         if (mBuilder == null)
             mBuilder = new AlertDialog.Builder(this);
-        mBuilder.setTitle("取消收藏");
-        mBuilder.setMessage("是否删除" + mCityList.get(index) + "?");
-        mBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        mBuilder.setTitle("取消收藏")
+                .setMessage("是否删除" + mCityList.get(index) + "?")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        mBuilder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface diaog, int which) {
-                mCityList.remove(index);
-                PrefUtil.putListString(MainLocationActivity.this, "city", mCityList);
-                initFab();
-                diaog.dismiss();
-            }
-        });
-        mBuilder.create().show();
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface diaog, int which) {
+                        mCityList.remove(index);
+                        PrefUtil.putListString(MainLocationActivity.this, "city", mCityList);
+                        initFab();
+                        diaog.dismiss();
+                    }
+                }).setCancelable(false).show();
     }
 
     private boolean isAddCitySuccess() {
-        String city = mInputDialog.getEditText();
+        String city = mEditText.getText().toString().trim();
         if (TextUtils.isEmpty(city)) {
             ToastUtils.showToast(MainLocationActivity.this, "城市名称为空");
             return false;
@@ -249,7 +256,6 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
             }
 
             @Override
@@ -262,7 +268,6 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
         mFloatingActionButton.setImageResource(R.mipmap.citywhite);
@@ -359,29 +364,28 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         String city = location.getCity();
         city = city.substring(0, city.length() - 1);
         if (!city.equals(App.getCity())) {
-            if (mBuilder == null)
-                mBuilder = new AlertDialog.Builder(this);
-
-            mBuilder.setMessage("是否切换到当前城市:" + city);
-            mBuilder.setTitle("位置提示");
             final String finalCity = city;
-            mBuilder.setPositiveButton("切换", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    App.setCity(finalCity);
-                    mToolbar.setTitle(App.getCity());
-                    onQueryTextSubmit(App.getCity());
-                    dialog.dismiss();
-                }
-            });
-            mBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            if (mBuilder == null) {
+                mBuilder = new AlertDialog.Builder(this);
+            }
+            mBuilder.setMessage("是否切换到当前城市:" + city)
+                    .setTitle("位置提示")
+                    .setPositiveButton("切换", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            App.setCity(finalCity);
+                            mToolbar.setTitle(App.getCity());
+                            onQueryTextSubmit(App.getCity());
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            mBuilder.create().show();
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).setCancelable(false).show();
 
         } else {
             ToastUtils.showToast(this, "当前城市:" + city);
