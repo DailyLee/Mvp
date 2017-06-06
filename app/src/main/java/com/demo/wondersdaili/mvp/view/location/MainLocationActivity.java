@@ -2,7 +2,6 @@ package com.demo.wondersdaili.mvp.view.location;
 
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -71,8 +70,7 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         mToolbar.setTitle(App.getCity());
         setSupportActionBar(mToolbar);
         //设置上次使用城市
-        SharedPreferences sp = this.getSharedPreferences("CITY", MODE_PRIVATE);
-        String city = sp.getString("CityName", "北京");
+        String city = PrefUtil.getString(this, "CityName", "北京");
         App.setCity(city);
         mToolbar.setTitle(city);
         mAdapter = new TabPagerAdapter(getSupportFragmentManager());
@@ -82,7 +80,6 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
 
     @Override
     protected void initData() {
-        mLocationPersenter.queryLateKnownLocation();
         mWeatherFragments[0] = TodayWeatherWeatherFragment.newInstance("1");
         mWeatherFragments[1] = FutureWeatherWeatherFragment.newInstance("2");
         mAdapter.setItems(mWeatherFragments);
@@ -301,7 +298,8 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
     @Override
     public void loadLocation(BDLocation location) {
         super.loadLocation(location);
-        ClearLocationState(mActionView);
+        if (mActionView != null)
+            ClearLocationState(mActionView);
         SwitchCity(location);
     }
 
@@ -309,7 +307,8 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
     @Override
     public void loadLocationError(BDLocation location) {
         super.loadLocationError(location);
-        ClearLocationState(mActionView);
+        if (mActionView != null)
+            ClearLocationState(mActionView);
     }
 
     @Override
@@ -321,6 +320,8 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         mSearchView.setOnQueryTextListener(this);
         final MenuItem location = menu.findItem(R.id.action_location);
         mActionView = location.getActionView();
+        //获取当前位置
+        mLocationPersenter.queryLateKnownLocation();
         ShowAnimation(mActionView);
         mActionView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -449,10 +450,7 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         super.onDestroy();
         //保存最近一次定位城市
         String city = App.getCity();
-        SharedPreferences sp = this.getSharedPreferences("CITY", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString("CityName", city);
-        editor.apply();
-        System.exit(0);
+        PrefUtil.putString(this, "CityName", city);
+        // System.exit(0);
     }
 }

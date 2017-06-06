@@ -16,18 +16,26 @@ import java.util.List;
 class TodayWeatherAdapter extends CommonAdapter {
     private int[] highTemp = new int[mData.size()];
     private int[] lowTemp = new int[mData.size()];
-    private final int mMax;
-    private final int mMin;
+    private  int mMax;
+    private  int mMin;
 
     TodayWeatherAdapter(List data, int layoutId) {
         super(data, layoutId);
-        for (int i = 0; i < mData.size(); i++) {
+        manageData(data);
+    }
+
+    private void manageData(List data) {
+        for (int i = 0; i < data.size(); i++) {
             String temperature = ((WeatherBean.ResultBean.FutureBean) mData.get(i)).getTemperature();
             highTemp[i] = Integer.parseInt(temperature.split("℃")[1].substring(1));
             lowTemp[i] = Integer.parseInt(temperature.split("℃")[0]);
         }
         mMax = CommonUtil.getMax(highTemp);
         mMin = CommonUtil.getMin(lowTemp);
+    }
+
+    void setData(List data){
+        manageData(data);
     }
 
     @Override

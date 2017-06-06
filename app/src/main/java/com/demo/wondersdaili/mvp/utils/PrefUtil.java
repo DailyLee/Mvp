@@ -17,13 +17,14 @@ import java.util.List;
 
 public class PrefUtil {
 
+
     public static List<String> getListString(Context context, String key) {
         List<String> datalist = new ArrayList<>();
         if (context != null) {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
             if (sharedPreferences != null) {
                 String result = sharedPreferences.getString(key, null);
-                if (result == null){
+                if (result == null) {
                     return datalist;
                 }
                 Gson gson = new Gson();
@@ -43,6 +44,31 @@ public class PrefUtil {
             String strJson = gson.toJson(value);
             edit.clear();
             edit.putString(key, strJson);
+            if (Build.VERSION.SDK_INT >= 9) {
+                edit.apply();
+            } else {
+                edit.commit();
+            }
+        }
+    }
+
+    public static String getString(Context context, String key, String value) {
+        if (context != null) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            if (sharedPreferences != null) {
+                String string = sharedPreferences.getString(key, null);
+                return string == null ? value : string;
+            }
+        }
+        return value;
+    }
+
+    public static void putString(Context context, String key, String value) {
+        if (context != null) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            //edit.clear();
+            edit.putString(key, value);
             if (Build.VERSION.SDK_INT >= 9) {
                 edit.apply();
             } else {

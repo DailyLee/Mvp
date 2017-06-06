@@ -92,13 +92,14 @@ public class TodayWeatherWeatherFragment extends BaseWeatherFragment {
     public void loadWeatherData(WeatherBean.ResultBean resultBean) {
         App.setCity(resultBean.getToday().getCity());
         mResultBean.setResult(resultBean);
-        if (mListener != null) {
+        if (mListener != null)
             mListener.succeed();
-        }
         List<WeatherBean.ResultBean.FutureBean> future = resultBean.getFuture();
         mFutures.clear();
         mFutures.addAll(future);
         if (mAdapter != null) {
+            //更新天气温度折线图数据
+            mAdapter.setData(mFutures);
             mAdapter.notifyDataSetChanged();
         } else {
             mAdapter = new TodayWeatherAdapter(mFutures, R.layout.rl_today_item);
@@ -116,7 +117,6 @@ public class TodayWeatherWeatherFragment extends BaseWeatherFragment {
             ToastUtils.showToast(getContext(), weatherBean.getReason());
         }
     }
-
 
     public void queryWeatherForResult(boolean isRefreshing, String city, queryResultListener listener) {
         mListener = listener;
