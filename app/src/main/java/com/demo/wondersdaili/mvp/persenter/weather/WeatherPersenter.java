@@ -4,7 +4,7 @@ import com.demo.wondersdaili.mvp.model.weather.Api;
 import com.demo.wondersdaili.mvp.model.weather.WeatherBean;
 import com.demo.wondersdaili.mvp.model.weather.WeatherObserver;
 import com.demo.wondersdaili.mvp.persenter.base.BaseView;
-import com.demo.wondersdaili.mvp.view.base.BaseWeatherFragment;
+import com.demo.wondersdaili.mvp.view.base.LazyWeatherFragment;
 import com.demo.wondersdaili.mvp.widget.EmptyLayout;
 
 import io.reactivex.Observable;
@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class WeatherPersenter implements WeatherContract.Persenter {
     private Api mApi;
-    private BaseWeatherFragment mView;
+    private LazyWeatherFragment mView;
     private CompositeDisposable mDisposables;
 
     public WeatherPersenter(Api api) {
@@ -75,7 +75,7 @@ public class WeatherPersenter implements WeatherContract.Persenter {
 
     @Override
     public void register(BaseView baseView) {
-        mView = (BaseWeatherFragment) baseView;
+        mView = (LazyWeatherFragment) baseView;
     }
 
     @Override

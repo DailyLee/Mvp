@@ -14,7 +14,7 @@ import com.demo.wondersdaili.mvp.databinding.FragmentWeatherTodayBinding;
 import com.demo.wondersdaili.mvp.model.weather.WeatherBean;
 import com.demo.wondersdaili.mvp.persenter.weather.WeatherPersenter;
 import com.demo.wondersdaili.mvp.utils.ToastUtils;
-import com.demo.wondersdaili.mvp.view.base.BaseWeatherFragment;
+import com.demo.wondersdaili.mvp.view.base.LazyWeatherFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import javax.inject.Inject;
  * Created by daili on 2017/3/22.
  */
 
-public class TodayWeatherWeatherFragment extends BaseWeatherFragment {
+public class TodayWeatherWeatherFragment extends LazyWeatherFragment {
     @Inject
     WeatherPersenter mWeatherPersenter;
     private WeatherBean mResultBean = new WeatherBean();

@@ -3,13 +3,13 @@ package com.demo.wondersdaili.mvp.view.location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 /**
  * 首页TabPagerAdapter
  * <p/>
  */
-class TabPagerAdapter extends FragmentStatePagerAdapter {
+class TabPagerAdapter extends FragmentPagerAdapter {
 
     private String tabTitles[];
     private Fragment[] fragments;

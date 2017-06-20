@@ -15,7 +15,7 @@ import java.lang.annotation.RetentionPolicy;
 
 
 /**
- * 界面控制
+ * 多界面控制
  */
 public class EmptyLayout extends FrameLayout {
 

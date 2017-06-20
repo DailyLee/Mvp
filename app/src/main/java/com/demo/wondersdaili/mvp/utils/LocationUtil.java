@@ -7,6 +7,12 @@ import com.baidu.location.BDLocation;
  */
 
 public class LocationUtil {
+
+    /**
+     * 百度定位结果是否有效
+     * @param bdLocation
+     * @return
+     */
     public static boolean isLocationResultEffective(BDLocation bdLocation) {
         return bdLocation != null
                 && (bdLocation.getLocType() == BDLocation.TypeGpsLocation

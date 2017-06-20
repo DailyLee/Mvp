@@ -13,12 +13,6 @@ public class CommonUtil {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    /**
-     * 判断该字符串是否为中文
-     *
-     * @param string
-     * @return
-     */
     public static boolean isChinese(String string) {
         int n = 0;
         for (int i = 0; i < string.length(); i++) {
@@ -30,26 +24,23 @@ public class CommonUtil {
         return true;
     }
 
-
     public static int getMax(int[] arr) {
         int max = Integer.MIN_VALUE;
-
-        for(int i = 0; i < arr.length; i++) {
-            if(arr[i] > max)
-                max = arr[i];
+        for (int i : arr) {
+            if (i > max) {
+                max = i;
+            }
         }
-
         return max;
     }
 
     public static int getMin(int[] arr) {
         int min = Integer.MAX_VALUE;
-
-        for(int i = 0; i < arr.length; i++) {
-            if(arr[i] < min)
-                min = arr[i];
+        for (int i : arr) {
+            if (i < min) {
+                min = i;
+            }
         }
-
         return min;
     }
 }

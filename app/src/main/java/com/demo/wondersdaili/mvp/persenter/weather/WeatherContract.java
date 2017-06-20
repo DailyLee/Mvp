@@ -22,5 +22,6 @@ public interface WeatherContract {
     interface Persenter extends BasePersenter {
 
         void queryWeather(int format, String key, String cityName, boolean isRefreshing);
+
     }
 }

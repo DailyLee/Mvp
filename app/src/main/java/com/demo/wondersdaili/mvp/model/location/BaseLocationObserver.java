@@ -3,14 +3,14 @@ package com.demo.wondersdaili.mvp.model.location;
 import android.support.annotation.NonNull;
 
 import com.baidu.location.BDLocation;
-import com.demo.wondersdaili.mvp.model.base.BaseObserver;
+import com.demo.wondersdaili.mvp.model.base.CommonObserver;
 import com.demo.wondersdaili.mvp.utils.LocationUtil;
 
 /**
  * Created by daili on 2017/3/21.
  */
 
-public abstract class LocationObserver extends BaseObserver<BDLocation> {
+public abstract class BaseLocationObserver extends CommonObserver<BDLocation> {
 
     @Override
     public void onComplete() {

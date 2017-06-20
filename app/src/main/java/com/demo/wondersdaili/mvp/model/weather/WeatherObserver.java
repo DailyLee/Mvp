@@ -1,12 +1,12 @@
 package com.demo.wondersdaili.mvp.model.weather;
 
-import com.demo.wondersdaili.mvp.model.base.BaseObserver;
+import com.demo.wondersdaili.mvp.model.base.CommonObserver;
 
 /**
  * Created by daili on 2017/3/21.
  */
 
-public abstract class WeatherObserver extends BaseObserver<WeatherBean> {
+public abstract class WeatherObserver extends CommonObserver<WeatherBean> {
 
     @Override
     public void onComplete() {

@@ -12,11 +12,15 @@ import com.demo.wondersdaili.mvp.persenter.base.BaseView;
 public interface LocationContract {
 
     interface View extends BaseView {
+
         void loadLocation(BDLocation location);
+
         void loadLocationError(BDLocation location);
+
     }
 
     interface Persenter extends BasePersenter {
+
         void queryLocation();
 
         void queryLateKnownLocation();

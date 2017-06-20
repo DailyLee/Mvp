@@ -17,7 +17,6 @@ import java.util.List;
 
 public class PrefUtil {
 
-
     public static List<String> getListString(Context context, String key) {
         List<String> datalist = new ArrayList<>();
         if (context != null) {

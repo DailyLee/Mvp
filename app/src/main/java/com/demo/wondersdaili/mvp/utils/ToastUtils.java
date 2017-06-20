@@ -9,13 +9,10 @@ import android.widget.Toast;
  */
 
 public class ToastUtils {
-    /** 之前显示的内容 */
+
     private static String oldMsg ;
-    /** Toast对象 */
     private static Toast toast = null ;
-    /** 第一次时间 */
     private static long oneTime = 0 ;
-    /** 第二次时间 */
     private static long twoTime = 0 ;
 
     /**

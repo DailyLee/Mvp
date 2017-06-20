@@ -8,9 +8,9 @@ import io.reactivex.observers.DisposableObserver;
  * Created by daili on 2017/3/9.
  */
 
-public class BaseObserver<T> extends DisposableObserver<T> {
+public class CommonObserver<T> extends DisposableObserver<T> {
 
-    public BaseObserver() {
+    public CommonObserver() {
     }
 
     @Override
@@ -21,18 +21,18 @@ public class BaseObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onNext(T t) {
-        Log.i("BaseObserver", "onNext");
+        Log.i("CommonObserver", "onNext");
     }
 
 
     @Override
     public void onError(Throwable e) {
         e.printStackTrace();
-        Log.i("BaseObserver", "onError" + e.getMessage());
+        Log.i("CommonObserver", "onError" + e.getMessage());
     }
 
     @Override
     public void onComplete() {
-        Log.i("BaseObserver", "onCompleted");
+        Log.i("CommonObserver", "onCompleted");
     }
 }

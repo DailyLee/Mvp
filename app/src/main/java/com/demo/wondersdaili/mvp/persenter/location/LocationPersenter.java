@@ -3,7 +3,7 @@ package com.demo.wondersdaili.mvp.persenter.location;
 import android.support.annotation.NonNull;
 
 import com.baidu.location.BDLocation;
-import com.demo.wondersdaili.mvp.model.location.LocationObserver;
+import com.demo.wondersdaili.mvp.model.location.BaseLocationObserver;
 import com.demo.wondersdaili.mvp.model.location.RxLocation;
 import com.demo.wondersdaili.mvp.persenter.base.BaseView;
 import com.demo.wondersdaili.mvp.view.base.BaseLocationActivity;
@@ -19,7 +19,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class LocationPersenter implements LocationContract.Persenter {
     private RxLocation mRxLocation;
     private BaseLocationActivity mLocationView;
-    private LocationObserver mSubscriber;
+    private BaseLocationObserver mSubscriber;
     private CompositeDisposable mDisposables;
 
     public LocationPersenter(RxLocation rxLocation) {
@@ -28,7 +28,7 @@ public class LocationPersenter implements LocationContract.Persenter {
 
     @Override
     public void queryLocation() {
-        mSubscriber = new LocationObserver() {
+        mSubscriber = new BaseLocationObserver() {
             @Override
             public void onLocationSuccess(@NonNull BDLocation location) {
                 mLocationView.loadLocation(location);
@@ -49,7 +49,7 @@ public class LocationPersenter implements LocationContract.Persenter {
 
     @Override
     public void queryLateKnownLocation() {
-        mSubscriber = new LocationObserver() {
+        mSubscriber = new BaseLocationObserver() {
             @Override
             public void onLocationSuccess(@NonNull BDLocation location) {
                 mLocationView.loadLocation(location);

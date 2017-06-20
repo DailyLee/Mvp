@@ -22,7 +22,7 @@ import static android.databinding.DataBindingUtil.inflate;
  * Created by daili on 2017/4/1.
  */
 
-public abstract class BaseWeatherFragment extends Fragment implements WeatherContract.View, SwipeRefreshLayout.OnRefreshListener {
+public abstract class LazyWeatherFragment extends Fragment implements WeatherContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     protected SwipeRefreshLayout mSwipeView;
     protected FragmentActivity mActivity;
@@ -50,10 +50,11 @@ public abstract class BaseWeatherFragment extends Fragment implements WeatherCon
             }
             initInjector();
             initViews();
-        }
-        ViewGroup parent = (ViewGroup) mRootView.getParent();
-        if (parent != null) {
-            parent.removeView(mRootView);
+        } else {
+            ViewGroup parent = (ViewGroup) mRootView.getParent();
+            if (parent != null) {
+                parent.removeView(mRootView);
+            }
         }
         return mRootView;
     }
@@ -95,7 +96,7 @@ public abstract class BaseWeatherFragment extends Fragment implements WeatherCon
         } else {
             if (mEmptyLayout != null) {
                 mSwipeView.setEnabled(false);
-                mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING,null);
+                mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_LOADING, null);
             }
         }
 
@@ -105,7 +106,7 @@ public abstract class BaseWeatherFragment extends Fragment implements WeatherCon
     public void showNoData(String reason) {
         if (mEmptyLayout != null) {
             mSwipeView.setEnabled(false);
-            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_DATA,reason);
+            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_DATA, reason);
         }
     }
 
@@ -120,17 +121,17 @@ public abstract class BaseWeatherFragment extends Fragment implements WeatherCon
     public void showNetError(final EmptyLayout.OnRetryListener onRetryListener) {
         if (mEmptyLayout != null) {
             mSwipeView.setEnabled(false);
-            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET,null);
+            mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_NO_NET, null);
             mEmptyLayout.setRetryListener(onRetryListener);
         }
     }
 
     @Override
     public void finishRefresh() {
-        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_HIDE,null);
+        mEmptyLayout.setEmptyStatus(EmptyLayout.STATUS_HIDE, null);
         mSwipeView.setEnabled(true);
-        if(NetWorkUtils.isNetworkAvailable(mActivity)){
-            ToastUtils.showToast(mActivity,"刷新成功");
+        if (NetWorkUtils.isNetworkAvailable(mActivity)) {
+            ToastUtils.showToast(mActivity, "刷新成功");
         }
     }
 

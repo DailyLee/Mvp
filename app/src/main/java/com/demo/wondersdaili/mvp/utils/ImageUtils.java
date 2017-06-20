@@ -40,5 +40,4 @@ public class ImageUtils {
         canvas.drawBitmap(source, 0, 0, paint);
         return target;
     }
-
 }

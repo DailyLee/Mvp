@@ -30,7 +30,7 @@ import com.demo.wondersdaili.mvp.utils.CommonUtil;
 import com.demo.wondersdaili.mvp.utils.PrefUtil;
 import com.demo.wondersdaili.mvp.utils.ToastUtils;
 import com.demo.wondersdaili.mvp.view.base.BaseLocationActivity;
-import com.demo.wondersdaili.mvp.view.base.BaseWeatherFragment;
+import com.demo.wondersdaili.mvp.view.base.LazyWeatherFragment;
 import com.demo.wondersdaili.mvp.view.weather.FutureWeatherWeatherFragment;
 import com.demo.wondersdaili.mvp.view.weather.TodayWeatherWeatherFragment;
 import com.demo.wondersdaili.mvp.widget.YRotationAnimation;
@@ -47,7 +47,7 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
     private FloatingActionButton mFloatingActionButton;
     private FrameLayout mViewCloud;
     private LinearLayout mRlCity;
-    private BaseWeatherFragment[] mWeatherFragments = new BaseWeatherFragment[2];
+    private LazyWeatherFragment[] mWeatherFragments = new LazyWeatherFragment[2];
     private AlertDialog.Builder mBuilder;
     private boolean fabOpened = false;
     private long exitTime = 0;
