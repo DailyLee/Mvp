@@ -1,6 +1,8 @@
 package com.demo.wondersdaili.mvp.model.weather;
 
 
+import com.demo.wondersdaili.mvp.model.bean.WeatherBean;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;

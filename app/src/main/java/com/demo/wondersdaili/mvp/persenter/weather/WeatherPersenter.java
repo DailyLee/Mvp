@@ -1,10 +1,10 @@
 package com.demo.wondersdaili.mvp.persenter.weather;
 
 import com.demo.wondersdaili.mvp.model.weather.Api;
-import com.demo.wondersdaili.mvp.model.weather.WeatherBean;
+import com.demo.wondersdaili.mvp.model.bean.WeatherBean;
 import com.demo.wondersdaili.mvp.model.weather.WeatherObserver;
 import com.demo.wondersdaili.mvp.persenter.base.BaseView;
-import com.demo.wondersdaili.mvp.view.base.LazyWeatherFragment;
+import com.demo.wondersdaili.mvp.module.base.LazyWeatherFragment;
 import com.demo.wondersdaili.mvp.widget.EmptyLayout;
 
 import io.reactivex.Observable;
@@ -18,6 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class WeatherPersenter implements WeatherContract.Persenter {
+    public static final int FORMAT_MODE_TWO = 2;
     private Api mApi;
     private LazyWeatherFragment mView;
     private CompositeDisposable mDisposables;
@@ -69,9 +70,7 @@ public class WeatherPersenter implements WeatherContract.Persenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeWith(weatherSubsribe));
-
     }
-
 
     @Override
     public void register(BaseView baseView) {

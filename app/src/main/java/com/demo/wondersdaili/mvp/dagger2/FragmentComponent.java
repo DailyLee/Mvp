@@ -1,7 +1,7 @@
 package com.demo.wondersdaili.mvp.dagger2;
 
-import com.demo.wondersdaili.mvp.view.weather.FutureWeatherWeatherFragment;
-import com.demo.wondersdaili.mvp.view.weather.TodayWeatherWeatherFragment;
+import com.demo.wondersdaili.mvp.module.weather.FutureWeatherWeatherFragment;
+import com.demo.wondersdaili.mvp.module.weather.TodayWeatherWeatherFragment;
 
 import dagger.Component;
 

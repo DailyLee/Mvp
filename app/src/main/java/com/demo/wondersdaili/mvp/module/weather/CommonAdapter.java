@@ -1,4 +1,4 @@
-package com.demo.wondersdaili.mvp.view.weather;
+package com.demo.wondersdaili.mvp.module.weather;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;

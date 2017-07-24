@@ -1,7 +1,7 @@
 package com.demo.wondersdaili.mvp.persenter.weather;
 
 
-import com.demo.wondersdaili.mvp.model.weather.WeatherBean;
+import com.demo.wondersdaili.mvp.model.bean.WeatherBean;
 import com.demo.wondersdaili.mvp.persenter.base.BasePersenter;
 import com.demo.wondersdaili.mvp.persenter.base.BaseRefreshView;
 

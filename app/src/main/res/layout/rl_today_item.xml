@@ -4,11 +4,11 @@
 
     <data>
 
-        <import type="com.demo.wondersdaili.mvp.model.weather.WeatherBean"/>
+        <import type="com.demo.wondersdaili.mvp.model.bean.FutureBean"/>
 
         <variable
             name="resultFuture"
-            type="WeatherBean.ResultBean.FutureBean"/>
+            type="FutureBean"/>
     </data>
 
 

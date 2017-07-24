@@ -1,4 +1,4 @@
-package com.demo.wondersdaili.mvp.view.location;
+package com.demo.wondersdaili.mvp.module.location;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;

@@ -1,9 +1,9 @@
-package com.demo.wondersdaili.mvp.view.weather;
+package com.demo.wondersdaili.mvp.module.weather;
 
 import android.graphics.drawable.Drawable;
 
 import com.demo.wondersdaili.mvp.databinding.RlTodayItemBinding;
-import com.demo.wondersdaili.mvp.model.weather.WeatherBean;
+import com.demo.wondersdaili.mvp.model.bean.FutureBean;
 import com.demo.wondersdaili.mvp.utils.CommonUtil;
 import com.demo.wondersdaili.mvp.widget.ShakeMaps;
 
@@ -26,7 +26,7 @@ class TodayWeatherAdapter extends CommonAdapter {
 
     private void manageData(List data) {
         for (int i = 0; i < data.size(); i++) {
-            String temperature = ((WeatherBean.ResultBean.FutureBean) mData.get(i)).getTemperature();
+            String temperature = ((FutureBean) mData.get(i)).getTemperature();
             highTemp[i] = Integer.parseInt(temperature.split("℃")[1].substring(1));
             lowTemp[i] = Integer.parseInt(temperature.split("℃")[0]);
         }
@@ -42,7 +42,7 @@ class TodayWeatherAdapter extends CommonAdapter {
     public void onBindViewHolder(ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         RlTodayItemBinding viewDataBinding = (RlTodayItemBinding) holder.getViewDataBinding();
-        viewDataBinding.setResultFuture((WeatherBean.ResultBean.FutureBean) mData.get(position));
+        viewDataBinding.setResultFuture((FutureBean) mData.get(position));
         ShakeMaps shake = viewDataBinding.shake;
 
         float[] highTemp3 = new float[3];
@@ -65,8 +65,8 @@ class TodayWeatherAdapter extends CommonAdapter {
             highTemp3[2] = 100;
             lowTemp3[2] = -100;
         }
-        Drawable imageFutureFa = ((WeatherBean.ResultBean.FutureBean) mData.get(position)).getImageFutureFa();
-        Drawable imageFutureFb = ((WeatherBean.ResultBean.FutureBean) mData.get(position)).getImageFutureFb();
+        Drawable imageFutureFa = ((FutureBean) mData.get(position)).getImageFutureFa();
+        Drawable imageFutureFb = ((FutureBean) mData.get(position)).getImageFutureFb();
         shake.setData(highTemp3, lowTemp3, mMax, mMin);
         shake.setBitmap(imageFutureFa,imageFutureFb);
     }

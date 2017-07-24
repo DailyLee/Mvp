@@ -1,6 +1,7 @@
 package com.demo.wondersdaili.mvp.model.weather;
 
 import com.demo.wondersdaili.mvp.model.base.CommonObserver;
+import com.demo.wondersdaili.mvp.model.bean.WeatherBean;
 
 /**
  * Created by daili on 2017/3/21.

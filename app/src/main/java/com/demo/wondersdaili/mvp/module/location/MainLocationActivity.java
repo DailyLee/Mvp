@@ -1,4 +1,4 @@
-package com.demo.wondersdaili.mvp.view.location;
+package com.demo.wondersdaili.mvp.module.location;
 
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
@@ -26,14 +26,17 @@ import android.widget.TextView;
 import com.baidu.location.BDLocation;
 import com.demo.wondersdaili.mvp.App;
 import com.demo.wondersdaili.mvp.R;
+import com.demo.wondersdaili.mvp.event.CityChangeEvent;
 import com.demo.wondersdaili.mvp.utils.CommonUtil;
 import com.demo.wondersdaili.mvp.utils.PrefUtil;
 import com.demo.wondersdaili.mvp.utils.ToastUtils;
-import com.demo.wondersdaili.mvp.view.base.BaseLocationActivity;
-import com.demo.wondersdaili.mvp.view.base.LazyWeatherFragment;
-import com.demo.wondersdaili.mvp.view.weather.FutureWeatherWeatherFragment;
-import com.demo.wondersdaili.mvp.view.weather.TodayWeatherWeatherFragment;
+import com.demo.wondersdaili.mvp.module.base.BaseLocationActivity;
+import com.demo.wondersdaili.mvp.module.base.LazyWeatherFragment;
+import com.demo.wondersdaili.mvp.module.weather.FutureWeatherWeatherFragment;
+import com.demo.wondersdaili.mvp.module.weather.TodayWeatherWeatherFragment;
 import com.demo.wondersdaili.mvp.widget.YRotationAnimation;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -80,8 +83,8 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
 
     @Override
     protected void initData() {
-        mWeatherFragments[0] = TodayWeatherWeatherFragment.newInstance("1");
-        mWeatherFragments[1] = FutureWeatherWeatherFragment.newInstance("2");
+        mWeatherFragments[0] = new TodayWeatherWeatherFragment();
+        mWeatherFragments[1] = new FutureWeatherWeatherFragment();
         mAdapter.setItems(mWeatherFragments);
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -374,9 +377,7 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
                     .setPositiveButton("切换", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            App.setCity(finalCity);
-                            mToolbar.setTitle(App.getCity());
-                            onQueryTextSubmit(App.getCity());
+                            onQueryTextSubmit(finalCity);
                             dialog.dismiss();
                         }
                     })
@@ -405,20 +406,8 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if (mWeatherFragments[0] == null || mWeatherFragments[1] == null) {
-            mWeatherFragments[0] = TodayWeatherWeatherFragment.newInstance("1");
-            mWeatherFragments[1] = FutureWeatherWeatherFragment.newInstance("2");
-        }
-        TodayWeatherWeatherFragment todayWeatherFragment = (TodayWeatherWeatherFragment) mWeatherFragments[0];
-        FutureWeatherWeatherFragment futureWeatherFragment = (FutureWeatherWeatherFragment) mWeatherFragments[1];
-
-        todayWeatherFragment.queryWeatherForResult(false, query, new TodayWeatherWeatherFragment.queryResultListener() {
-            @Override
-            public void succeed() {
-                mToolbar.setTitle(App.getCity());
-            }
-        });
-        futureWeatherFragment.queryWeatherForResult(false, query);
+        EventBus.getDefault().post(new CityChangeEvent(query));
+        mToolbar.setTitle(App.getCity());
         mSearchView.clearFocus();
         mSearchView.onActionViewCollapsed();
         return true;

@@ -1,7 +1,7 @@
-package com.demo.wondersdaili.mvp.view.weather;
+package com.demo.wondersdaili.mvp.module.weather;
 
-import com.demo.wondersdaili.mvp.model.weather.WeatherBean;
 import com.demo.wondersdaili.mvp.databinding.RlFutureItemBinding;
+import com.demo.wondersdaili.mvp.model.bean.FutureBean;
 
 import java.util.List;
 
@@ -18,6 +18,6 @@ import java.util.List;
     @Override
     public void onBindViewHolder(CommonAdapter.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        ((RlFutureItemBinding)holder.getViewDataBinding()).setResultFuture((WeatherBean.ResultBean.FutureBean) mData.get(position));
+        ((RlFutureItemBinding)holder.getViewDataBinding()).setResultFuture((FutureBean) mData.get(position));
     }
 }

@@ -6,7 +6,7 @@ import com.baidu.location.BDLocation;
 import com.demo.wondersdaili.mvp.model.location.BaseLocationObserver;
 import com.demo.wondersdaili.mvp.model.location.RxLocation;
 import com.demo.wondersdaili.mvp.persenter.base.BaseView;
-import com.demo.wondersdaili.mvp.view.base.BaseLocationActivity;
+import com.demo.wondersdaili.mvp.module.base.BaseLocationActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

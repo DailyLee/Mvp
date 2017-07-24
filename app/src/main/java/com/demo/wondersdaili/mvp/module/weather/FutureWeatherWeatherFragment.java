@@ -1,6 +1,5 @@
-package com.demo.wondersdaili.mvp.view.weather;
+package com.demo.wondersdaili.mvp.module.weather;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -11,10 +10,15 @@ import com.demo.wondersdaili.mvp.dagger2.DaggerFragmentComponent;
 import com.demo.wondersdaili.mvp.dagger2.FragmentComponent;
 import com.demo.wondersdaili.mvp.dagger2.FragmentModules;
 import com.demo.wondersdaili.mvp.databinding.FragmentWeatherFutureBinding;
-import com.demo.wondersdaili.mvp.model.weather.WeatherBean;
+import com.demo.wondersdaili.mvp.event.CityChangeEvent;
+import com.demo.wondersdaili.mvp.model.bean.FutureBean;
+import com.demo.wondersdaili.mvp.model.bean.WeatherBean;
+import com.demo.wondersdaili.mvp.module.base.LazyWeatherFragment;
 import com.demo.wondersdaili.mvp.persenter.weather.WeatherPersenter;
 import com.demo.wondersdaili.mvp.utils.ToastUtils;
-import com.demo.wondersdaili.mvp.view.base.LazyWeatherFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +34,9 @@ public class FutureWeatherWeatherFragment extends LazyWeatherFragment {
     @Inject
     WeatherPersenter mWeatherPersenter;
     private CommonAdapter mAdapter;
-    private List<WeatherBean.ResultBean.FutureBean> mFutures = new ArrayList<>();
+    private List<FutureBean> mFutures = new ArrayList<>();
     private String mCity;
     private RecyclerView mRvFuture;
-
-    public static FutureWeatherWeatherFragment newInstance(String type) {
-        FutureWeatherWeatherFragment fragment = new FutureWeatherWeatherFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("type", type);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
 
     @Override
     protected int attachLayoutRes() {
@@ -51,6 +47,24 @@ public class FutureWeatherWeatherFragment extends LazyWeatherFragment {
     protected void initViews() {
         mRvFuture = ((FragmentWeatherFutureBinding)mInflate).rvFuture;
         mRvFuture.setLayoutManager(new LinearLayoutManager(mActivity));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEvent(CityChangeEvent event) {
+        //刷新数据
+        updateData(false);
     }
 
     @Override
@@ -68,14 +82,13 @@ public class FutureWeatherWeatherFragment extends LazyWeatherFragment {
         queryWeather(b, mCity);
     }
 
-
     /***
      * 获取数据之后调用此方法
      * @param resultBean
      */
     @Override
     public void loadWeatherData(WeatherBean.ResultBean resultBean) {
-        List<WeatherBean.ResultBean.FutureBean> future = resultBean.getFuture();
+        List<FutureBean> future = resultBean.getFuture();
         mFutures.clear();
         mFutures.addAll(future);
         if (mAdapter != null) {
@@ -85,7 +98,6 @@ public class FutureWeatherWeatherFragment extends LazyWeatherFragment {
             mRvFuture.setAdapter(mAdapter);
         }
     }
-
 
     /***
      * 获取数据失败之后调用此方法
@@ -98,15 +110,11 @@ public class FutureWeatherWeatherFragment extends LazyWeatherFragment {
         }
     }
 
-
-    public void queryWeatherForResult(boolean isRefreshing, String string) {
-        queryWeather(isRefreshing, string);
-    }
-
     public void queryWeather(boolean isRefreshing, String string) {
         mCity = string;
-        if (mWeatherPersenter != null)
-        mWeatherPersenter.queryWeather(2, Constants.UrlKey, mCity, isRefreshing);
+        if (mWeatherPersenter != null){
+            mWeatherPersenter.queryWeather(WeatherPersenter.FORMAT_MODE_TWO, Constants.UrlKey, mCity, isRefreshing);
+        }
     }
 
     @Override

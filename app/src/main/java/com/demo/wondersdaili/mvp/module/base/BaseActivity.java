@@ -1,4 +1,4 @@
-package com.demo.wondersdaili.mvp.view.base;
+package com.demo.wondersdaili.mvp.module.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.demo.wondersdaili.mvp.view.base;
+package com.demo.wondersdaili.mvp.module.base;
 
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -21,7 +21,6 @@ import static android.databinding.DataBindingUtil.inflate;
 /**
  * Created by daili on 2017/4/1.
  */
-
 public abstract class LazyWeatherFragment extends Fragment implements WeatherContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     protected SwipeRefreshLayout mSwipeView;
