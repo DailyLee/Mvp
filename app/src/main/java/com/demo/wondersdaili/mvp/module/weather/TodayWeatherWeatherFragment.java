@@ -4,7 +4,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.demo.wondersdaili.mvp.App;
-import com.demo.wondersdaili.mvp.Constants;
 import com.demo.wondersdaili.mvp.R;
 import com.demo.wondersdaili.mvp.dagger2.DaggerFragmentComponent;
 import com.demo.wondersdaili.mvp.dagger2.FragmentComponent;
@@ -32,10 +31,10 @@ public class TodayWeatherWeatherFragment extends LazyWeatherFragment {
     @Inject
     WeatherPersenter mWeatherPersenter;
     private WeatherBean mResultBean = new WeatherBean();
-    private String mCity;
-    private RecyclerView mRecy;
     private List<FutureBean> mFutures = new ArrayList<>();
-    private TodayWeatherAdapter mAdapter;
+    private ShakeMapWeatherAdapter mAdapter;
+    private RecyclerView mRecy;
+    private String mCity;
 
     @Override
     protected int attachLayoutRes() {
@@ -104,7 +103,7 @@ public class TodayWeatherWeatherFragment extends LazyWeatherFragment {
             mAdapter.setData(mFutures);
             mAdapter.notifyDataSetChanged();
         } else {
-            mAdapter = new TodayWeatherAdapter(mFutures, R.layout.rl_today_item);
+            mAdapter = new ShakeMapWeatherAdapter(mFutures, R.layout.rl_today_item);
             mRecy.setAdapter(mAdapter);
         }
     }
@@ -124,7 +123,7 @@ public class TodayWeatherWeatherFragment extends LazyWeatherFragment {
         mCity = city;
         App.setCity(mCity);
         if (mWeatherPersenter != null) {
-            mWeatherPersenter.queryWeather(WeatherPersenter.FORMAT_MODE_TWO, Constants.UrlKey, city, isRefreshing);
+            mWeatherPersenter.queryWeather(city, isRefreshing);
         }
     }
 

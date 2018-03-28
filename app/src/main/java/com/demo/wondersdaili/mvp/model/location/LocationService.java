@@ -34,7 +34,6 @@ public class LocationService {
 		}
 	}
 
-
 	/***
 	 * 
 	 * @param listener
@@ -55,7 +54,6 @@ public class LocationService {
 			client.unRegisterLocationListener(listener);
 		}
 	}
-
 
 	/***
 	 * 定位封装
@@ -85,7 +83,6 @@ public class LocationService {
 	public BDLocation getLateKnownLocation() {
 		return client.getLastKnownLocation();
 	}
-
 
 	/***
 	 * 

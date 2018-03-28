@@ -5,7 +5,6 @@ import com.baidu.location.BDLocation;
 /**
  * Created by daili on 2017/3/21.
  */
-
 public class LocationUtil {
 
     /**

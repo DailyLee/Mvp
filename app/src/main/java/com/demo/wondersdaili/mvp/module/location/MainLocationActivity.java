@@ -243,10 +243,12 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "rotation", 0, 0, 0);
         objectAnimator.setDuration(300);
         objectAnimator.start();
+
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.7f, 0);
         alphaAnimation.setDuration(300);
         alphaAnimation.setFillAfter(true);
         mViewCloud.startAnimation(alphaAnimation);
+
         ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 0, 1.0f, 0,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 1);
         scaleAnimation.setDuration(300);
@@ -279,15 +281,18 @@ public class MainLocationActivity extends BaseLocationActivity implements Search
         objectAnimator.setDuration(300);
         objectAnimator.start();
         mViewCloud.setVisibility(View.VISIBLE);
+
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 0.7f);
         alphaAnimation.setDuration(300);
         alphaAnimation.setFillAfter(true);
         mViewCloud.startAnimation(alphaAnimation);
+
         ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1.0f, 0, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 1);
         scaleAnimation.setDuration(300);
         scaleAnimation.setFillAfter(true);
         mRlCity.startAnimation(scaleAnimation);
+
         mRlCity.setVisibility(View.VISIBLE);
         mFloatingActionButton.setImageResource(R.mipmap.add);
         fabOpened = true;

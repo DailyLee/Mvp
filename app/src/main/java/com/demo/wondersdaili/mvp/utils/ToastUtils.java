@@ -7,7 +7,6 @@ import android.widget.Toast;
  * Created by daili on 2017/3/20.
  * 来自互联网
  */
-
 public class ToastUtils {
 
     private static String oldMsg ;
@@ -40,4 +39,3 @@ public class ToastUtils {
         oneTime = twoTime ;
     }
 }
-

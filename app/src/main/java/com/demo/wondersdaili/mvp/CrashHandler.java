@@ -8,7 +8,6 @@ import android.widget.Toast;
 /**
  * Created by daili on 2017/5/8.
  */
-
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private static final Object lock = new Object();
     private static CrashHandler mCrashHandler;

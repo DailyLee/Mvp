@@ -4,7 +4,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.demo.wondersdaili.mvp.App;
-import com.demo.wondersdaili.mvp.Constants;
 import com.demo.wondersdaili.mvp.R;
 import com.demo.wondersdaili.mvp.dagger2.DaggerFragmentComponent;
 import com.demo.wondersdaili.mvp.dagger2.FragmentComponent;
@@ -29,7 +28,6 @@ import javax.inject.Inject;
 /**
  * Created by daili on 2017/3/22.
  */
-
 public class FutureWeatherWeatherFragment extends LazyWeatherFragment {
     @Inject
     WeatherPersenter mWeatherPersenter;
@@ -113,7 +111,7 @@ public class FutureWeatherWeatherFragment extends LazyWeatherFragment {
     public void queryWeather(boolean isRefreshing, String string) {
         mCity = string;
         if (mWeatherPersenter != null){
-            mWeatherPersenter.queryWeather(WeatherPersenter.FORMAT_MODE_TWO, Constants.UrlKey, mCity, isRefreshing);
+            mWeatherPersenter.queryWeather(mCity, isRefreshing);
         }
     }
 

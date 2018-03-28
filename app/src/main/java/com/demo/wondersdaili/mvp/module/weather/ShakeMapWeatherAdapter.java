@@ -1,6 +1,7 @@
 package com.demo.wondersdaili.mvp.module.weather;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.LayoutRes;
 
 import com.demo.wondersdaili.mvp.databinding.RlTodayItemBinding;
 import com.demo.wondersdaili.mvp.model.bean.FutureBean;
@@ -12,21 +13,20 @@ import java.util.List;
 /**
  * Created by daili on 2017/5/18.
  */
-
-class TodayWeatherAdapter extends CommonAdapter {
+class ShakeMapWeatherAdapter extends CommonAdapter<FutureBean> {
     private int[] highTemp = new int[mData.size()];
     private int[] lowTemp = new int[mData.size()];
-    private  int mMax;
-    private  int mMin;
+    private int mMax;
+    private int mMin;
 
-    TodayWeatherAdapter(List data, int layoutId) {
+    ShakeMapWeatherAdapter(List<FutureBean> data, @LayoutRes int layoutId) {
         super(data, layoutId);
         manageData(data);
     }
 
     private void manageData(List data) {
         for (int i = 0; i < data.size(); i++) {
-            String temperature = ((FutureBean) mData.get(i)).getTemperature();
+            String temperature = (mData.get(i)).getTemperature();
             highTemp[i] = Integer.parseInt(temperature.split("℃")[1].substring(1));
             lowTemp[i] = Integer.parseInt(temperature.split("℃")[0]);
         }
@@ -34,7 +34,7 @@ class TodayWeatherAdapter extends CommonAdapter {
         mMin = CommonUtil.getMin(lowTemp);
     }
 
-    void setData(List data){
+    void setData(List data) {
         manageData(data);
     }
 
@@ -42,7 +42,7 @@ class TodayWeatherAdapter extends CommonAdapter {
     public void onBindViewHolder(ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         RlTodayItemBinding viewDataBinding = (RlTodayItemBinding) holder.getViewDataBinding();
-        viewDataBinding.setResultFuture((FutureBean) mData.get(position));
+        viewDataBinding.setResultFuture(mData.get(position));
         ShakeMaps shake = viewDataBinding.shake;
 
         float[] highTemp3 = new float[3];
@@ -65,9 +65,9 @@ class TodayWeatherAdapter extends CommonAdapter {
             highTemp3[2] = 100;
             lowTemp3[2] = -100;
         }
-        Drawable imageFutureFa = ((FutureBean) mData.get(position)).getImageFutureFa();
-        Drawable imageFutureFb = ((FutureBean) mData.get(position)).getImageFutureFb();
+        Drawable imageFutureFa = (mData.get(position)).getImageFutureFa();
+        Drawable imageFutureFb = (mData.get(position)).getImageFutureFb();
         shake.setData(highTemp3, lowTemp3, mMax, mMin);
-        shake.setBitmap(imageFutureFa,imageFutureFb);
+        shake.setBitmap(imageFutureFa, imageFutureFb);
     }
 }

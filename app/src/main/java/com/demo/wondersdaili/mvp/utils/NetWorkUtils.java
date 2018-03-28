@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 /**
  * Created by daili on 2017/4/5.
  */
-
 public class NetWorkUtils {
 
     public static boolean isNetworkAvailable(Context context) {

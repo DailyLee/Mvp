@@ -14,9 +14,6 @@ import io.reactivex.ObservableOnSubscribe;
 
 class LocationLateKnownOnSubscribe implements ObservableOnSubscribe<BDLocation> {
 
-    LocationLateKnownOnSubscribe() {
-    }
-
     @Override
     public void subscribe(final ObservableEmitter<BDLocation> subscriber) throws Exception {
         BDLocation lateKnownLocation = App.getLocationService().getLateKnownLocation();

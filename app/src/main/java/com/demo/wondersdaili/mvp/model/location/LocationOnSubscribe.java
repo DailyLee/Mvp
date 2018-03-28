@@ -14,9 +14,6 @@ import io.reactivex.ObservableOnSubscribe;
 
 class LocationOnSubscribe implements ObservableOnSubscribe<BDLocation> {
 
-    LocationOnSubscribe() {
-    }
-
     @Override
     public void subscribe(final ObservableEmitter<BDLocation> subscriber) throws Exception {
         BDLocationListener bdLocationListener = new BDLocationListener() {

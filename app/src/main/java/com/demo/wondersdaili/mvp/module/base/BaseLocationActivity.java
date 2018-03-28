@@ -31,8 +31,6 @@ public abstract class BaseLocationActivity extends BaseActivity implements Locat
         mLocationPersenter.register(this);
     }
 
-
-
     /***
      * loadLocation
      * @param location
@@ -67,12 +65,10 @@ public abstract class BaseLocationActivity extends BaseActivity implements Locat
         }
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mLocationPersenter.unRegister();
     }
-
 
 }

@@ -2,6 +2,7 @@ package com.demo.wondersdaili.mvp.module.weather;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +11,13 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * Created by daili on 2017/3/code15.
+ * Created by daili on 2017/3/15.
  */
-
 public class CommonAdapter<T> extends RecyclerView.Adapter<CommonAdapter.ViewHolder> {
     List<T> mData;
-    private int mLayoutId;
+    private @LayoutRes int mLayoutId;
 
-     CommonAdapter(List<T> data, int layoutId) {
+     CommonAdapter(List<T> data, @LayoutRes int layoutId) {
         this.mData = data;
         this.mLayoutId = layoutId;
     }

@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * Created by daili on 2017/5/5.
  */
-
 public class PrefUtil {
 
     public static List<String> getListString(Context context, String key) {

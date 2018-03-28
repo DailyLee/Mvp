@@ -58,7 +58,6 @@ public abstract class LazyWeatherFragment extends Fragment implements WeatherCon
         return mRootView;
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -83,7 +82,6 @@ public abstract class LazyWeatherFragment extends Fragment implements WeatherCon
         showLoading(true);
         updateData(true);
     }
-
 
     @Override
     public void showLoading(boolean isRefreshing) {

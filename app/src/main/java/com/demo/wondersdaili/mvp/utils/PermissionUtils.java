@@ -3,7 +3,6 @@ package com.demo.wondersdaili.mvp.utils;
 /**
  * Created by daili on 2017/3/3.
  */
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class PermissionUtils {
 
@@ -62,7 +60,7 @@ public class PermissionUtils {
             PERMISSION_WRITE_EXTERNAL_STORAGE
     };
 
-     public interface PermissionGrant {
+    public interface PermissionGrant {
         void onPermissionGranted(int requestCode);
     }
 

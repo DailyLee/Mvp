@@ -29,13 +29,9 @@ public class EmptyLayout extends FrameLayout {
     private String NoDataReason;
 
     TextView mTvEmptyNoData;
-
     TextView mTvEmptyNoNet;
-
     FrameLayout mRlEmptyContainer;
-
     ProgressBar mEmptyLoading;
-
     FrameLayout mEmptyLayout;
 
     public EmptyLayout(Context context) {
@@ -113,7 +109,6 @@ public class EmptyLayout extends FrameLayout {
         mTvEmptyNoNet.setCompoundDrawables(null, null, null, null);
     }
 
-
     /**
      * 切换视图
      */
@@ -156,14 +151,12 @@ public class EmptyLayout extends FrameLayout {
         this.mOnRetryListener = retryListener;
     }
 
-
     /**
      * 点击重试监听器
      */
     public interface OnRetryListener {
         void onRetry();
     }
-
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({STATUS_LOADING, STATUS_NO_NET, STATUS_NO_DATA, STATUS_HIDE})

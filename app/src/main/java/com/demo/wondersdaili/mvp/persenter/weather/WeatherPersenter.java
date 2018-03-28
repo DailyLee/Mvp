@@ -1,10 +1,11 @@
 package com.demo.wondersdaili.mvp.persenter.weather;
 
-import com.demo.wondersdaili.mvp.model.weather.Api;
+import com.demo.wondersdaili.mvp.Constants;
 import com.demo.wondersdaili.mvp.model.bean.WeatherBean;
+import com.demo.wondersdaili.mvp.model.weather.Api;
 import com.demo.wondersdaili.mvp.model.weather.WeatherObserver;
-import com.demo.wondersdaili.mvp.persenter.base.BaseView;
 import com.demo.wondersdaili.mvp.module.base.LazyWeatherFragment;
+import com.demo.wondersdaili.mvp.persenter.base.BaseView;
 import com.demo.wondersdaili.mvp.widget.EmptyLayout;
 
 import io.reactivex.Observable;
@@ -28,7 +29,7 @@ public class WeatherPersenter implements WeatherContract.Persenter {
     }
 
     @Override
-    public void queryWeather(final int format, final String key, final String cityName, final boolean isRefreshing) {
+    public void queryWeather(final String cityName, final boolean isRefreshing) {
         WeatherObserver weatherSubsribe = new WeatherObserver() {
 
             @Override
@@ -52,7 +53,7 @@ public class WeatherPersenter implements WeatherContract.Persenter {
                     mView.showNetError(new EmptyLayout.OnRetryListener() {
                         @Override
                         public void onRetry() {
-                            queryWeather(format, key, cityName, false);
+                            queryWeather(cityName, false);
                         }
                     });
                 }else {
@@ -62,7 +63,7 @@ public class WeatherPersenter implements WeatherContract.Persenter {
             }
         };
 
-        Observable<WeatherBean> observable = mApi.queryWeather(format, key, cityName);
+        Observable<WeatherBean> observable = mApi.queryWeather(FORMAT_MODE_TWO, Constants.UrlKey, cityName);
         if (mDisposables == null) {
             mDisposables = new CompositeDisposable();
         }

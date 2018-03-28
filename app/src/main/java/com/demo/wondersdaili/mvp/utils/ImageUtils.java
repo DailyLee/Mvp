@@ -10,7 +10,6 @@ import android.graphics.PorterDuffXfermode;
 /**
  * Created by daili on 2017/4/28.
  */
-
 public class ImageUtils {
 
     /**

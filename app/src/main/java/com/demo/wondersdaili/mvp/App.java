@@ -12,7 +12,6 @@ import javax.inject.Inject;
 /**
  * Created by daili on 2017/3/10.
  */
-
 public class App extends Application {
 
     private AppComponent mComponent;
@@ -21,19 +20,16 @@ public class App extends Application {
     @Inject
     static LocationService mLocationService;
 
-
     @Override
     public void onCreate() {
         super.onCreate();
         mCity = "北京";
         app = this;
         //DaggerAppComponent需要rebuild
-        mComponent = DaggerAppComponent.builder().appModules(new AppModules())
-                .build();
+        mComponent = DaggerAppComponent.builder().appModules(new AppModules()).build();
         mComponent.inject(this);
         CrashHandler.getInstance().init();
     }
-
 
     public static App getApplication() {
         return app;
